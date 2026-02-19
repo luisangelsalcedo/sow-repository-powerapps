@@ -1,0 +1,165 @@
+{
+  "ComponentAllowCustomization": true,
+  "ComponentChangedSinceFileImport": true,
+  "ComponentDefinitionInfo": {
+    "AllowAccessToGlobals": false,
+    "Children": [],
+    "ControlPropertyState": [
+      "Fill",
+      {
+        "AFDDataSourceName": "",
+        "AutoRuleBindingEnabled": false,
+        "AutoRuleBindingString": "",
+        "InvariantPropertyName": "Height",
+        "IsLockable": false,
+        "NameMapSourceSchema": "?"
+      },
+      {
+        "AFDDataSourceName": "",
+        "AutoRuleBindingEnabled": false,
+        "AutoRuleBindingString": "",
+        "InvariantPropertyName": "Width",
+        "IsLockable": false,
+        "NameMapSourceSchema": "?"
+      },
+      "X",
+      "Y",
+      "ZIndex",
+      {
+        "AFDDataSourceName": "",
+        "AutoRuleBindingEnabled": false,
+        "AutoRuleBindingString": "100",
+        "InvariantPropertyName": "GetWidthForTwoColumns",
+        "IsLockable": false,
+        "NameMapSourceSchema": "?"
+      },
+      "GetWidthForTwoColumns_Gap",
+      "GetWidthForTwoColumns_ContainerWidth"
+    ],
+    "LastModifiedTimestamp": "639070663672532635",
+    "Name": "UtilsFunctions",
+    "Rules": [
+      {
+        "Category": "Data",
+        "InvariantScript": "If(\r\n    App.Width > 600,\r\n    (ContainerWidth / 2) - (Gap / 2) - 6,\r\n    ContainerWidth    \r\n)",
+        "Property": "GetWidthForTwoColumns",
+        "RuleProviderType": "System"
+      },
+      {
+        "Category": "Data",
+        "InvariantScript": "100",
+        "Property": "GetWidthForTwoColumns_Gap",
+        "RuleProviderType": "System"
+      },
+      {
+        "Category": "Data",
+        "InvariantScript": "100",
+        "Property": "GetWidthForTwoColumns_ContainerWidth",
+        "RuleProviderType": "System"
+      },
+      {
+        "Category": "Design",
+        "InvariantScript": "RGBA(0, 0, 0, 0)",
+        "Property": "Fill",
+        "RuleProviderType": "System"
+      },
+      {
+        "Category": "Design",
+        "InvariantScript": "1",
+        "Property": "Height",
+        "RuleProviderType": "Unknown"
+      },
+      {
+        "Category": "Design",
+        "InvariantScript": "1",
+        "Property": "Width",
+        "RuleProviderType": "Unknown"
+      },
+      {
+        "Category": "Design",
+        "InvariantScript": "0",
+        "Property": "X",
+        "RuleProviderType": "Unknown"
+      },
+      {
+        "Category": "Design",
+        "InvariantScript": "0",
+        "Property": "Y",
+        "RuleProviderType": "Unknown"
+      },
+      {
+        "Category": "Design",
+        "InvariantScript": "1",
+        "Property": "ZIndex",
+        "RuleProviderType": "Unknown"
+      }
+    ]
+  },
+  "ComponentManifest": {
+    "AllowAccessToGlobals": false,
+    "AllowCustomization": true,
+    "Description": "",
+    "Name": "UtilsFunctions",
+    "TemplateGuid": "47579f38ee5343808c6592efbf5a35fe"
+  },
+  "ComponentType": "CanvasComponent",
+  "CustomGroupControlTemplateName": "",
+  "CustomProperties": [
+    {
+      "Category": 0,
+      "DisplayName": "Get width for two columns",
+      "Hidden": true,
+      "Name": "GetWidthForTwoColumns",
+      "PropertyDataTypeKey": "Number",
+      "PropertyScopeKey": {
+        "PropertyScopeRuleNamespaceKey": "16",
+        "PropertyScopeRulesKey": [
+          {
+            "DisplayName": "GetWidthForTwoColumns_ContainerWidth",
+            "Name": "GetWidthForTwoColumns_ContainerWidth",
+            "PropertyDataTypeKey": "Number",
+            "ScopeVariableInfo": {
+              "DependencyType": "New",
+              "Description": "Ancho del contenedor",
+              "IsRequired": true,
+              "ResolveExpands": false,
+              "ResolveSelects": false,
+              "ScopeVariableName": "ContainerWidth"
+            },
+            "Tooltip": "Ancho del contenedor",
+            "Type": "{\"Version\":\"1.348\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+          },
+          {
+            "DisplayName": "GetWidthForTwoColumns_Gap",
+            "Name": "GetWidthForTwoColumns_Gap",
+            "PropertyDataTypeKey": "Number",
+            "ScopeVariableInfo": {
+              "DependencyType": "New",
+              "Description": "Espacion entre columnas",
+              "IsRequired": true,
+              "ResolveExpands": false,
+              "ResolveSelects": false,
+              "ScopeVariableName": "Gap"
+            },
+            "Tooltip": "Espacion entre columnas",
+            "Type": "{\"Version\":\"1.348\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+          }
+        ]
+      },
+      "Tooltip": "Propiedad personalizada",
+      "Type": "{\"Version\":\"1.348\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    }
+  ],
+  "FirstParty": true,
+  "Id": "http://microsoft.com/appmagic/Component",
+  "IsComponentLocked": false,
+  "IsComponentTemplate": true,
+  "IsCustomGroupControlTemplate": false,
+  "IsPcfControl": false,
+  "IsPremiumPcfControl": false,
+  "IsWidgetTemplate": false,
+  "LastModifiedTimestamp": "639070663672532635",
+  "Name": "47579f38ee5343808c6592efbf5a35fe",
+  "OverridableProperties": {},
+  "Version": "1.0"
+}

@@ -1,0 +1,101 @@
+{
+  "201cc980-5397-4a61-b702-bccaef255164": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1769/1.0.1769.4352/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox": {
+        "dataSources": {
+          "SR_ContractIndex": {
+            "tableName": "e0ef34eb-382b-483e-8962-51e98c51d2a3"
+          },
+          "SR_Contracts": {
+            "tableName": "79d179ed-a926-4d70-9516-754105d3503d"
+          },
+          "SR_Entities": {
+            "tableName": "52df9bc4-2dc2-41ec-8e75-a0ccedc63b43"
+          },
+          "SR_ExternalContacts": {
+            "tableName": "3f1f197c-acbd-4c02-869d-b58bfc6c9560"
+          },
+          "SR_History": {
+            "tableName": "6d816ca9-13af-4599-bba8-3609a6f9b0dd"
+          },
+          "SR_TempUploads": {
+            "tableName": "241ef219-5d3e-47ac-8652-bb93a430ebad"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "SR_ContractIndex",
+      "SR_Contracts",
+      "SR_Entities",
+      "SR_ExternalContacts",
+      "SR_History",
+      "SR_TempUploads"
+    ],
+    "dependencies": {},
+    "dependents": [
+      "a0349846-3b70-466c-a72a-511e3b3b4d72"
+    ],
+    "id": "201cc980-5397-4a61-b702-bccaef255164"
+  },
+  "a0349846-3b70-466c-a72a-511e3b3b4d72": {
+    "appActions": [
+      "Run"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Flujos lógicos",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1766/1.0.1766.4330/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "201cc980-5397-4a61-b702-bccaef255164": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowDisplayName": {
+          "value": "flow_createSow"
+        },
+        "workflowEntityId": {
+          "value": "87f58eaa-7803-f111-8407-7ced8d4a8778"
+        },
+        "workflowName": {
+          "value": "eef15a32-f133-4950-eddc-d52b0c509b7c"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sharepointonline": {
+          "value": "201cc980-5397-4a61-b702-bccaef255164"
+        },
+        "workflowDisplayName": {
+          "value": "flow_createSow"
+        },
+        "workflowEntityId": {
+          "value": "87f58eaa-7803-f111-8407-7ced8d4a8778"
+        },
+        "workflowName": {
+          "value": "eef15a32-f133-4950-eddc-d52b0c509b7c"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "flow_createSow"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "201cc980-5397-4a61-b702-bccaef255164"
+    },
+    "dependents": [],
+    "id": "a0349846-3b70-466c-a72a-511e3b3b4d72"
+  }
+}

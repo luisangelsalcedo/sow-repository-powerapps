@@ -1,0 +1,191 @@
+SearchSelect As CanvasComponent:
+    CleanSearchValue():
+        ThisProperty:
+            Default: =
+    AutoHeight: =AutoHeight.Y
+    Fill: =
+    Height: =Self.AutoHeight
+    OnReset: =false
+    SearchValue: ="Texto"
+    SelectedValue: =SelectedValue
+    Source: |-
+        =Table([{Name: ""}])
+    Width: =350
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    ContainerSearchSelect As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =1
+
+        ContainerValue As groupContainer.horizontalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =lblSelectedItem.Height + 16
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGridColumns: =6
+            LayoutGridRows: =6
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Visible: =!IsBlank(SelectedValue)
+            ZIndex: =1
+
+            lblSelectedItem As Texto:
+                Align: ="Start"
+                AutoHeight: =true
+                BorderColor: =
+                BorderStyle: =""
+                ContentLanguage: =""
+                DisplayMode: =DisplayMode.Edit
+                Fill: =
+                FillPortions: =1
+                Font: =""
+                FontColor: =
+                FontItalic: =false
+                FontStrikethrough: =false
+                FontUnderline: =false
+                Height: =32
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                Size: =12
+                TabIndex: =0
+                Text: =SelectedValue.Name
+                Tooltip: =""
+                VerticalAlign: =""
+                Visible: =true
+                Weight: ="Regular"
+                Width: =Parent.Width
+                Wrap: =false
+                X: =0
+                Y: =0
+                ZIndex: =1
+
+            ButtonCanvas3 As Botón:
+                Appearance: ='ButtonCanvas.Appearance'.Transparent
+                BasePaletteColor: =
+                BorderColor: =
+                DisplayMode: =DisplayMode.Edit
+                FontColor: =
+                Height: =32
+                Icon: ="DismissCircle"
+                IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                Layout: ='ButtonCanvas.Layout'.IconOnly
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                OnSelect: =Set(SelectedValue, Blank())
+                Width: =32
+                X: =0
+                Y: =0
+                ZIndex: =2
+
+        "Gallery As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+            DelayItemLoading: =true
+            FillPortions: =0
+            Height: =Self.TemplateHeight * Self.AllItemsCount
+            Items: |-
+                =With(
+                    { _searchValue: Trim(SearchSelect.SearchValue) },
+                    If(
+                        IsBlank(_searchValue),
+                        Blank(),
+                        Filter(
+                            SearchSelect.Source,
+                            StartsWith(Name, _searchValue)
+                        )
+                    )
+                )
+            Layout: =Layout.Vertical
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =287
+            LayoutMinWidth: =320
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =40
+            Width: =Parent.Width
+            ZIndex: =3
+
+            Title3 As label:
+                FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Name                                                                              
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 86
+                X: =16
+                Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            Rectangle2 As rectangle:
+                Height: =Parent.TemplateHeight
+                OnSelect: =Select(Parent)
+                Visible: =ThisItem.IsSelected
+                Width: =4
+                ZIndex: =4
+
+            btn As button:
+                Fill: =RGBA(56, 96, 178, 0)
+                Height: =Parent.TemplateHeight
+                HoverFill: =RGBA(56, 96, 178, .1)
+                OnSelect: |-
+                    =Set(SelectedValue, ThisItem);
+                    SearchSelect.CleanSearchValue()
+                Text: =
+                Width: =Parent.TemplateWidth
+                ZIndex: =5
+
+        AutoHeight As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =1
+            LayoutGridColumns: =6
+            LayoutGridRows: =6
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            Width: =Parent.Width
+            ZIndex: =4
+
+    "Spinner As 'Indicador giratorio'":
+        BasePaletteColor: =
+        DisplayMode: =DisplayMode.Edit
+        FontColor: =
+        Height: =30
+        SpinnerColor: =
+        SpinnerSize: ='Spinner.SpinnerSize'.ExtraSmall
+        TrackColor: =
+        Visible: =Len(SearchSelect.SearchValue) > 0 && Gallery.AllItemsCount = 0
+        Width: =30
+        X: |-
+            =//txtSearch.Width - Self.Width - 8
+            0
+        Y: |-
+            =//txtSearch.Y + (txtSearch.Height - Self.Height) /2 
+            0
+        ZIndex: =2
+

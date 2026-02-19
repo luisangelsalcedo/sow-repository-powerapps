@@ -1,0 +1,15 @@
+{
+  "name": "powerapps",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "solution:download" : "pac solution export --name SOWRepository --path ./SOWRepository.zip --managed false",
+    "solution:unpack": "pac solution unpack -z ./SOWRepository.zip -f ./src --allowWrite true --allowDelete true",
+    "canvas:unpack" : "pac canvas unpack --msapp ./src/CanvasApps/lsalcedg_sowrepository_57df9_DocumentUri.msapp --sources ./canvas-src",
+    "unpack" : "rm -f ./SOWRepository.zip && npm run solution:download && npm run solution:unpack && npm run canvas:unpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

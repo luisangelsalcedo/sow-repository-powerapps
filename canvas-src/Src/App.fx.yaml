@@ -1,0 +1,49 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |-
+        =
+        
+        Set(designSystem,{
+        
+            paddingDefault: 16,
+            
+            fontFamily: Font.'Lato Black',
+        
+            colors:{
+                default: ColorValue("#333333"),
+                primary: ColorValue("#070F26"),
+                secondary: ColorValue("#4C7EFF")
+            },
+            
+            style:{
+                label: {
+                    fontSize: 10,
+                    fontWeight: FontWeight.Bold
+                },
+                title: {
+                    fontSize: 24,
+                    fontWeight: FontWeight.Bold
+                },
+                subtitle: {
+                    fontSize: 1,
+                    fontWeight: FontWeight.Bold
+                },
+                mdBtn: {
+                    fontSize: 16,
+                    fontWeight: FontWeight.Normal
+                },
+                smBtn: {
+                    fontSize: 16,
+                    fontWeight: FontWeight.Normal
+                }
+            }
+        });
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

@@ -1,0 +1,12 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+App:
+  Properties:
+    OnStart: "=\r\n\r\nSet(designSystem,{\r\n\r\n    paddingDefault: 16,\r\n    \r\n    fontFamily: Font.'Lato Black',\r\n\r\n    colors:{\r\n        default: ColorValue(\"#333333\"),\r\n        primary: ColorValue(\"#070F26\"),\r\n        secondary: ColorValue(\"#4C7EFF\")\r\n    },\r\n    \r\n    style:{\r\n        label: {\r\n            fontSize: 10,\r\n            fontWeight: FontWeight.Bold\r\n        },\r\n        title: {\r\n            fontSize: 24,\r\n            fontWeight: FontWeight.Bold\r\n        },\r\n        subtitle: {\r\n            fontSize: 1,\r\n            fontWeight: FontWeight.Bold\r\n        },\r\n        mdBtn: {\r\n            fontSize: 16,\r\n            fontWeight: FontWeight.Normal\r\n        },\r\n        smBtn: {\r\n            fontSize: 16,\r\n            fontWeight: FontWeight.Normal\r\n        }\r\n    }\r\n});"
+    Theme: =PowerAppsTheme

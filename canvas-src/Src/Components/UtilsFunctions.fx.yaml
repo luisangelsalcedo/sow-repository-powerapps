@@ -1,0 +1,20 @@
+UtilsFunctions As CanvasComponent:
+    GetWidthForTwoColumns(ContainerWidth As Number, Gap As Number):
+        ContainerWidth:
+            Default: =100
+        Gap:
+            Default: =100
+        ThisProperty:
+            Default: |-
+                =If(
+                    App.Width > 600,
+                    (ContainerWidth / 2) - (Gap / 2) - 6,
+                    ContainerWidth    
+                )
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =1
+    Width: =1
+    X: =0
+    Y: =0
+    ZIndex: =1
+
