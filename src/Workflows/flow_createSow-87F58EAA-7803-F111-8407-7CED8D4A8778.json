@@ -1,0 +1,324 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedsharepointonline_10d3b"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "de344c70-6872-4b37-88d3-e74a49c97ec0"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "_projectName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Escribir entrada",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "date": {
+                  "description": "Please enter or select a date (YYYY-MM-DD)",
+                  "format": "date",
+                  "title": "_startDate",
+                  "type": "string",
+                  "x-ms-content-hint": "DATE",
+                  "x-ms-dynamically-added": true
+                },
+                "date_1": {
+                  "description": "Please enter or select a date (YYYY-MM-DD)",
+                  "format": "date",
+                  "title": "_endDate",
+                  "type": "string",
+                  "x-ms-content-hint": "DATE",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Please enter your input",
+                  "title": "_extension",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Please enter your input",
+                  "title": "_company",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_3": {
+                  "description": "Please enter your input",
+                  "title": "_org",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_4": {
+                  "description": "Please enter your input",
+                  "title": "_un",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_5": {
+                  "description": "Please enter your input",
+                  "title": "_costumerName",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_6": {
+                  "description": "Please enter your input",
+                  "title": "_zurichLineManager",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_7": {
+                  "description": "Please enter your input",
+                  "title": "_requestor",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text",
+                "date",
+                "date_1",
+                "text_1",
+                "text_2",
+                "text_3",
+                "text_4",
+                "text_5",
+                "text_6",
+                "text_7"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Compose": {
+          "runAfter": {
+            "string_year": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": {
+            "contractID": "@{variables('contractID')}",
+            "projectName": "@{triggerBody()?['text']}",
+            "startDate": "@{triggerBody()?['date']}",
+            "endDate": "@{triggerBody()?['date_1']}",
+            "extension": "@{triggerBody()?['text_1']}",
+            "company": "@{triggerBody()?['text_2']}",
+            "org": "@{triggerBody()?['text_3']}",
+            "un": "@{triggerBody()?['text_4']}",
+            "costumerName": "@{triggerBody()?['text_5']}",
+            "zurichLineManager": "@{triggerBody()?['text_6']}",
+            "requestor": "@{triggerBody()?['text_7']}",
+            "createdDate": "@{utcNow()}",
+            "year": "@{variables('year')}"
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Update_item": [
+              "Succeeded"
+            ]
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "title": "response",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "response": "@{outputs('Compose')}"
+            }
+          }
+        },
+        "string_contractID": {
+          "runAfter": {
+            "get_SR_ContractIndex": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "contractID",
+                "type": "integer",
+                "value": "@add(\r\n  int(\r\n    coalesce(\r\n      body('get_SR_ContractIndex')?['value'][0]?['LastIndex'], 0)), 1)"
+              }
+            ]
+          }
+        },
+        "get_SR_ContractIndex": {
+          "runAfter": {},
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+              "table": "d9337804-c757-4e42-bb7f-40cd19d81830",
+              "$filter": "ContractType eq 'SOW'",
+              "$top": 1
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetItems",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "string_year": {
+          "runAfter": {
+            "string_contractID": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "year",
+                "type": "string",
+                "value": "@formatDateTime(triggerBody()?['date'], 'yyyy')"
+              }
+            ]
+          }
+        },
+        "Create_new_document_set": {
+          "runAfter": {
+            "Create_new_folder": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+              "table": "79d179ed-a926-4d70-9516-754105d3503d",
+              "parameters/path": "@concat(variables('year'), '/sow', variables('contractID'))",
+              "parameters/contentTypeId": "0x0120D52000FA1377E518C5D1418987B08475BD576C00C498A10ACA405D4BBD088CDCBB3CDD13",
+              "parameters/DynamicProperties/ContractID": "@variables('contractID')",
+              "parameters/DynamicProperties/extension": "@triggerBody()?['text_1']",
+              "parameters/DynamicProperties/company": "@triggerBody()?['text_2']",
+              "parameters/DynamicProperties/org": "@triggerBody()?['text_3']",
+              "parameters/DynamicProperties/un0": "@triggerBody()?['text_4']",
+              "parameters/DynamicProperties/costumerName": "@triggerBody()?['text_5']",
+              "parameters/DynamicProperties/zurichLineManager": "@triggerBody()?['text_6']",
+              "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_7']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "CreateNewDocumentSet",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "Get_folder_metadata_using_path": {
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+              "path": "@concat('/SR_Contracts/',variables('year'))"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetFolderMetadataByPath",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "Create_new_folder": {
+          "runAfter": {
+            "Get_folder_metadata_using_path": [
+              "Failed"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+              "table": "79d179ed-a926-4d70-9516-754105d3503d",
+              "parameters/path": "@variables('year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "CreateNewFolder",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "Update_item": {
+          "runAfter": {
+            "Create_new_document_set": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+              "table": "d9337804-c757-4e42-bb7f-40cd19d81830",
+              "id": "@first(body('get_SR_ContractIndex')?['value'])?['ID']",
+              "item/LastIndex": "@outputs('Create_new_document_set')?['body/ContractID']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "PatchItem",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}
