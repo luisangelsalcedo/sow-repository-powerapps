@@ -2,6 +2,292 @@
     Fill: =
     ImagePosition: =ImagePosition.Center
 
+    "'form-control-submit' As groupContainer.horizontalAutoLayoutContainer":
+        ContentLanguage: =
+        DropShadow: =DropShadow.None
+        Height: |+
+            =40
+            
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - designSystem.paddingDefault
+        X: =16
+        Y: =40
+        ZIndex: =1
+
+        ButtonCanvas1 As Botón:
+            AcceptsFocus: =true
+            AccessibleLabel: =""
+            Align: =""
+            AlignInContainer: =AlignInContainer.Center
+            Appearance: ="Primary"
+            BasePaletteColor: =
+            BorderColor: =
+            BorderStyle: =""
+            ContentLanguage: =""
+            DisplayMode: =DisplayMode.Edit
+            Font: =""
+            FontColor: =
+            FontItalic: =false
+            FontSize: =0
+            FontStrikethrough: =false
+            FontUnderline: =false
+            FontWeight: =""
+            Height: =32
+            Icon: =""
+            IconRotation: =0
+            IconStyle: ="Outline"
+            Layout: ="Icon before"
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            OnSelect: |-
+                =With(
+                    {
+                        _projectName    : txtProjectName.Value,
+                        _startDate      : dpkStartDate.SelectedDate,
+                        _endDate        : dpkEndDate.SelectedDate,
+                        _extension      : ddwExtension.Selected.Value,
+                        _company        : ddwCompany.Selected.Value,
+                        _org            : ddwOrg.Selected.Value,
+                        _un             : ddwUn.Selected.Value,
+                        _costumerName   : ddwCostumerName.Selected.Value,
+                        _zurichLineManager  :TextInputCanvas1.Value,
+                        _user           : User().FullName,
+                        _attach         : DataCardValue.Attachments
+                    },
+                    If(
+                        //validation
+                            Len(_projectName) < 3,
+                            Notify("agrega un nombre de proyecto valido", NotificationType.Error); SetFocus(txtProjectName),
+                            IsBlank(_startDate),
+                            Notify("Selecciona una fecha de inicio", NotificationType.Error); SetFocus(dpkStartDate),
+                            IsBlank(_endDate),
+                            Notify("Selecciona una fecha de termino", NotificationType.Error); SetFocus(dpkEndDate),
+                            IsBlank(_extension),
+                            Notify("Selecciona extension", NotificationType.Error); SetFocus(ddwExtension),
+                            IsBlank(_company),
+                            Notify("Selecciona company", NotificationType.Error); SetFocus(ddwCompany),
+                            IsBlank(_org),
+                            Notify("Selecciona org", NotificationType.Error); SetFocus(ddwOrg),
+                            IsBlank(_un),
+                            Notify("Selecciona un", NotificationType.Error); SetFocus(ddwUn),
+                            IsBlank(_costumerName),
+                            Notify("Selecciona costumerName", NotificationType.Error); SetFocus(ddwCostumerName),
+                            IsBlank(_zurichLineManager),
+                            Notify("Selecciona zurichLineManager", NotificationType.Error); SetFocus(TextInputCanvas1),
+                            CountRows(_attach) = 0,
+                            Notify("Adjunta algun documento", NotificationType.Error),
+                        
+                        
+                            //loader
+                            UpdateContext({loaderNewSowModal:true});
+                            
+                            //action
+                            With(
+                                {
+                                    _response: flow_createSow.Run(
+                                        _projectName,
+                                        Text(_startDate, "yyyy-mm-dd"),
+                                        Text(_endDate, "yyyy-mm-dd"),
+                                        _extension,
+                                        _company,
+                                        _org,
+                                        _un,
+                                        _costumerName,
+                                        _zurichLineManager,
+                                        _user
+                                    ).response
+                                },
+                                //success message
+                                Notify(_response, NotificationType.Success);
+                                
+                
+                                // clean controls
+                                Reset(txtProjectName);
+                                Reset(dpkStartDate);
+                                Reset(dpkEndDate);
+                                Reset(ddwExtension);
+                                Reset(ddwCompany);
+                                Reset(ddwOrg);
+                                Reset(ddwUn);
+                                Reset(ddwCostumerName);
+                                Reset(TextInputCanvas1);
+                
+                                
+                                // close modal
+                                UpdateContext({loaderNewSowModal:false});
+                                UpdateContext({showNewSowModal:false});
+                                UpdateContext({showBackdrop:false});
+                            )     
+                    )
+                )
+            TabIndex: =0
+            Text: ="Botón"
+            Tooltip: =""
+            VerticalAlign: =""
+            Visible: =true
+            Width: =96
+            X: =(Parent.Width - Self.Width) / 2
+            Y: =(Parent.Height - Self.Height) / 2
+            ZIndex: =1
+
+    "'form-control-attach' As groupContainer.horizontalAutoLayoutContainer":
+        ContentLanguage: =
+        DropShadow: =DropShadow.None
+        Height: |
+            =120
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - designSystem.paddingDefault
+        X: =16
+        Y: =40
+        ZIndex: =2
+
+        Label2_7 As label:
+            AlignInContainer: =AlignInContainer.Stretch
+            Font: =designSystem.fontFamily
+            FontWeight: =designSystem.style.label.fontWeight
+            Height: =30
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =designSystem.style.label.fontSize
+            Text: ="Attach SOW document"
+            ZIndex: =1
+
+        TempForm As form.PowerApps_CoreControls_Form:
+            AcceptsFocus: =false
+            DataSource: =SR_TempUploads
+            DefaultMode: =FormMode.New
+            Height: =80
+            Item: =Defaults(SR_TempUploads)
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            UseFluentV9Cards: =true
+            ZIndex: =2
+
+            "'Datos adjuntos_DataCard2' As typedDataCard.attachmentsEditCard":
+                AutoHeight: =true
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =0
+                ContentLanguage: =""
+                DataField: ="{Attachments}"
+                Default: =ThisItem.'Datos adjuntos'
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                LayoutHeight: =0
+                LayoutWidth: =0
+                LayoutX: =0
+                LayoutY: =0
+                maximumHeight: =7680
+                maximumWidth: =1366
+                minimumHeight: =20
+                minimumWidth: =20
+                Required: =false
+                Update: =DataCardValue.Attachments
+                Visible: =true
+                Width: =Parent.Width
+                WidthFit: =false
+                X: =0
+                Y: =0
+                ZIndex: =1
+
+                DataCardValue As attachments:
+                    AddAttachmentText: ="Adjuntar un archivo"
+                    AttachedFileListLabel: ="Archivos adjuntos"
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =0
+                    DisplayMode: =Parent.DisplayMode
+                    DownloadErrorMessageText: ="No se pudo descargar el archivo solicitado."
+                    DownloadErrorMessageTitle: ="Error de descarga"
+                    FetchErrorMessageText: ="No se pudo obtener el archivo."
+                    Height: =80  
+                    IsInDataCard: =true
+                    Items: =Parent.Default
+                    MaxAttachments: =1
+                    MaxAttachmentsText: ="Se alcanzó el número máximo de archivos."
+                    NoAttachmentsText: ="No hay nada adjunto."
+                    OnAddFile: |-
+                        =If(
+                            !EndsWith(Lower(Last(Self.Attachments).Name), ".pdf") &&
+                            !EndsWith(Lower(Last(Self.Attachments).Name), ".docx"),
+                            Notify(
+                                "Solo se permiten archivos PDF o Word",
+                                NotificationType.Error
+                            );
+                            Reset(Self)
+                        )
+                    PaddingBottom: =5
+                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RemoveAttachmentTooltip: ="Quitar"
+                    Size: =10
+                    Tooltip: =Parent.DisplayName
+                    UndoRemoveAttachmentTooltip: ="Deshacer la eliminación"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                ErrorMessage6 As label:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(0, 0, 0, 1)
+                    Color: =RGBA(168, 0, 0, 1)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue.Y + DataCardValue.Height
+                    ZIndex: =2
+
+        Label2_14 As label:
+            AlignInContainer: =AlignInContainer.Stretch
+            Font: =designSystem.fontFamily
+            FontWeight: =designSystem.style.label.fontWeight
+            Height: =30
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =designSystem.style.label.fontSize
+            Text: ="Total amount SOW/WO excluding VAT in $"
+            ZIndex: =16
+
     HomeView As groupContainer.verticalAutoLayoutContainer:
         DropShadow: =DropShadow.None
         Fill: =RGBA(245, 245, 245, 1)
@@ -16,7 +302,7 @@
         RadiusTopLeft: =0
         RadiusTopRight: =0
         Width: =Parent.Width
-        ZIndex: =2
+        ZIndex: =3
 
         Header As groupContainer.horizontalAutoLayoutContainer:
             DropShadow: =DropShadow.None
@@ -465,7 +751,7 @@
         LayoutGridRows: =6
         Visible: =showBackdrop
         Width: =Parent.Width
-        ZIndex: =3
+        ZIndex: =4
 
         btnModalBackdrop As button:
             Fill: =RGBA(0, 0, 0, 0.5)
@@ -594,12 +880,36 @@
                             Reset(ddwOrg);
                             Reset(ddwUn);
                             Reset(ddwCostumerName);
-                            Reset(ddwZurichLineManager);
+                            Reset(TextInputCanvas1);
                             ResetForm(TempForm);
                         Width: =35
                         X: =0
                         Y: =0
                         ZIndex: =3
+
+            FormHeader_1 As FormHeader:
+                AlignInContainer: =AlignInContainer.Stretch
+                Height: =60
+                Items: =colTabs
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =640
+                LayoutMinWidth: =0
+                OnTabSelect: |-
+                    =UpdateContext({CurrentTab: Index});
+                    UpdateIf(
+                        colTabs,
+                        status = "Active",
+                        { status: "Pending" }
+                    );
+                    Patch(
+                        colTabs,
+                        LookUp(colTabs, index = Index),
+                        { status: "Active" }
+                    )
+                Visible: =true
+                Width: =200
+                ZIndex: =2
 
             "'NewSowModal-form' As groupContainer.manualLayoutContainer":
                 DropShadow: =DropShadow.None
@@ -611,9 +921,9 @@
                 LayoutMinWidth: =16
                 X: =40
                 Y: =40
-                ZIndex: =2
+                ZIndex: =3
 
-                "'NewSowModal-form-container' As groupContainer.horizontalAutoLayoutContainer":
+                "'NewSowModal-form-container-3' As groupContainer.horizontalAutoLayoutContainer":
                     DropShadow: =DropShadow.None
                     Height: =Parent.Height
                     LayoutGap: =designSystem.paddingDefault
@@ -626,8 +936,43 @@
                     RadiusBottomRight: =0
                     RadiusTopLeft: =0
                     RadiusTopRight: =0
+                    Visible: =CurrentTab = 3
                     Width: =Parent.Width
-                    ZIndex: =1
+                    ZIndex: =2
+
+                "'NewSowModal-form-container-2' As groupContainer.horizontalAutoLayoutContainer":
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =designSystem.paddingDefault
+                    LayoutGridColumns: =6
+                    LayoutGridRows: =6
+                    LayoutMode: =LayoutMode.Auto
+                    LayoutOverflowY: =LayoutOverflow.Scroll
+                    LayoutWrap: =true
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Visible: =CurrentTab = 2
+                    Width: =Parent.Width
+                    ZIndex: =3
+
+                "'NewSowModal-form-container-1' As groupContainer.horizontalAutoLayoutContainer":
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =designSystem.paddingDefault
+                    LayoutGridColumns: =6
+                    LayoutGridRows: =6
+                    LayoutMode: =LayoutMode.Auto
+                    LayoutOverflowY: =LayoutOverflow.Scroll
+                    LayoutWrap: =true
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Visible: =CurrentTab = 1
+                    Width: =Parent.Width
+                    ZIndex: =4
 
                     "'form-control-projectName' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
@@ -665,7 +1010,7 @@
                             PaddingRight: =0
                             PaddingTop: =0
                             Size: =designSystem.style.label.fontSize
-                            Text: ="Project Name"
+                            Text: ="Service Work Order"
                             ZIndex: =1
 
                         "txtProjectName As 'Entrada de texto'":
@@ -708,7 +1053,7 @@
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-startDate' As groupContainer.horizontalAutoLayoutContainer":
+                    "'form-control-org' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -729,6 +1074,138 @@
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                         ZIndex: =2
+
+                        Label2_5 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Organization/LSA"
+                            ZIndex: =1
+
+                        ddwOrg As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: |-
+                                =[
+                                    "Argentina", "BRAZIL", "Colombia", "DACH", "GTO", "Italy", "Portugal", "Spain", "USA", "ZNA"
+                                ]
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-un' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =3
+
+                        Label2_6 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Business unit"
+                            ZIndex: =1
+
+                        ddwUn As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: |-
+                                =[
+                                   "AS", "BPS", "CYBER", "DS", "DT", "ES", "INSURANCE", "IS", "OVERSIS"
+                                ]
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-startDate' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =4
 
                         Label2_1 As label:
                             AlignInContainer: =AlignInContainer.Stretch
@@ -806,7 +1283,7 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =3
+                        ZIndex: =5
 
                         Label2_2 As label:
                             AlignInContainer: =AlignInContainer.Stretch
@@ -863,6 +1340,467 @@
                             Y: =0
                             ZIndex: =2
 
+                    "'form-control-zurichLineManager' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =6
+
+                        Label2_9 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Zurich  Manager"
+                            ZIndex: =1
+
+                        "TextInputCanvas1 As 'Entrada de texto'":
+                            AccessibleLabel: ="Zurich approver"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            FontColor: =RGBA(106, 122, 127, 1)
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-company' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =7
+
+                        Label2_4 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Billin entity"
+                            ZIndex: =1
+
+                        ddwCompany As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =["ServiZurich SA", "ZBANK", "Zurich American Insurance Company", "Zurich Argentina Compañía de Seguro", "Zurich Colombia", "ZURICH INSURANCE COMPANY LTD", "Zurich Insurance Company Ltd Italian Branch", "Zurich Insurance Company Ltd.", "ZURICH Insurance Europe AG Italian Branch", "ZURICH Insurance Europe AG Italian Branch /Zurich Investments Life S.p.A", "ZURICH INSURANCE EUROPE AG SUCURSAL ESPAÑA", "Zurich Insurance Europe AG, Sucursal em Portugal", "Zurich Insurance Europe AG, Sucursal en España ZIE", "Zurich Insurance PLC, Sucursal en España", "Zurich Investments Life S.p.A", "Zurich Minas Brasil Seguros S.A", "Zurich USA, Canada, UK, Ireland, Spain, Germany, Italy, Swiss, France", "Zürich Versicherungs-Gesellschaft AG"]
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-IT or non-IT' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =8
+
+                        Label2_10 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="IT or Non-IT"
+                            ZIndex: =1
+
+                        ddwExtension_1 As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: |-
+                                =[
+                                    "IT",
+                                    "Non-IT"
+                                ]
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-Type of service' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =9
+
+                        Label2_11 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Type of service"
+                            ZIndex: =1
+
+                        ddwExtension_2 As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: |-
+                                =[
+                                    "SFA", "Project", "Enhacement", "Maintenance"
+                                ]
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-Billing type' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =10
+
+                        Label2_12 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Billing type"
+                            ZIndex: =1
+
+                        ddwExtension_3 As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: |-
+                                =[
+                                    "Fixed", "Variable"
+                                ]
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-Engagement type' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =11
+
+                        Label2_8 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Engagement type"
+                            ZIndex: =1
+
+                        ddwCostumerName As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =["Application Maintenance Services", "BTO", "Cloud & Backend / Application Development (Azure)", "Cloud Migration & Support", "Compliance", "CRM ADM", "Data Architect", "Data Services", "Data Services (including API)", "DB2", "DBA", "DBE Databricks", "GDP", "Guidewire ADM", "IT&S", "Mainframe Optimisation", "Microstrategy", "PMO", "SAP", "SAP AM", "SAS", "Testing services"]
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-Total amount' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =12
+
+                        Label2_13 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Total amount SOW/WO excluding VAT in $"
+                            ZIndex: =1
+
+                        "TextInputCanvas1_1 As 'Entrada de texto'":
+                            AccessibleLabel: ="Zurich approver"
+                            Align: =""
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =RGBA(106, 122, 127, 1)
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =""
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =""
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
                     "'form-control-extension' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
@@ -883,7 +1821,7 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =4
+                        ZIndex: =13
 
                         Label2_3 As label:
                             AlignInContainer: =AlignInContainer.Stretch
@@ -919,7 +1857,7 @@
                             Y: =0
                             ZIndex: =3
 
-                    "'form-control-company' As groupContainer.horizontalAutoLayoutContainer":
+                    "'form-control-Total amount_1' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -939,9 +1877,9 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =5
+                        ZIndex: =14
 
-                        Label2_4 As label:
+                        Label2_15 As label:
                             AlignInContainer: =AlignInContainer.Stretch
                             Font: =designSystem.fontFamily
                             FontWeight: =designSystem.style.label.fontWeight
@@ -955,595 +1893,125 @@
                             PaddingRight: =0
                             PaddingTop: =0
                             Size: =designSystem.style.label.fontSize
-                            Text: ="Company"
+                            Text: ="Total amount SOW/WO excluding VAT in $"
                             ZIndex: =1
 
-                        ddwCompany As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: =["NTT DATA Spain Suc. Swiss", "NTT DATA Spain, S.L.U"]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-org' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =6
-
-                        Label2_5 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="ORG"
-                            ZIndex: =1
-
-                        ddwOrg As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: |-
-                                =[
-                                    "Group-Non",
-                                    "GTO",
-                                    "GTO-AI",
-                                    "GTO-BTS",
-                                    "GTO-DBI",
-                                    "GTO-GDP",
-                                    "GTO-ITS&S",
-                                    "GTO-O&G",
-                                    "Sabadell Zurich",
-                                    "Spain BU",
-                                    "Spain TDC"
-                                ]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-un' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =7
-
-                        Label2_6 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="UN"
-                            ZIndex: =1
-
-                        ddwUn As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: |-
-                                =[
-                                    "AM",
-                                    "AUT",
-                                    "BUS",
-                                    "BPO",
-                                    "CTB",
-                                    "CHZ",
-                                    "CUS",
-                                    "CYB",
-                                    "DNA",
-                                    "DAR",
-                                    "DEX",
-                                    "DS",
-                                    "IM",
-                                    "INS",
-                                    "ITS&S",
-                                    "PR",
-                                    "SES",
-                                    "SA",
-                                    "TES"
-                                ]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-costumerName' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =8
-
-                        Label2_8 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Customer Name"
-                            ZIndex: =1
-
-                        ddwCostumerName As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: =["ZURICH INSURANCE COMPANY LTD", "SERVIZURICH, S.A.U."]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-zurichLineManager' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =9
-
-                        Label2_9 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Zurich Line Manager"
-                            ZIndex: =1
-
-                        ddwZurichLineManager As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: =["New", "Extension"]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-attach' As groupContainer.horizontalAutoLayoutContainer":
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        Height: |
-                            =120
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =100
-                        LayoutMinWidth: =250
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Parent.Width - designSystem.paddingDefault
-                        X: =40
-                        Y: =40
-                        ZIndex: =10
-
-                        Label2_7 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Attach SOW document"
-                            ZIndex: =1
-
-                        TempForm As form.PowerApps_CoreControls_Form:
-                            AcceptsFocus: =false
-                            DataSource: =SR_TempUploads
-                            DefaultMode: =FormMode.New
-                            Height: =80
-                            Item: =Defaults(SR_TempUploads)
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            UseFluentV9Cards: =true
-                            ZIndex: =2
-
-                            "'Datos adjuntos_DataCard2' As typedDataCard.attachmentsEditCard":
-                                AutoHeight: =true
-                                BorderStyle: =BorderStyle.None
-                                BorderThickness: =0
-                                ContentLanguage: =""
-                                DataField: ="{Attachments}"
-                                Default: =ThisItem.'Datos adjuntos'
-                                DisplayMode: =Parent.DisplayMode
-                                DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
-                                Fill: =RGBA(0, 0, 0, 0)
-                                Height: =50
-                                LayoutHeight: =0
-                                LayoutWidth: =0
-                                LayoutX: =0
-                                LayoutY: =0
-                                maximumHeight: =7680
-                                maximumWidth: =1366
-                                minimumHeight: =20
-                                minimumWidth: =20
-                                Required: =false
-                                Update: =DataCardValue.Attachments
-                                Visible: =true
-                                Width: =Parent.Width
-                                WidthFit: =false
-                                X: =0
-                                Y: =0
-                                ZIndex: =1
-
-                                DataCardValue As attachments:
-                                    AddAttachmentText: ="Adjuntar un archivo"
-                                    AttachedFileListLabel: ="Archivos adjuntos"
-                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                                    BorderStyle: =BorderStyle.None
-                                    BorderThickness: =0
-                                    DisplayMode: =Parent.DisplayMode
-                                    DownloadErrorMessageText: ="No se pudo descargar el archivo solicitado."
-                                    DownloadErrorMessageTitle: ="Error de descarga"
-                                    FetchErrorMessageText: ="No se pudo obtener el archivo."
-                                    Height: =80  
-                                    IsInDataCard: =true
-                                    Items: =Parent.Default
-                                    MaxAttachments: =1
-                                    MaxAttachmentsText: ="Se alcanzó el número máximo de archivos."
-                                    NoAttachmentsText: ="No hay nada adjunto."
-                                    OnAddFile: |-
-                                        =If(
-                                            !EndsWith(Lower(Last(Self.Attachments).Name), ".pdf") &&
-                                            !EndsWith(Lower(Last(Self.Attachments).Name), ".docx"),
-                                            Notify(
-                                                "Solo se permiten archivos PDF o Word",
-                                                NotificationType.Error
-                                            );
-                                            Reset(Self)
-                                        )
-                                    PaddingBottom: =5
-                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                                    PaddingRight: =5
-                                    PaddingTop: =5
-                                    RemoveAttachmentTooltip: ="Quitar"
-                                    Size: =10
-                                    Tooltip: =Parent.DisplayName
-                                    UndoRemoveAttachmentTooltip: ="Deshacer la eliminación"
-                                    Width: =Parent.Width
-                                    ZIndex: =1
-
-                                ErrorMessage6 As label:
-                                    AutoHeight: =true
-                                    BorderColor: =RGBA(0, 0, 0, 1)
-                                    Color: =RGBA(168, 0, 0, 1)
-                                    FontWeight: =FontWeight.Semibold
-                                    Height: =10
-                                    Live: =Live.Assertive
-                                    PaddingBottom: =0
-                                    PaddingLeft: =0
-                                    PaddingRight: =0
-                                    PaddingTop: =0
-                                    Size: =14
-                                    Text: =Parent.Error
-                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
-                                    Width: =Parent.Width - 60
-                                    X: =30
-                                    Y: =DataCardValue.Y + DataCardValue.Height
-                                    ZIndex: =2
-
-                    "'form-control-submit' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |+
-                            =40
-                            
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Parent.Width - designSystem.paddingDefault
-                        ZIndex: =11
-
-                        ButtonCanvas1 As Botón:
-                            AcceptsFocus: =true
-                            AccessibleLabel: =""
+                        "TextInputCanvas1_2 As 'Entrada de texto'":
+                            AccessibleLabel: ="Zurich approver"
                             Align: =""
-                            AlignInContainer: =AlignInContainer.Center
-                            Appearance: ="Primary"
+                            Appearance: ="FilledDarker"
                             BasePaletteColor: =
                             BorderColor: =
                             BorderStyle: =""
                             ContentLanguage: =""
                             DisplayMode: =DisplayMode.Edit
+                            Fill: =
                             Font: =""
-                            FontColor: =
+                            FontColor: =RGBA(106, 122, 127, 1)
                             FontItalic: =false
                             FontSize: =0
                             FontStrikethrough: =false
                             FontUnderline: =false
                             FontWeight: =""
                             Height: =32
-                            Icon: =""
-                            IconRotation: =0
-                            IconStyle: ="Outline"
-                            Layout: ="Icon before"
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            OnSelect: |-
-                                =With(
-                                    {
-                                        _projectName    : txtProjectName.Value,
-                                        _startDate      : dpkStartDate.SelectedDate,
-                                        _endDate        : dpkEndDate.SelectedDate,
-                                        _extension      : ddwExtension.Selected.Value,
-                                        _company        : ddwCompany.Selected.Value,
-                                        _org            : ddwOrg.Selected.Value,
-                                        _un             : ddwUn.Selected.Value,
-                                        _costumerName   : ddwCostumerName.Selected.Value,
-                                        _zurichLineManager  : ddwZurichLineManager.Selected.Value,
-                                        _user           : User().FullName,
-                                        _attach         : DataCardValue.Attachments
-                                    },
-                                    If(
-                                        //validation
-                                            Len(_projectName) < 3,
-                                            Notify("agrega un nombre de proyecto valido", NotificationType.Error); SetFocus(txtProjectName),
-                                            IsBlank(_startDate),
-                                            Notify("Selecciona una fecha de inicio", NotificationType.Error); SetFocus(dpkStartDate),
-                                            IsBlank(_endDate),
-                                            Notify("Selecciona una fecha de termino", NotificationType.Error); SetFocus(dpkEndDate),
-                                            IsBlank(_extension),
-                                            Notify("Selecciona extension", NotificationType.Error); SetFocus(ddwExtension),
-                                            IsBlank(_company),
-                                            Notify("Selecciona company", NotificationType.Error); SetFocus(ddwCompany),
-                                            IsBlank(_org),
-                                            Notify("Selecciona org", NotificationType.Error); SetFocus(ddwOrg),
-                                            IsBlank(_un),
-                                            Notify("Selecciona un", NotificationType.Error); SetFocus(ddwUn),
-                                            IsBlank(_costumerName),
-                                            Notify("Selecciona costumerName", NotificationType.Error); SetFocus(ddwCostumerName),
-                                            IsBlank(_zurichLineManager),
-                                            Notify("Selecciona zurichLineManager", NotificationType.Error); SetFocus(ddwZurichLineManager),
-                                            CountRows(_attach) = 0,
-                                            Notify("Adjunta algun documento", NotificationType.Error),
-                                        
-                                        
-                                            //loader
-                                            UpdateContext({loaderNewSowModal:true});
-                                            
-                                            //action
-                                            With(
-                                                {
-                                                    _response: flow_createSow.Run(
-                                                        _projectName,
-                                                        Text(_startDate, "yyyy-mm-dd"),
-                                                        Text(_endDate, "yyyy-mm-dd"),
-                                                        _extension,
-                                                        _company,
-                                                        _org,
-                                                        _un,
-                                                        _costumerName,
-                                                        _zurichLineManager,
-                                                        _user
-                                                    ).response
-                                                },
-                                                //success message
-                                                Notify(_response, NotificationType.Success);
-                                                
-                                
-                                                // clean controls
-                                                Reset(txtProjectName);
-                                                Reset(dpkStartDate);
-                                                Reset(dpkEndDate);
-                                                Reset(ddwExtension);
-                                                Reset(ddwCompany);
-                                                Reset(ddwOrg);
-                                                Reset(ddwUn);
-                                                Reset(ddwCostumerName);
-                                                Reset(ddwZurichLineManager);
-                                
-                                                
-                                                // close modal
-                                                UpdateContext({loaderNewSowModal:false});
-                                                UpdateContext({showNewSowModal:false});
-                                                UpdateContext({showBackdrop:false});
-                                            )     
-                                    )
-                                )
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =""
+                            Required: =false
                             TabIndex: =0
-                            Text: ="Botón"
                             Tooltip: =""
-                            VerticalAlign: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =""
                             Visible: =true
-                            Width: =96
-                            X: =(Parent.Width - Self.Width) / 2
-                            Y: =(Parent.Height - Self.Height) / 2
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'form-control-Total amount_2' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =15
+
+                        Label2_16 As label:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Font: =designSystem.fontFamily
+                            FontWeight: =designSystem.style.label.fontWeight
+                            Height: =30
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =designSystem.style.label.fontSize
+                            Text: ="Total amount SOW/WO excluding VAT in $"
                             ZIndex: =1
+
+                        "TextInputCanvas1_3 As 'Entrada de texto'":
+                            AccessibleLabel: ="Zurich approver"
+                            Align: =""
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =RGBA(106, 122, 127, 1)
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =""
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =""
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
 
         "'NewSowModal-loader' As groupContainer.verticalAutoLayoutContainer":
             Fill: =RGBA(255, 255, 255, .8)

@@ -15,7 +15,7 @@
 
     "solution:import": "pac solution import --path ./SOWRepository.zip",
 
-    "export": "npm run solution:export && npm run solution:unpack && npm run canvas:unpack",
+    "export": "rm -r ./SOWRepository.zip && npm run solution:export && npm run solution:unpack && npm run canvas:unpack",
 
     "rebuild": "npm run canvas:pack && npm run solution:pack && npm run solution:import"
   },

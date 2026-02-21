@@ -1,0 +1,139 @@
+FormHeader As CanvasComponent:
+    OnTabSelect(Index As Number):
+        Index:
+            Default: =100
+        ThisProperty:
+            Default: =
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =150
+    Items: |-
+        =Table(
+            {
+                index: 1,
+                label: "Item",
+                status: "Active"
+            },
+            {
+                index: 2,
+                label: "Item",
+                status: "Pending"
+            },
+            {
+                index: 3,
+                label: "Item",
+                status: "Error"
+            },
+            {
+                index: 4,
+                label: "Item",
+                status: "Completed" 
+            }
+        )
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    ContainerFormHeader As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =1
+
+        "Gallery2 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DelayItemLoading: =true
+            FillPortions: =0
+            Height: =Parent.Height
+            Items: =FormHeader.Items
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: |-
+                =If(
+                    Self.AllItemsCount > 0,
+                    Parent.Width / Self.AllItemsCount,
+                    Parent.Width
+                )
+            Width: =Parent.Width
+            ZIndex: =1
+
+            ButtonCanvas8 As Botón:
+                Align: =Align.Left
+                Appearance: ='ButtonCanvas.Appearance'.Transparent
+                BasePaletteColor: =
+                BorderColor: =
+                DisplayMode: =DisplayMode.Edit
+                FontColor: |-
+                    =If(
+                        ThisItem.status = "Active",
+                        Color.Blue,
+                        ThisItem.status = "Error",
+                        Color.Red,
+                        ThisItem.status = "Completed",
+                        Color.Green
+                    )
+                Height: =Parent.TemplateHeight
+                Icon: |-
+                    =If(
+                        ThisItem.status = "Error",
+                        "DismissCircle",
+                        ThisItem.status = "Completed",
+                        "CheckmarkCircle",
+                        "Circle"
+                    )
+                OnSelect: |
+                    =FormHeader.OnTabSelect(ThisItem.index);
+                Text: =ThisItem.label
+                Width: =Parent.TemplateWidth
+                X: =0
+                Y: |
+                    =0
+                ZIndex: =2
+
+            TextCanvas1 As Texto:
+                Align: ='TextCanvas.Align'.Center
+                AutoHeight: =false
+                BorderColor: =
+                DisplayMode: =DisplayMode.Edit
+                Fill: =
+                FontColor: |-
+                    =If(
+                        ThisItem.status = "Active",
+                        Color.Blue
+                    )
+                Height: =Parent.Height
+                Size: =10
+                Text: =ThisItem.index
+                VerticalAlign: =VerticalAlign.Middle
+                Visible: |+
+                    =ThisItem.status = "Active" || ThisItem.status = "Pending"
+                    
+                Weight: ='TextCanvas.Weight'.Bold
+                Width: =15
+                Wrap: =false
+                X: =15
+                Y: =0
+                ZIndex: =3
+
+            Active As rectangle:
+                Fill: =Color.Blue
+                Height: =5
+                OnSelect: =Select(Parent)
+                Visible: =ThisItem.status = "Active"
+                Width: =Parent.TemplateWidth
+                Y: =Parent.Height - Self.Height
+                ZIndex: =4
+

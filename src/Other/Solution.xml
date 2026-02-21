@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26013.152" SolutionPackageVersion="9.2" languagecode="3082" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26013.152" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26013.00152">
+<ImportExportXml version="9.2.26014.157" SolutionPackageVersion="9.2" languagecode="3082" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26014.157" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00158">
   <SolutionManifest>
     <UniqueName>SOWRepository</UniqueName>
     <LocalizedNames>
@@ -80,6 +80,7 @@
     <RootComponents>
       <RootComponent type="29" id="{87f58eaa-7803-f111-8407-7ced8d4a8778}" behavior="0" />
       <RootComponent type="300" schemaName="lsalcedg_sowrepository_57df9" behavior="0" />
+      <RootComponent type="300" schemaName="lsalcedg_sowrepositorycopia_ea4b5" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>

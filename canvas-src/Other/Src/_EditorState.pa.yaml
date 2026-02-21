@@ -12,3 +12,4 @@ EditorState:
   ComponentDefinitionsOrder:
     - SearchSelect
     - UtilsFunctions
+    - FormHeader

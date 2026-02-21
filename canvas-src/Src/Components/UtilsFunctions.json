@@ -36,7 +36,7 @@
       "GetWidthForTwoColumns_Gap",
       "GetWidthForTwoColumns_ContainerWidth"
     ],
-    "LastModifiedTimestamp": "639070663672532635",
+    "LastModifiedTimestamp": "639072262495345207",
     "Name": "UtilsFunctions",
     "Rules": [
       {
@@ -158,7 +158,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "639070663672532635",
+  "LastModifiedTimestamp": "639072262495345207",
   "Name": "47579f38ee5343808c6592efbf5a35fe",
   "OverridableProperties": {},
   "Version": "1.0"

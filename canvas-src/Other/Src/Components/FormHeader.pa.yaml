@@ -1,0 +1,148 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  FormHeader:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      Items:
+        PropertyKind: Input
+        DisplayName: Items
+        Description: Propiedad personalizada
+        DataType: Table
+        Default: |-
+          =Table(
+              {
+                  index: 1,
+                  label: "Item",
+                  status: "Active"
+              },
+              {
+                  index: 2,
+                  label: "Item",
+                  status: "Pending"
+              },
+              {
+                  index: 3,
+                  label: "Item",
+                  status: "Error"
+              },
+              {
+                  index: 4,
+                  label: "Item",
+                  status: "Completed" 
+              }
+          )
+      OnTabSelect:
+        PropertyKind: Event
+        DisplayName: OnTabSelect
+        Description: Propiedad personalizada
+        ReturnType: None
+        Default: =
+        Parameters:
+          - Index:
+              Description: Un parámetro
+              DataType: Number
+              Default: =100
+    Properties:
+      Height: =150
+    Children:
+      - ContainerFormHeader:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - Gallery2:
+                Control: Gallery@2.15.0
+                Variant: BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  FillPortions: =0
+                  Height: =Parent.Height
+                  Items: =FormHeader.Items
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  ShowScrollbar: =false
+                  TemplateSize: |-
+                    =If(
+                        Self.AllItemsCount > 0,
+                        Parent.Width / Self.AllItemsCount,
+                        Parent.Width
+                    )
+                  Width: =Parent.Width
+                Children:
+                  - ButtonCanvas8:
+                      Control: Button@0.0.45
+                      Properties:
+                        Align: =Align.Left
+                        Appearance: ='ButtonCanvas.Appearance'.Transparent
+                        FontColor: |-
+                          =If(
+                              ThisItem.status = "Active",
+                              Color.Blue,
+                              ThisItem.status = "Error",
+                              Color.Red,
+                              ThisItem.status = "Completed",
+                              Color.Green
+                          )
+                        Height: =Parent.TemplateHeight
+                        Icon: |-
+                          =If(
+                              ThisItem.status = "Error",
+                              "DismissCircle",
+                              ThisItem.status = "Completed",
+                              "CheckmarkCircle",
+                              "Circle"
+                          )
+                        OnSelect: |+
+                          =FormHeader.OnTabSelect(ThisItem.index);
+                        Text: =ThisItem.label
+                        Width: =Parent.TemplateWidth
+                        Y: |+
+                          =0
+                  - TextCanvas1:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        FontColor: |-
+                          =If(
+                              ThisItem.status = "Active",
+                              Color.Blue
+                          )
+                        Height: =Parent.Height
+                        Size: =10
+                        Text: =ThisItem.index
+                        VerticalAlign: =VerticalAlign.Middle
+                        Visible: |+
+                          =ThisItem.status = "Active" || ThisItem.status = "Pending"
+
+                        Weight: ='TextCanvas.Weight'.Bold
+                        Width: =15
+                        Wrap: =false
+                        X: =15
+                  - Active:
+                      Control: Rectangle@2.3.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Fill: =Color.Blue
+                        Height: =5
+                        OnSelect: =Select(Parent)
+                        Visible: =ThisItem.status = "Active"
+                        Width: =Parent.TemplateWidth
+                        Y: =Parent.Height - Self.Height

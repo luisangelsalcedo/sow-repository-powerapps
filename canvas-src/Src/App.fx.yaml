@@ -38,6 +38,28 @@ App As appinfo:
                 }
             }
         });
+        
+        
+        ClearCollect(
+            colTabs,
+            Table(
+                {
+                    index: 1,
+                    label: "Contract Details",
+                    status: "Active"  // Pending | Active | Completed | Error
+                },
+                {
+                    index: 2,
+                    label: "Service Information",
+                    status: "Pending"
+                },
+                {
+                    index: 3,
+                    label: "Financial Data",
+                    status: "Pending"
+                }
+            )
+        )
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:
