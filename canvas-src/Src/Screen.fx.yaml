@@ -2,6 +2,261 @@
     Fill: =
     ImagePosition: =ImagePosition.Center
 
+    Label2Width As htmlViewer:
+        AutoHeight: =true
+        HtmlText: |+
+            =$"<div style='
+            display: inline-block;
+            font-size:{Label2.Size}px;
+            padding: 0px 30px;
+            position:relative;
+            transform: rotate(90deg);
+            transform-origin: top left;
+            white-space: nowrap;
+            '>{Label2.Text}</div>"
+            
+        X: =60
+        Y: =60
+        ZIndex: =1
+
+    txtVersionWidth As htmlViewer:
+        AutoHeight: =true
+        HtmlText: |+
+            =$"<div style='
+            display: inline-block;
+            font-size:{txtVersion.Size}px;
+            margin: 0px 30px;
+            position:relative;
+            transform: rotate(90deg);
+            transform-origin: top left;
+            white-space: nowrap;
+            '>{txtVersion.Text}</div>"
+            
+        X: =40
+        Y: =40
+        ZIndex: =2
+
+    txtFooterWidth As htmlViewer:
+        AutoHeight: =true
+        HtmlText: |+
+            =$"<div style='
+            display: inline-block;
+            font-size:{txtFooter.Size}px;
+            margin: 0px 30px;
+            position:relative;
+            transform: rotate(90deg);
+            transform-origin: top left;
+            white-space: nowrap;
+            '>{txtFooter.Text}</div>"
+            
+        X: =40
+        Y: =40
+        ZIndex: =3
+
+    SearchContainer As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: |-
+            =If(
+                Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                70,
+                35
+            )
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: |-
+            =If(
+                Screen.Width < 500,
+                LayoutDirection.Vertical,
+                LayoutDirection.Horizontal
+            )
+        LayoutGap: =designSystem.paddingDefault / 2
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        Y: =40
+        ZIndex: =4
+
+        SearchContainerLeft As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.Center
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =txtContractSearch.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =designSystem.paddingDefault / 2
+            LayoutGridColumns: =6
+            LayoutGridRows: =6
+            LayoutJustifyContent: =LayoutJustifyContent.End
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: |-
+                =If(
+                    Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                    Parent.Width,
+                    300
+                )
+            ZIndex: =2
+
+            cboContracType As Desplegable.pcfdataset:
+                AccessibleLabel: =""
+                Appearance: ="FilledDarker"
+                BorderStyle: =""
+                ContentLanguage: =""
+                DefaultSelectedItems: =
+                DisplayMode: =DisplayMode.Edit
+                FontSize: =0
+                Height: =32
+                Items: =["SOW"]
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                OnChange: =
+                Required: =true
+                TabIndex: =0
+                Tooltip: =""
+                ValidationState: ="None"
+                Visible: =true
+                Width: =80
+                X: =0
+                Y: =0
+                ZIndex: =1
+
+            "txtContractSearch As 'Entrada de texto'":
+                AccessibleLabel: =""
+                Align: =""
+                Appearance: ="FilledDarker"
+                BasePaletteColor: =
+                BorderColor: =
+                BorderStyle: =""
+                ContentLanguage: =""
+                DisplayMode: =DisplayMode.Edit
+                Fill: =
+                FillPortions: =1
+                Font: =""
+                FontColor: =
+                FontItalic: =false
+                FontSize: =0
+                FontStrikethrough: =false
+                FontUnderline: =false
+                FontWeight: =""
+                Height: =32
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                MaxLength: =-1
+                Mode: ="SingleLine"
+                OnChange: =false
+                Placeholder: |-
+                    =If(
+                        cboContracType.Selected.Value = "SOW",
+                        "Serach by SOW number",
+                        "Search "
+                    )
+                Required: =false
+                TabIndex: =0
+                Tooltip: =""
+                TriggerOutput: ="FocusOut"
+                Type: ="Search"
+                ValidationState: ="None"
+                Value: =""
+                Visible: =true
+                Width: |
+                    =200
+                X: =0
+                Y: =0
+                ZIndex: =2
+
+        btnSearch As Botón:
+            AcceptsFocus: =true
+            AccessibleLabel: =""
+            Align: =""
+            Appearance: ="Primary"
+            BasePaletteColor: =
+            BorderColor: =
+            BorderStyle: =""
+            ContentLanguage: =""
+            DisplayMode: =DisplayMode.Edit
+            Font: =""
+            FontColor: =
+            FontItalic: =false
+            FontSize: =12
+            FontStrikethrough: =false
+            FontUnderline: =false
+            FontWeight: =""
+            Height: =32
+            Icon: ="Search"
+            IconRotation: =0
+            IconStyle: ="Outline"
+            Layout: ="Icon before"
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            OnSelect: |+
+                =With(
+                    {
+                        contractType: cboContracType.Selected.Value,
+                        searchValue: txtContractSearch.Value 
+                    },
+                    If(
+                        // validation 1
+                        IsBlank(contractType),
+                        Notify("Selecciona el tipo de contrato a buscar", NotificationType.Error);
+                        SetFocus(cboContracType),
+                
+                        // validation 2
+                        Len(searchValue) < 3,
+                        Notify("Ingresa un texto de búsqueda válido", NotificationType.Error);
+                        SetFocus(txtContractSearch),
+                
+                        // ok
+                            // action
+                            Notify(
+                                JSON({
+                                    ContractType: contractType,
+                                    SearchValue: searchValue
+                                }
+                                ), 
+                                NotificationType.Success
+                            );
+                            
+                            // clean
+                            Reset(cboContracType);
+                            Reset(txtContractSearch);
+                    )
+                );
+                
+                
+            PaddingLeft: =
+            PaddingRight: =
+            TabIndex: =0
+            Text: ="Search"
+            Tooltip: =""
+            VerticalAlign: =""
+            Visible: =true
+            Width: |-
+                =If(
+                    Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                    Parent.Width,
+                    100
+                )
+            X: =0
+            Y: =0
+            ZIndex: =4
+
     "'form-control-submit' As groupContainer.horizontalAutoLayoutContainer":
         ContentLanguage: =
         DropShadow: =DropShadow.None
@@ -19,7 +274,7 @@
         Width: =Parent.Width - designSystem.paddingDefault
         X: =16
         Y: =40
-        ZIndex: =1
+        ZIndex: =5
 
         ButtonCanvas1 As Botón:
             AcceptsFocus: =true
@@ -155,7 +410,7 @@
         Width: =Parent.Width - designSystem.paddingDefault
         X: =16
         Y: =40
-        ZIndex: =2
+        ZIndex: =6
 
         Label2_7 As label:
             AlignInContainer: =AlignInContainer.Stretch
@@ -302,7 +557,7 @@
         RadiusTopLeft: =0
         RadiusTopRight: =0
         Width: =Parent.Width
-        ZIndex: =3
+        ZIndex: =7
 
         Header As groupContainer.horizontalAutoLayoutContainer:
             DropShadow: =DropShadow.None
@@ -353,11 +608,7 @@
                     LayoutMaxWidth: =0
                     LayoutMinHeight: =16
                     LayoutMinWidth: =16
-                    Width: |-
-                        =If(Screen.Width < 900,
-                            80,
-                            180
-                        )
+                    Width: =Functions.ResponsiveOnCellphone(80, 180)
                     ZIndex: =5
 
                 AvatarContainer As groupContainer.horizontalAutoLayoutContainer:
@@ -376,9 +627,8 @@
 
                     lblAvatar As label:
                         Align: =Align.Right
-                        AutoHeight: =true
+                        AlignInContainer: =AlignInContainer.Center
                         Color: =Color.White
-                        FillPortions: =1
                         Height: =Parent.Height
                         LayoutMaxHeight: =0
                         LayoutMaxWidth: =0
@@ -388,9 +638,8 @@
                         PaddingLeft: =0
                         PaddingRight: =0
                         PaddingTop: =0
-                        Size: =10
+                        Size: =Functions.ResponsiveOnCellphone(6, 8)
                         Text: =Avatar1.Name
-                        Visible: =Screen.Size >= ScreenSize.Medium
                         ZIndex: =1
 
                     Avatar1 As Avatar:
@@ -432,10 +681,12 @@
             RadiusTopRight: =0
             ZIndex: =2
 
-            mainContainerTop As groupContainer.horizontalAutoLayoutContainer:
+            MainContainerTop As groupContainer.horizontalAutoLayoutContainer:
                 DropShadow: =DropShadow.None
                 FillPortions: =0
-                Height: =NewSowButton.Height + (designSystem.paddingDefault * 2)
+                Height: |-
+                    =//NewSowButton.Height + (designSystem.paddingDefault * 2)
+                    0
                 LayoutAlignItems: =LayoutAlignItems.Center
                 LayoutGridColumns: =6
                 LayoutGridRows: =6
@@ -451,35 +702,15 @@
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
+                Visible: =false
                 Width: =100
                 ZIndex: =1
 
-                NewSowButton As Botón:
-                    BasePaletteColor: =RGBA(5, 102, 178, 1)
-                    BorderColor: =
-                    DisplayMode: =DisplayMode.Edit
-                    FontColor: =
-                    FontSize: =12
-                    Height: =32
-                    Icon: ="Add"
-                    LayoutMaxHeight: =0
-                    LayoutMaxWidth: =0
-                    LayoutMinHeight: =16
-                    LayoutMinWidth: =16
-                    OnSelect: |-
-                        =UpdateContext({showNewSowModal:true});
-                        UpdateContext({showBackdrop:true})
-                    Text: ="New Sow"
-                    Width: =100
-                    X: =0
-                    Y: =0
-                    ZIndex: =1
-
-            mainContainerCenter As groupContainer.horizontalAutoLayoutContainer:
+            MainContainerCenter As groupContainer.horizontalAutoLayoutContainer:
                 DropShadow: =DropShadow.None
                 LayoutAlignItems: =LayoutAlignItems.Center
                 LayoutDirection: =LayoutDirection.Vertical
-                LayoutGap: =designSystem.paddingDefault
+                LayoutGap: =designSystem.paddingDefault * 2
                 LayoutGridColumns: =6
                 LayoutGridRows: =6
                 LayoutJustifyContent: =LayoutJustifyContent.Center
@@ -516,25 +747,15 @@
                     LayoutMaxWidth: =0
                     LayoutMinHeight: =16
                     LayoutMinWidth: =16
-                    ZIndex: =2
+                    ZIndex: =1
 
-                SearchContainer As groupContainer.horizontalAutoLayoutContainer:
+                RequestContainer As groupContainer.horizontalAutoLayoutContainer:
                     DropShadow: =DropShadow.None
                     FillPortions: =0
-                    Height: |-
-                        =If(
-                            Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
-                            70,
-                            35
-                        )
+                    Height: =Functions.ResponsiveOnCellphone(120, 50)
                     LayoutAlignItems: =LayoutAlignItems.Center
-                    LayoutDirection: |-
-                        =If(
-                            Screen.Width < 500,
-                            LayoutDirection.Vertical,
-                            LayoutDirection.Horizontal
-                        )
-                    LayoutGap: =designSystem.paddingDefault / 2
+                    LayoutDirection: =Functions.ResponsiveOnCellphone(LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                    LayoutGap: =Functions.ResponsiveOnCellphone(8, 0)
                     LayoutGridColumns: =6
                     LayoutGridRows: =6
                     LayoutJustifyContent: =LayoutJustifyContent.Center
@@ -547,113 +768,35 @@
                     RadiusBottomRight: =0
                     RadiusTopLeft: =0
                     RadiusTopRight: =0
-                    Width: =Parent.Width
-                    ZIndex: =3
+                    X: =40
+                    Y: =40
+                    ZIndex: =2
 
-                    SearchContainerLeft As groupContainer.horizontalAutoLayoutContainer:
-                        AlignInContainer: =AlignInContainer.Center
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: =txtContractSearch.Height
-                        LayoutAlignItems: =LayoutAlignItems.Center
-                        LayoutGap: =designSystem.paddingDefault / 2
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutJustifyContent: =LayoutJustifyContent.End
+                    Label1 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        FontWeight: =FontWeight.Lighter
+                        Height: =30
                         LayoutMaxHeight: =0
                         LayoutMaxWidth: =0
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: |-
-                            =If(
-                                Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
-                                Parent.Width,
-                                300
-                            )
-                        ZIndex: =2
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =16
+                        Text: ="Request a"
+                        Width: =130
+                        ZIndex: =1
 
-                        cboContracType As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DefaultSelectedItems: =
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: =["SOW"]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =
-                            Required: =true
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =80
-                            X: =0
-                            Y: =0
-                            ZIndex: =1
-
-                        "txtContractSearch As 'Entrada de texto'":
-                            AccessibleLabel: =""
-                            Align: =""
-                            Appearance: ="FilledDarker"
-                            BasePaletteColor: =
-                            BorderColor: =
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            Fill: =
-                            FillPortions: =1
-                            Font: =""
-                            FontColor: =
-                            FontItalic: =false
-                            FontSize: =0
-                            FontStrikethrough: =false
-                            FontUnderline: =false
-                            FontWeight: =""
-                            Height: =32
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            MaxLength: =-1
-                            Mode: ="SingleLine"
-                            OnChange: =false
-                            Placeholder: |-
-                                =If(
-                                    cboContracType.Selected.Value = "SOW",
-                                    "Serach by SOW number",
-                                    "Search "
-                                )
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            TriggerOutput: ="FocusOut"
-                            Type: ="Search"
-                            ValidationState: ="None"
-                            Value: =""
-                            Visible: =true
-                            Width: |
-                                =200
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    btnSearch As Botón:
+                    NewSowButton As Botón:
                         AcceptsFocus: =true
                         AccessibleLabel: =""
                         Align: =""
+                        AlignInContainer: =AlignInContainer.Center
                         Appearance: ="Primary"
-                        BasePaletteColor: =
+                        BasePaletteColor: =RGBA(5, 102, 178, 1)
                         BorderColor: =
                         BorderStyle: =""
                         ContentLanguage: =""
@@ -661,89 +804,144 @@
                         Font: =""
                         FontColor: =
                         FontItalic: =false
-                        FontSize: =12
+                        FontSize: =18
                         FontStrikethrough: =false
                         FontUnderline: =false
                         FontWeight: =""
-                        Height: =32
-                        Icon: ="Search"
+                        Height: =40
+                        Icon: ="Add"
                         IconRotation: =0
                         IconStyle: ="Outline"
-                        Layout: ="Icon before"
+                        Layout: ='ButtonCanvas.Layout'.IconAfter
                         LayoutMaxHeight: =0
                         LayoutMaxWidth: =0
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
-                        OnSelect: |+
-                            =With(
-                                {
-                                    contractType: cboContracType.Selected.Value,
-                                    searchValue: txtContractSearch.Value 
-                                },
-                                If(
-                                    // validation 1
-                                    IsBlank(contractType),
-                                    Notify("Selecciona el tipo de contrato a buscar", NotificationType.Error);
-                                    SetFocus(cboContracType),
-                            
-                                    // validation 2
-                                    Len(searchValue) < 3,
-                                    Notify("Ingresa un texto de búsqueda válido", NotificationType.Error);
-                                    SetFocus(txtContractSearch),
-                            
-                                    // ok
-                                        // action
-                                        Notify(
-                                            JSON({
-                                                ContractType: contractType,
-                                                SearchValue: searchValue
-                                            }
-                                            ), 
-                                            NotificationType.Success
-                                        );
-                                        
-                                        // clean
-                                        Reset(cboContracType);
-                                        Reset(txtContractSearch);
-                                )
-                            );
-                            
-                            
-                        PaddingLeft: =
-                        PaddingRight: =
+                        OnSelect: |-
+                            =UpdateContext({showNewSowModal:true});
+                            UpdateContext({showBackdrop:true})
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
                         TabIndex: =0
-                        Text: ="Search"
+                        Text: ="New Sow"
                         Tooltip: =""
                         VerticalAlign: =""
                         Visible: =true
+                        Width: =150
+                        X: =0
+                        Y: =0
+                        ZIndex: =2
+
+                    Label2 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        FontWeight: =FontWeight.Lighter
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =15
+                        Text: ="Your new SOW starts here."
                         Width: |-
                             =If(
                                 Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
                                 Parent.Width,
-                                100
+                                Label2Width.Height
                             )
-                        X: =0
-                        Y: =0
-                        ZIndex: =4
+                        ZIndex: =3
 
         FooterContainer As groupContainer.horizontalAutoLayoutContainer:
+            ContentLanguage: =
             DropShadow: =DropShadow.None
             Fill: =RGBA(255, 255, 255, 1)
             FillPortions: =0
-            Height: =75
+            Height: =FooterAutoHeight.Y + designSystem.paddingDefault
             LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =8
             LayoutGridColumns: =6
             LayoutGridRows: =6
+            LayoutJustifyContent: =LayoutJustifyContent.Center
             LayoutMaxHeight: =0
             LayoutMaxWidth: =0
             LayoutMinHeight: =16
             LayoutMinWidth: =16
             LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
             ZIndex: =3
+
+            txtFooter As Texto:
+                Align: ='TextCanvas.Align'.Center
+                AutoHeight: =true
+                BorderColor: =
+                BorderStyle: =BorderStyle.None
+                DisplayMode: =DisplayMode.Edit
+                Fill: =
+                FontColor: =
+                Height: =
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                Size: =12
+                Text: ="Developed to standardize and centralize the management of new SOW requests within a single corporate repository."
+                Width: |-
+                    =If(
+                        Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                        Parent.Width,
+                        txtFooterWidth.Height / 2
+                    )
+                X: =0
+                Y: =0
+                ZIndex: =1
+
+            Rectangle3 As rectangle:
+                Fill: =designSystem.colors.default
+                Height: =1
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                Width: =txtFooter.Width
+                ZIndex: =2
+
+            txtVersion As Texto:
+                Align: ='TextCanvas.Align'.Center
+                AutoHeight: =true
+                BorderColor: =
+                DisplayMode: =DisplayMode.Edit
+                Fill: =
+                FontColor: =
+                Height: =32
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                Size: =12
+                Text: ="SOW Repository - Version 1.0.0"
+                Weight: ='TextCanvas.Weight'.Bold
+                Width: =txtVersionWidth.Height
+                X: =0
+                Y: =0
+                ZIndex: =3
+
+            FooterAutoHeight As rectangle:
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =1
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                ZIndex: =4
 
     ModalBackdrop As groupContainer.manualLayoutContainer:
         Height: =Parent.Height
@@ -751,7 +949,7 @@
         LayoutGridRows: =6
         Visible: =showBackdrop
         Width: =Parent.Width
-        ZIndex: =4
+        ZIndex: =8
 
         btnModalBackdrop As button:
             Fill: =RGBA(0, 0, 0, 0.5)
@@ -782,7 +980,7 @@
         X: =Parent.Width - Self.Width
         Y: |
             =0
-        ZIndex: =5
+        ZIndex: =9
 
         "'NewSowModal-container' As groupContainer.horizontalAutoLayoutContainer":
             DropShadow: =DropShadow.None
@@ -2054,6 +2252,12 @@
                 (ContainerWidth / 2) - (Gap / 2) - 6,
                 ContainerWidth    
             )
+        ResponsiveOnCellphone: |-
+            =If(
+                App.Width < 500,
+                PhoneCase,
+                FullscreenCase
+            )
         Visible: =false
-        ZIndex: =6
+        ZIndex: =10
 

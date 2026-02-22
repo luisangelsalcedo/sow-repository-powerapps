@@ -34,9 +34,19 @@
         "NameMapSourceSchema": "?"
       },
       "GetWidthForTwoColumns_Gap",
-      "GetWidthForTwoColumns_ContainerWidth"
+      "GetWidthForTwoColumns_ContainerWidth",
+      "ResponsiveOnCellphone_PhoneCase",
+      "ResponsiveOnCellphone_FullscreenCase",
+      {
+        "AFDDataSourceName": "",
+        "AutoRuleBindingEnabled": false,
+        "AutoRuleBindingString": "\"Texto\"",
+        "InvariantPropertyName": "ResponsiveOnCellphone",
+        "IsLockable": false,
+        "NameMapSourceSchema": "?"
+      }
     ],
-    "LastModifiedTimestamp": "639072262495345207",
+    "LastModifiedTimestamp": "639073349061456789",
     "Name": "UtilsFunctions",
     "Rules": [
       {
@@ -55,6 +65,24 @@
         "Category": "Data",
         "InvariantScript": "100",
         "Property": "GetWidthForTwoColumns_ContainerWidth",
+        "RuleProviderType": "System"
+      },
+      {
+        "Category": "Data",
+        "InvariantScript": "\"Texto\"",
+        "Property": "ResponsiveOnCellphone_PhoneCase",
+        "RuleProviderType": "System"
+      },
+      {
+        "Category": "Data",
+        "InvariantScript": "\"Texto\"",
+        "Property": "ResponsiveOnCellphone_FullscreenCase",
+        "RuleProviderType": "System"
+      },
+      {
+        "Category": "Data",
+        "InvariantScript": "If(\r\n    App.Width < 500,\r\n    PhoneCase,\r\n    FullscreenCase\r\n)",
+        "Property": "ResponsiveOnCellphone",
         "RuleProviderType": "System"
       },
       {
@@ -148,6 +176,50 @@
       },
       "Tooltip": "Propiedad personalizada",
       "Type": "{\"Version\":\"1.348\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "Responsive on cellphone",
+      "Hidden": true,
+      "Name": "ResponsiveOnCellphone",
+      "PropertyDataTypeKey": "String",
+      "PropertyScopeKey": {
+        "PropertyScopeRuleNamespaceKey": "16",
+        "PropertyScopeRulesKey": [
+          {
+            "DisplayName": "ResponsiveOnCellphone_PhoneCase",
+            "Name": "ResponsiveOnCellphone_PhoneCase",
+            "PropertyDataTypeKey": "String",
+            "ScopeVariableInfo": {
+              "DependencyType": "New",
+              "Description": "Un parámetro",
+              "IsRequired": true,
+              "ResolveExpands": false,
+              "ResolveSelects": false,
+              "ScopeVariableName": "PhoneCase"
+            },
+            "Tooltip": "Un parámetro",
+            "Type": "{\"Version\":\"1.348\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+          },
+          {
+            "DisplayName": "ResponsiveOnCellphone_FullscreenCase",
+            "Name": "ResponsiveOnCellphone_FullscreenCase",
+            "PropertyDataTypeKey": "String",
+            "ScopeVariableInfo": {
+              "DependencyType": "New",
+              "Description": "Un parámetro",
+              "IsRequired": true,
+              "ResolveExpands": false,
+              "ResolveSelects": false,
+              "ScopeVariableName": "FullscreenCase"
+            },
+            "Tooltip": "Un parámetro",
+            "Type": "{\"Version\":\"1.348\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+          }
+        ]
+      },
+      "Tooltip": "Propiedad personalizada",
+      "Type": "{\"Version\":\"1.348\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
     }
   ],
   "FirstParty": true,
@@ -158,7 +230,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "639072262495345207",
+  "LastModifiedTimestamp": "639073349061456789",
   "Name": "47579f38ee5343808c6592efbf5a35fe",
   "OverridableProperties": {},
   "Version": "1.0"

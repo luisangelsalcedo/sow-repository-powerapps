@@ -12,7 +12,7 @@
   "Properties": {
     "AppCopilotSchemaName": "",
     "AppCreationSource": "AppFromScratch",
-    "AppDescription": "",
+    "AppDescription": "Developed to standardize and centralize the management of new SOW requests within a single corporate repository.",
     "AppPreviewFlagsMap": {
       "adaptivepaging": false,
       "aibuilderserviceenrollment": false,

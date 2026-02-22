@@ -11,6 +11,18 @@ UtilsFunctions As CanvasComponent:
                     (ContainerWidth / 2) - (Gap / 2) - 6,
                     ContainerWidth    
                 )
+    ResponsiveOnCellphone(PhoneCase As String, FullscreenCase As String):
+        PhoneCase:
+            Default: ="Texto"
+        FullscreenCase:
+            Default: ="Texto"
+        ThisProperty:
+            Default: |-
+                =If(
+                    App.Width < 500,
+                    PhoneCase,
+                    FullscreenCase
+                )
     Fill: =RGBA(0, 0, 0, 0)
     Height: =1
     Width: =1

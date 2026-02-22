@@ -33,12 +33,11 @@ App As appinfo:
                     fontWeight: FontWeight.Normal
                 },
                 smBtn: {
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.Normal
                 }
             }
         });
-        
         
         ClearCollect(
             colTabs,

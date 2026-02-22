@@ -24,6 +24,20 @@ ComponentDefinitions:
               Description: Espacion entre columnas
               DataType: Number
               Default: =100
+      ResponsiveOnCellphone:
+        PropertyKind: OutputFunction
+        DisplayName: Responsive on cellphone
+        Description: Propiedad personalizada
+        DataType: Text
+        Parameters:
+          - PhoneCase:
+              Description: Un parámetro
+              DataType: Text
+              Default: ="Texto"
+          - FullscreenCase:
+              Description: Un parámetro
+              DataType: Text
+              Default: ="Texto"
     Properties:
       GetWidthForTwoColumns: |-
         =If(
@@ -32,4 +46,10 @@ ComponentDefinitions:
             ContainerWidth    
         )
       Height: =1
+      ResponsiveOnCellphone: |-
+        =If(
+            App.Width < 500,
+            PhoneCase,
+            FullscreenCase
+        )
       Width: =1

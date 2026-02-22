@@ -13,6 +13,151 @@ Screens:
       ImagePosition: =ImagePosition.Center
       LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
     Children:
+      - Label2Width:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            Font: =Font.'Open Sans'
+            HtmlText: |+
+              =$"<div style='
+              display: inline-block;
+              font-size:{Label2.Size}px;
+              padding: 0px 30px;
+              position:relative;
+              transform: rotate(90deg);
+              transform-origin: top left;
+              white-space: nowrap;
+              '>{Label2.Text}</div>"
+
+            X: =60
+            Y: =60
+      - txtVersionWidth:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            Font: =Font.'Open Sans'
+            HtmlText: |+
+              =$"<div style='
+              display: inline-block;
+              font-size:{txtVersion.Size}px;
+              margin: 0px 30px;
+              position:relative;
+              transform: rotate(90deg);
+              transform-origin: top left;
+              white-space: nowrap;
+              '>{txtVersion.Text}</div>"
+
+            X: =40
+            Y: =40
+      - txtFooterWidth:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            Font: =Font.'Open Sans'
+            HtmlText: |+
+              =$"<div style='
+              display: inline-block;
+              font-size:{txtFooter.Size}px;
+              margin: 0px 30px;
+              position:relative;
+              transform: rotate(90deg);
+              transform-origin: top left;
+              white-space: nowrap;
+              '>{txtFooter.Text}</div>"
+
+            X: =40
+            Y: =40
+      - SearchContainer:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: |-
+              =If(
+                  Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                  70,
+                  35
+              )
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: |-
+              =If(
+                  Screen.Width < 500,
+                  LayoutDirection.Vertical,
+                  LayoutDirection.Horizontal
+              )
+            LayoutGap: =designSystem.paddingDefault / 2
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            Y: =40
+          Children:
+            - SearchContainerLeft:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =txtContractSearch.Height
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =designSystem.paddingDefault / 2
+                  LayoutJustifyContent: =LayoutJustifyContent.End
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: |-
+                    =If(
+                        Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                        Parent.Width,
+                        300
+                    )
+                Children:
+                  - cboContracType:
+                      Control: DropDown@0.0.45
+                      Properties:
+                        Items: =["SOW"]
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnChange: =
+                        Required: =true
+                        Width: =80
+                  - txtContractSearch:
+                      Control: TextInput@0.0.54
+                      Properties:
+                        FillPortions: =1
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Placeholder: |-
+                          =If(
+                              cboContracType.Selected.Value = "SOW",
+                              "Serach by SOW number",
+                              "Search "
+                          )
+                        Type: ="Search"
+                        Width: |
+                          =200
+            - btnSearch:
+                Control: Button@0.0.45
+                Properties:
+                  FontSize: =12
+                  Icon: ="Search"
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  OnSelect: "=With(\r\n    {\r\n        contractType: cboContracType.Selected.Value,\r\n        searchValue: txtContractSearch.Value \r\n    },\r\n    If(\r\n        // validation 1\r\n        IsBlank(contractType),\r\n        Notify(\"Selecciona el tipo de contrato a buscar\", NotificationType.Error);\r\n        SetFocus(cboContracType),\r\n\r\n        // validation 2\r\n        Len(searchValue) < 3,\r\n        Notify(\"Ingresa un texto de búsqueda válido\", NotificationType.Error);\r\n        SetFocus(txtContractSearch),\r\n\r\n        // ok\r\n            // action\r\n            Notify(\r\n                JSON({\r\n                    ContractType: contractType,\r\n                    SearchValue: searchValue\r\n                }\r\n                ), \r\n                NotificationType.Success\r\n            );\r\n            \r\n            // clean\r\n            Reset(cboContracType);\r\n            Reset(txtContractSearch);\r\n    )\r\n);\r\n\r\n\r\n"
+                  Text: ="Search"
+                  Width: |-
+                    =If(
+                        Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                        Parent.Width,
+                        100
+                    )
       - form-control-submit:
           Control: GroupContainer@1.4.0
           Variant: AutoLayout
@@ -233,11 +378,7 @@ Screens:
                               Image: ='Logo NTTData'
                               LayoutMinHeight: =16
                               LayoutMinWidth: =16
-                              Width: |-
-                                =If(Screen.Width < 900,
-                                    80,
-                                    180
-                                )
+                              Width: =Functions.ResponsiveOnCellphone(80, 180)
                         - AvatarContainer:
                             Control: GroupContainer@1.4.0
                             Variant: AutoLayout
@@ -254,10 +395,9 @@ Screens:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
-                                    AutoHeight: =true
+                                    AlignInContainer: =AlignInContainer.Center
                                     BorderColor: =RGBA(0, 18, 107, 1)
                                     Color: =Color.White
-                                    FillPortions: =1
                                     Font: =Font.'Open Sans'
                                     Height: =Parent.Height
                                     LayoutMinHeight: =16
@@ -266,9 +406,8 @@ Screens:
                                     PaddingLeft: =0
                                     PaddingRight: =0
                                     PaddingTop: =0
-                                    Size: =10
+                                    Size: =Functions.ResponsiveOnCellphone(6, 8)
                                     Text: =Avatar1.Name
-                                    Visible: =Screen.Size >= ScreenSize.Medium
                               - Avatar1:
                                   Control: Avatar@1.0.40
                                   Properties:
@@ -296,13 +435,15 @@ Screens:
                   RadiusTopLeft: =0
                   RadiusTopRight: =0
                 Children:
-                  - mainContainerTop:
+                  - MainContainerTop:
                       Control: GroupContainer@1.4.0
                       Variant: AutoLayout
                       Properties:
                         DropShadow: =DropShadow.None
                         FillPortions: =0
-                        Height: =NewSowButton.Height + (designSystem.paddingDefault * 2)
+                        Height: |-
+                          =//NewSowButton.Height + (designSystem.paddingDefault * 2)
+                          0
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutJustifyContent: =LayoutJustifyContent.End
@@ -314,29 +455,16 @@ Screens:
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
+                        Visible: =false
                         Width: =100
-                      Children:
-                        - NewSowButton:
-                            Control: Button@0.0.45
-                            Properties:
-                              BasePaletteColor: =RGBA(5, 102, 178, 1)
-                              FontSize: =12
-                              Icon: ="Add"
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              OnSelect: |-
-                                =UpdateContext({showNewSowModal:true});
-                                UpdateContext({showBackdrop:true})
-                              Text: ="New Sow"
-                              Width: =100
-                  - mainContainerCenter:
+                  - MainContainerCenter:
                       Control: GroupContainer@1.4.0
                       Variant: AutoLayout
                       Properties:
                         DropShadow: =DropShadow.None
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGap: =designSystem.paddingDefault
+                        LayoutGap: =designSystem.paddingDefault * 2
                         LayoutJustifyContent: =LayoutJustifyContent.Center
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
@@ -368,26 +496,16 @@ Screens:
                               Image: ='sow-repository-logo'
                               LayoutMinHeight: =16
                               LayoutMinWidth: =16
-                        - SearchContainer:
+                        - RequestContainer:
                             Control: GroupContainer@1.4.0
                             Variant: AutoLayout
                             Properties:
                               DropShadow: =DropShadow.None
                               FillPortions: =0
-                              Height: |-
-                                =If(
-                                    Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
-                                    70,
-                                    35
-                                )
+                              Height: =Functions.ResponsiveOnCellphone(120, 50)
                               LayoutAlignItems: =LayoutAlignItems.Center
-                              LayoutDirection: |-
-                                =If(
-                                    Screen.Width < 500,
-                                    LayoutDirection.Vertical,
-                                    LayoutDirection.Horizontal
-                                )
-                              LayoutGap: =designSystem.paddingDefault / 2
+                              LayoutDirection: =Functions.ResponsiveOnCellphone(LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                              LayoutGap: =Functions.ResponsiveOnCellphone(8, 0)
                               LayoutJustifyContent: =LayoutJustifyContent.Center
                               LayoutMinHeight: =16
                               LayoutMinWidth: =16
@@ -395,88 +513,134 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Width: =Parent.Width
+                              X: =40
+                              Y: =40
                             Children:
-                              - SearchContainerLeft:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
+                              - Label1:
+                                  Control: Label@2.5.1
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Center
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: =txtContractSearch.Height
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =designSystem.paddingDefault / 2
-                                    LayoutJustifyContent: =LayoutJustifyContent.End
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Lighter
+                                    Height: =30
                                     LayoutMinHeight: =16
                                     LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: |-
-                                      =If(
-                                          Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
-                                          Parent.Width,
-                                          300
-                                      )
-                                  Children:
-                                    - cboContracType:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: =["SOW"]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          OnChange: =
-                                          Required: =true
-                                          Width: =80
-                                    - txtContractSearch:
-                                        Control: TextInput@0.0.54
-                                        Properties:
-                                          FillPortions: =1
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Placeholder: |-
-                                            =If(
-                                                cboContracType.Selected.Value = "SOW",
-                                                "Serach by SOW number",
-                                                "Search "
-                                            )
-                                          Type: ="Search"
-                                          Width: |
-                                            =200
-                              - btnSearch:
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Request a"
+                                    Width: =130
+                              - NewSowButton:
                                   Control: Button@0.0.45
                                   Properties:
-                                    FontSize: =12
-                                    Icon: ="Search"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BasePaletteColor: =RGBA(5, 102, 178, 1)
+                                    FontSize: =18
+                                    Height: =40
+                                    Icon: ="Add"
+                                    Layout: ='ButtonCanvas.Layout'.IconAfter
                                     LayoutMinHeight: =16
                                     LayoutMinWidth: =16
-                                    OnSelect: "=With(\r\n    {\r\n        contractType: cboContracType.Selected.Value,\r\n        searchValue: txtContractSearch.Value \r\n    },\r\n    If(\r\n        // validation 1\r\n        IsBlank(contractType),\r\n        Notify(\"Selecciona el tipo de contrato a buscar\", NotificationType.Error);\r\n        SetFocus(cboContracType),\r\n\r\n        // validation 2\r\n        Len(searchValue) < 3,\r\n        Notify(\"Ingresa un texto de búsqueda válido\", NotificationType.Error);\r\n        SetFocus(txtContractSearch),\r\n\r\n        // ok\r\n            // action\r\n            Notify(\r\n                JSON({\r\n                    ContractType: contractType,\r\n                    SearchValue: searchValue\r\n                }\r\n                ), \r\n                NotificationType.Success\r\n            );\r\n            \r\n            // clean\r\n            Reset(cboContracType);\r\n            Reset(txtContractSearch);\r\n    )\r\n);\r\n\r\n\r\n"
-                                    Text: ="Search"
+                                    OnSelect: |-
+                                      =UpdateContext({showNewSowModal:true});
+                                      UpdateContext({showBackdrop:true})
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="New Sow"
+                                    Width: =150
+                              - Label2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Lighter
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =15
+                                    Text: ="Your new SOW starts here."
                                     Width: |-
                                       =If(
                                           Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
                                           Parent.Width,
-                                          100
+                                          Label2Width.Height
                                       )
             - FooterContainer:
                 Control: GroupContainer@1.4.0
                 Variant: AutoLayout
                 Properties:
+                  ContentLanguage: =
                   DropShadow: =DropShadow.None
                   Fill: =RGBA(255, 255, 255, 1)
                   FillPortions: =0
-                  Height: =75
+                  Height: =FooterAutoHeight.Y + designSystem.paddingDefault
                   LayoutAlignItems: =LayoutAlignItems.Center
-                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
                   LayoutMinHeight: =16
                   LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
                   RadiusBottomLeft: =0
                   RadiusBottomRight: =0
                   RadiusTopLeft: =0
                   RadiusTopRight: =0
+                Children:
+                  - txtFooter:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.None
+                        Height: =
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =12
+                        Text: ="Developed to standardize and centralize the management of new SOW requests within a single corporate repository."
+                        Width: |-
+                          =If(
+                              Screen.Width < 500 && Screen.Orientation = Layout.Vertical,
+                              Parent.Width,
+                              txtFooterWidth.Height / 2
+                          )
+                  - Rectangle3:
+                      Control: Rectangle@2.3.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Fill: =designSystem.colors.default
+                        Height: =1
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Width: =txtFooter.Width
+                  - txtVersion:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        AutoHeight: =true
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =12
+                        Text: ="SOW Repository - Version 1.0.0"
+                        Weight: ='TextCanvas.Weight'.Bold
+                        Width: =txtVersionWidth.Height
+                  - FooterAutoHeight:
+                      Control: Rectangle@2.3.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =1
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
       - ModalBackdrop:
           Control: GroupContainer@1.4.0
           Variant: ManualLayout
