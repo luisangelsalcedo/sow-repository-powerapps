@@ -6,11 +6,16 @@
 # 
 # For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
 # ************************************************************************************************
-EditorState:
-  ScreensOrder:
-    - Screen
-  ComponentDefinitionsOrder:
-    - SearchSelect
-    - UtilsFunctions
-    - UtilsEvents
-    - FormHeader
+ComponentDefinitions:
+  UtilsEvents:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      showNewSowModal:
+        PropertyKind: Event
+        DisplayName: showNewSowModal
+        Description: Propiedad personalizada
+        ReturnType: None
+        Default: =
+    Properties:
+      Height: =1
+      Width: =1

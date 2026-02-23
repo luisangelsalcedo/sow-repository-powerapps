@@ -36,11 +36,25 @@
               "type": "object",
               "properties": {
                 "text": {
-                  "title": "_projectName",
+                  "description": "Please enter your input",
+                  "title": "_org",
                   "type": "string",
-                  "x-ms-dynamically-added": true,
-                  "description": "Escribir entrada",
-                  "x-ms-content-hint": "TEXT"
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Please enter your input",
+                  "title": "_un",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Please enter your input",
+                  "title": "_sowName",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
                 },
                 "date": {
                   "description": "Please enter or select a date (YYYY-MM-DD)",
@@ -58,51 +72,135 @@
                   "x-ms-content-hint": "DATE",
                   "x-ms-dynamically-added": true
                 },
-                "text_1": {
-                  "description": "Please enter your input",
-                  "title": "_extension",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_2": {
-                  "description": "Please enter your input",
-                  "title": "_company",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_3": {
-                  "description": "Please enter your input",
-                  "title": "_org",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
                 "text_4": {
                   "description": "Please enter your input",
-                  "title": "_un",
+                  "title": "_customer",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
                 "text_5": {
                   "description": "Please enter your input",
-                  "title": "_costumerName",
+                  "title": "_zurichLineManager",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
                 "text_6": {
                   "description": "Please enter your input",
-                  "title": "_zurichLineManager",
+                  "title": "_extensionOrNew",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_7": {
+                "text_3": {
                   "description": "Please enter your input",
-                  "title": "_requestor",
+                  "title": "_itOrNonIT",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_9": {
+                  "description": "Please enter your input",
+                  "title": "_typeService",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_10": {
+                  "description": "Please enter your input",
+                  "title": "_engagementType",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_11": {
+                  "description": "Please enter your input",
+                  "title": "_deliveryStrategy",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_12": {
+                  "description": "Please enter your input",
+                  "title": "_technologyCluster",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_13": {
+                  "description": "Please enter your input",
+                  "title": "_capability",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_14": {
+                  "description": "Please enter your input",
+                  "title": "_technology",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_15": {
+                  "description": "Please enter your input",
+                  "title": "_billingType",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "number": {
+                  "description": "Please enter a number",
+                  "title": "_totalAmount",
+                  "type": "number",
+                  "x-ms-content-hint": "NUMBER",
+                  "x-ms-dynamically-added": true
+                },
+                "text_16": {
+                  "description": "Please enter your input",
+                  "title": "_mana",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_17": {
+                  "description": "Please enter your input",
+                  "title": "_mkt",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_18": {
+                  "description": "Please enter your input",
+                  "title": "_ext",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "number_1": {
+                  "description": "Please enter a number",
+                  "title": "_cmSale",
+                  "type": "number",
+                  "x-ms-content-hint": "NUMBER",
+                  "x-ms-dynamically-added": true
+                },
+                "number_2": {
+                  "description": "Please enter a number",
+                  "title": "_percentageCostTeam",
+                  "type": "number",
+                  "x-ms-content-hint": "NUMBER",
+                  "x-ms-dynamically-added": true
+                },
+                "number_3": {
+                  "description": "Please enter a number",
+                  "title": "_amountCostTeam",
+                  "type": "number",
+                  "x-ms-content-hint": "NUMBER",
+                  "x-ms-dynamically-added": true
+                },
+                "text_19": {
+                  "description": "Please enter your input",
+                  "title": "_userName",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
@@ -110,15 +208,29 @@
               },
               "required": [
                 "text",
-                "date",
-                "date_1",
                 "text_1",
                 "text_2",
-                "text_3",
+                "date",
+                "date_1",
                 "text_4",
                 "text_5",
                 "text_6",
-                "text_7"
+                "text_3",
+                "text_9",
+                "text_10",
+                "text_11",
+                "text_12",
+                "text_13",
+                "text_14",
+                "text_15",
+                "number",
+                "text_16",
+                "text_17",
+                "text_18",
+                "number_1",
+                "number_2",
+                "number_3",
+                "text_19"
               ]
             }
           }
@@ -134,16 +246,30 @@
           "type": "Compose",
           "inputs": {
             "contractID": "@{variables('contractID')}",
-            "projectName": "@{triggerBody()?['text']}",
+            "org": "@{triggerBody()?['text']}",
+            "un": "@{triggerBody()?['text_1']}",
+            "sowName": "@{triggerBody()?['text_2']}",
             "startDate": "@{triggerBody()?['date']}",
             "endDate": "@{triggerBody()?['date_1']}",
-            "extension": "@{triggerBody()?['text_1']}",
-            "company": "@{triggerBody()?['text_2']}",
-            "org": "@{triggerBody()?['text_3']}",
-            "un": "@{triggerBody()?['text_4']}",
-            "costumerName": "@{triggerBody()?['text_5']}",
-            "zurichLineManager": "@{triggerBody()?['text_6']}",
-            "requestor": "@{triggerBody()?['text_7']}",
+            "customer": "@{triggerBody()?['text_4']}",
+            "zurichLineManager": "@{triggerBody()?['text_5']}",
+            "extensionOrNew": "@{triggerBody()?['text_6']}",
+            "itOrNonIT": "@{triggerBody()?['text_3']}",
+            "typeService": "@{triggerBody()?['text_9']}",
+            "engagementType": "@{triggerBody()?['text_10']}",
+            "deliveryStrategy": "@{triggerBody()?['text_11']}",
+            "technologyCluster": "@{triggerBody()?['text_12']}",
+            "capability": "@{triggerBody()?['text_13']}",
+            "technology": "@{triggerBody()?['text_14']}",
+            "billingType": "@{triggerBody()?['text_15']}",
+            "totalAmount": "@{triggerBody()?['number']}",
+            "mana": "@{triggerBody()?['text_16']}",
+            "mkt": "@{triggerBody()?['text_17']}",
+            "ext": "@{triggerBody()?['text_18']}",
+            "cmSale": "@{triggerBody()?['number_1']}",
+            "percentageCostTeam": "@{triggerBody()?['number_2']}",
+            "amountCostTeam": "@{triggerBody()?['number_3']}",
+            "requestor": "@{triggerBody()?['text_19']}",
             "createdDate": "@{utcNow()}",
             "year": "@{variables('year')}"
           }
@@ -228,7 +354,7 @@
         },
         "Create_new_document_set": {
           "runAfter": {
-            "Create_new_folder": [
+            "Create_Folder": [
               "Succeeded",
               "Skipped"
             ]
@@ -240,57 +366,36 @@
               "table": "79d179ed-a926-4d70-9516-754105d3503d",
               "parameters/path": "@concat(variables('year'), '/sow', variables('contractID'))",
               "parameters/contentTypeId": "0x0120D52000FA1377E518C5D1418987B08475BD576C00C498A10ACA405D4BBD088CDCBB3CDD13",
+              "parameters/DynamicProperties/Title": "@concat('sow',variables('contractID'))",
               "parameters/DynamicProperties/ContractID": "@variables('contractID')",
-              "parameters/DynamicProperties/extension": "@triggerBody()?['text_1']",
-              "parameters/DynamicProperties/company": "@triggerBody()?['text_2']",
-              "parameters/DynamicProperties/org": "@triggerBody()?['text_3']",
-              "parameters/DynamicProperties/un0": "@triggerBody()?['text_4']",
-              "parameters/DynamicProperties/costumerName": "@triggerBody()?['text_5']",
-              "parameters/DynamicProperties/zurichLineManager": "@triggerBody()?['text_6']",
-              "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_7']"
+              "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_16']",
+              "parameters/DynamicProperties/org": "@triggerBody()?['text']",
+              "parameters/DynamicProperties/Business_x0020_unit": "@triggerBody()?['text_1']",
+              "parameters/DynamicProperties/ProjectName": "@triggerBody()?['text_2']",
+              "parameters/DynamicProperties/OData__startDate": "@triggerBody()?['date']",
+              "parameters/DynamicProperties/endDate": "@triggerBody()?['date_1']",
+              "parameters/DynamicProperties/costumerName": "@triggerBody()?['text_4']",
+              "parameters/DynamicProperties/zurichLineManager": "@triggerBody()?['text_5']",
+              "parameters/DynamicProperties/extension": "@triggerBody()?['text_6']",
+              "parameters/DynamicProperties/OData__org": "@triggerBody()?['text_3']",
+              "parameters/DynamicProperties/company": "@triggerBody()?['text_9']",
+              "parameters/DynamicProperties/engagementType": "@triggerBody()?['text_10']",
+              "parameters/DynamicProperties/Delivery_x0020_strategy": "@triggerBody()?['text_11']",
+              "parameters/DynamicProperties/Technology_x0020_cluster": "@triggerBody()?['text_12']",
+              "parameters/DynamicProperties/Capability": "@triggerBody()?['text_13']",
+              "parameters/DynamicProperties/Technology": "@triggerBody()?['text_14']",
+              "parameters/DynamicProperties/Billing_x0020_type": "@triggerBody()?['text_15']",
+              "parameters/DynamicProperties/Total_x0020_amount_x0020_SOW_x002F_WO_x0020_excluding_x0020_VAT_x0020_in_x0020__x0024_1": "@triggerBody()?['number']",
+              "parameters/DynamicProperties/MANA_x0020_opportunity": "@triggerBody()?['text_16']",
+              "parameters/DynamicProperties/MKT": "@triggerBody()?['text_17']",
+              "parameters/DynamicProperties/EXT": "@triggerBody()?['text_18']",
+              "parameters/DynamicProperties/OData__x0025__x0020_Contract_x0020_margin_x0020_sale": "@triggerBody()?['number_1']",
+              "parameters/DynamicProperties/OData__x0025__x0020_INSURANCE_x0020_cost_x0020_team_x0020_included_x0020_in_x0020_SOW": "@triggerBody()?['number_2']",
+              "parameters/DynamicProperties/Amount_x0020_INSURANCE_x0020_cost_x0020_team_x0020_included_x0020_in_x0020_SOW": "@triggerBody()?['number_3']"
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
               "operationId": "CreateNewDocumentSet",
-              "connectionName": "shared_sharepointonline"
-            }
-          }
-        },
-        "Get_folder_metadata_using_path": {
-          "runAfter": {
-            "Compose": [
-              "Succeeded"
-            ]
-          },
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-              "path": "@concat('/SR_Contracts/',variables('year'))"
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-              "operationId": "GetFolderMetadataByPath",
-              "connectionName": "shared_sharepointonline"
-            }
-          }
-        },
-        "Create_new_folder": {
-          "runAfter": {
-            "Get_folder_metadata_using_path": [
-              "Failed"
-            ]
-          },
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-              "table": "79d179ed-a926-4d70-9516-754105d3503d",
-              "parameters/path": "@variables('year')"
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-              "operationId": "CreateNewFolder",
               "connectionName": "shared_sharepointonline"
             }
           }
@@ -315,6 +420,56 @@
               "connectionName": "shared_sharepointonline"
             }
           }
+        },
+        "Try_Get_Folder": {
+          "actions": {
+            "Get_folder_metadata_using_path": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+                  "path": "@concat('/SR_Contracts/',variables('year'))"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "GetFolderMetadataByPath",
+                  "connectionName": "shared_sharepointonline"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Create_Folder": {
+          "actions": {
+            "Create_new_folder": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+                  "table": "79d179ed-a926-4d70-9516-754105d3503d",
+                  "parameters/path": "@variables('year')"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "CreateNewFolder",
+                  "connectionName": "shared_sharepointonline"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try_Get_Folder": [
+              "Failed",
+              "TimedOut"
+            ]
+          },
+          "type": "Scope"
         }
       }
     },

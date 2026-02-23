@@ -29,7 +29,7 @@ FormHeader As CanvasComponent:
                 status: "Completed" 
             }
         )
-    Width: =640
+    Width: =400
     X: =0
     Y: =0
     ZIndex: =1
@@ -97,6 +97,7 @@ FormHeader As CanvasComponent:
                 OnSelect: |
                     =FormHeader.OnTabSelect(ThisItem.index);
                 Text: =ThisItem.label
+                VerticalAlign: =VerticalAlign.Middle
                 Width: =Parent.TemplateWidth
                 X: =0
                 Y: |

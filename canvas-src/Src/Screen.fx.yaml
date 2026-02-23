@@ -17,7 +17,7 @@
             
         X: =60
         Y: =60
-        ZIndex: =1
+        ZIndex: =2
 
     txtVersionWidth As htmlViewer:
         AutoHeight: =true
@@ -34,7 +34,7 @@
             
         X: =40
         Y: =40
-        ZIndex: =2
+        ZIndex: =3
 
     txtFooterWidth As htmlViewer:
         AutoHeight: =true
@@ -51,7 +51,7 @@
             
         X: =40
         Y: =40
-        ZIndex: =3
+        ZIndex: =4
 
     SearchContainer As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None
@@ -79,7 +79,7 @@
         RadiusTopRight: =0
         Width: =Parent.Width
         Y: =40
-        ZIndex: =4
+        ZIndex: =5
 
         SearchContainerLeft As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.Center
@@ -256,143 +256,6 @@
             X: =0
             Y: =0
             ZIndex: =4
-
-    "'form-control-submit' As groupContainer.horizontalAutoLayoutContainer":
-        ContentLanguage: =
-        DropShadow: =DropShadow.None
-        Height: |+
-            =40
-            
-        LayoutDirection: =LayoutDirection.Vertical
-        LayoutGridColumns: =6
-        LayoutGridRows: =6
-        LayoutMode: =LayoutMode.Auto
-        RadiusBottomLeft: =0
-        RadiusBottomRight: =0
-        RadiusTopLeft: =0
-        RadiusTopRight: =0
-        Width: =Parent.Width - designSystem.paddingDefault
-        X: =16
-        Y: =40
-        ZIndex: =5
-
-        ButtonCanvas1 As Botón:
-            AcceptsFocus: =true
-            AccessibleLabel: =""
-            Align: =""
-            AlignInContainer: =AlignInContainer.Center
-            Appearance: ="Primary"
-            BasePaletteColor: =
-            BorderColor: =
-            BorderStyle: =""
-            ContentLanguage: =""
-            DisplayMode: =DisplayMode.Edit
-            Font: =""
-            FontColor: =
-            FontItalic: =false
-            FontSize: =0
-            FontStrikethrough: =false
-            FontUnderline: =false
-            FontWeight: =""
-            Height: =32
-            Icon: =""
-            IconRotation: =0
-            IconStyle: ="Outline"
-            Layout: ="Icon before"
-            LayoutMaxHeight: =0
-            LayoutMaxWidth: =0
-            LayoutMinHeight: =16
-            LayoutMinWidth: =16
-            OnSelect: |-
-                =With(
-                    {
-                        _projectName    : txtProjectName.Value,
-                        _startDate      : dpkStartDate.SelectedDate,
-                        _endDate        : dpkEndDate.SelectedDate,
-                        _extension      : ddwExtension.Selected.Value,
-                        _company        : ddwCompany.Selected.Value,
-                        _org            : ddwOrg.Selected.Value,
-                        _un             : ddwUn.Selected.Value,
-                        _costumerName   : ddwCostumerName.Selected.Value,
-                        _zurichLineManager  :TextInputCanvas1.Value,
-                        _user           : User().FullName,
-                        _attach         : DataCardValue.Attachments
-                    },
-                    If(
-                        //validation
-                            Len(_projectName) < 3,
-                            Notify("agrega un nombre de proyecto valido", NotificationType.Error); SetFocus(txtProjectName),
-                            IsBlank(_startDate),
-                            Notify("Selecciona una fecha de inicio", NotificationType.Error); SetFocus(dpkStartDate),
-                            IsBlank(_endDate),
-                            Notify("Selecciona una fecha de termino", NotificationType.Error); SetFocus(dpkEndDate),
-                            IsBlank(_extension),
-                            Notify("Selecciona extension", NotificationType.Error); SetFocus(ddwExtension),
-                            IsBlank(_company),
-                            Notify("Selecciona company", NotificationType.Error); SetFocus(ddwCompany),
-                            IsBlank(_org),
-                            Notify("Selecciona org", NotificationType.Error); SetFocus(ddwOrg),
-                            IsBlank(_un),
-                            Notify("Selecciona un", NotificationType.Error); SetFocus(ddwUn),
-                            IsBlank(_costumerName),
-                            Notify("Selecciona costumerName", NotificationType.Error); SetFocus(ddwCostumerName),
-                            IsBlank(_zurichLineManager),
-                            Notify("Selecciona zurichLineManager", NotificationType.Error); SetFocus(TextInputCanvas1),
-                            CountRows(_attach) = 0,
-                            Notify("Adjunta algun documento", NotificationType.Error),
-                        
-                        
-                            //loader
-                            UpdateContext({loaderNewSowModal:true});
-                            
-                            //action
-                            With(
-                                {
-                                    _response: flow_createSow.Run(
-                                        _projectName,
-                                        Text(_startDate, "yyyy-mm-dd"),
-                                        Text(_endDate, "yyyy-mm-dd"),
-                                        _extension,
-                                        _company,
-                                        _org,
-                                        _un,
-                                        _costumerName,
-                                        _zurichLineManager,
-                                        _user
-                                    ).response
-                                },
-                                //success message
-                                Notify(_response, NotificationType.Success);
-                                
-                
-                                // clean controls
-                                Reset(txtProjectName);
-                                Reset(dpkStartDate);
-                                Reset(dpkEndDate);
-                                Reset(ddwExtension);
-                                Reset(ddwCompany);
-                                Reset(ddwOrg);
-                                Reset(ddwUn);
-                                Reset(ddwCostumerName);
-                                Reset(TextInputCanvas1);
-                
-                                
-                                // close modal
-                                UpdateContext({loaderNewSowModal:false});
-                                UpdateContext({showNewSowModal:false});
-                                UpdateContext({showBackdrop:false});
-                            )     
-                    )
-                )
-            TabIndex: =0
-            Text: ="Botón"
-            Tooltip: =""
-            VerticalAlign: =""
-            Visible: =true
-            Width: =96
-            X: =(Parent.Width - Self.Width) / 2
-            Y: =(Parent.Height - Self.Height) / 2
-            ZIndex: =1
 
     "'form-control-attach' As groupContainer.horizontalAutoLayoutContainer":
         ContentLanguage: =
@@ -819,7 +682,10 @@
                         LayoutMinWidth: =16
                         OnSelect: |-
                             =UpdateContext({showNewSowModal:true});
-                            UpdateContext({showBackdrop:true})
+                            UpdateContext({showBackdrop:true});
+                            
+                            // set the current tab for the first time
+                            If(IsBlank(currentTab),UpdateContext({currentTab: 1}))
                         PaddingBottom: =0
                         PaddingLeft: =0
                         PaddingRight: =0
@@ -956,9 +822,49 @@
             Height: =Parent.Height
             HoverFill: =RGBA(0, 0, 0, 0.55)
             OnSelect: |-
-                =UpdateContext({showBackdrop:false});
+                = // clean controls
+                Reset(cbbOrg);
+                Reset(cbbUn);
+                Reset(txtSowName);
+                Reset(dpkStartDate);
+                Reset(dpkEndDate);
+                Reset(cbbCustomer);
+                Reset(txtZurichLineManager);
+                Reset(cbbExtensionOrNew);
+                Reset(cbbItOrNonIT);
+                Reset(cbbTypeService);
+                Reset(cbbEngagementType);
+                Reset(cbbDeliveryStrategy);
+                Reset(cbbTechnologyCluster);
+                Reset(cbbCapability);
+                Reset(cbbTechnology);
+                Reset(cbbBillingType);
+                Reset(txtTotalAmount);
+                Reset(txtMana);
+                Reset(txtMkt);
+                Reset(txtExt);
+                Reset(txtCmSale);
+                Reset(txtPercentageCostTeam);
+                Reset(txtAmountCostTeam);
+                
+                // close modal
                 UpdateContext({showNewSowModal:false});
+                UpdateContext({showBackdrop:false});
                 UpdateContext({loaderNewSowModal:false});
+                
+                // Reset tabs
+                UpdateContext({currentTab:1});
+                UpdateContext({currentTab: 1});
+                UpdateIf(
+                    colTabs,
+                    status = "Active",
+                    { status: "Pending" }
+                );
+                Patch(
+                    colTabs,
+                    LookUp(colTabs, index = 1),
+                    { status: "Active" }
+                )
             PressedFill: =RGBA(0,0,0, 0.5)
             Text: =
             Visible: |
@@ -988,6 +894,7 @@
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =16
             LayoutGridColumns: =6
             LayoutGridRows: =6
             LayoutMode: =LayoutMode.Auto
@@ -1006,7 +913,7 @@
             "'NewSowModal-title' As groupContainer.horizontalAutoLayoutContainer":
                 DropShadow: =DropShadow.None
                 FillPortions: =0
-                Height: =80
+                Height: =60
                 LayoutAlignItems: =LayoutAlignItems.Center
                 LayoutGridColumns: =6
                 LayoutGridRows: =6
@@ -1066,26 +973,55 @@
                         IconStyle: ='ButtonCanvas.IconStyle'.Filled
                         Layout: ='ButtonCanvas.Layout'.IconOnly
                         OnSelect: |-
-                            =UpdateContext({showNewSowModal:false});
-                            UpdateContext({showBackdrop:false});
-                            
-                            // clean controls
-                            Reset(txtProjectName);
+                            = // clean controls
+                            Reset(cbbOrg);
+                            Reset(cbbUn);
+                            Reset(txtSowName);
                             Reset(dpkStartDate);
                             Reset(dpkEndDate);
-                            Reset(ddwExtension);
-                            Reset(ddwCompany);
-                            Reset(ddwOrg);
-                            Reset(ddwUn);
-                            Reset(ddwCostumerName);
-                            Reset(TextInputCanvas1);
-                            ResetForm(TempForm);
+                            Reset(cbbCustomer);
+                            Reset(txtZurichLineManager);
+                            Reset(cbbExtensionOrNew);
+                            Reset(cbbItOrNonIT);
+                            Reset(cbbTypeService);
+                            Reset(cbbEngagementType);
+                            Reset(cbbDeliveryStrategy);
+                            Reset(cbbTechnologyCluster);
+                            Reset(cbbCapability);
+                            Reset(cbbTechnology);
+                            Reset(cbbBillingType);
+                            Reset(txtTotalAmount);
+                            Reset(txtMana);
+                            Reset(txtMkt);
+                            Reset(txtExt);
+                            Reset(txtCmSale);
+                            Reset(txtPercentageCostTeam);
+                            Reset(txtAmountCostTeam);
+                            
+                            // close modal
+                            UpdateContext({showNewSowModal:false});
+                            UpdateContext({showBackdrop:false});
+                            UpdateContext({loaderNewSowModal:false});
+                            
+                            // Reset tabs
+                            UpdateContext({currentTab:1});
+                            UpdateContext({currentTab: 1});
+                            UpdateIf(
+                                colTabs,
+                                status = "Active",
+                                { status: "Pending" }
+                            );
+                            Patch(
+                                colTabs,
+                                LookUp(colTabs, index = 1),
+                                { status: "Active" }
+                            )
                         Width: =35
                         X: =0
                         Y: =0
                         ZIndex: =3
 
-            FormHeader_1 As FormHeader:
+            "'NewSowModal-tabs' As FormHeader":
                 AlignInContainer: =AlignInContainer.Stretch
                 Height: =60
                 Items: =colTabs
@@ -1094,7 +1030,7 @@
                 LayoutMinHeight: =640
                 LayoutMinWidth: =0
                 OnTabSelect: |-
-                    =UpdateContext({CurrentTab: Index});
+                    =UpdateContext({currentTab: Index});
                     UpdateIf(
                         colTabs,
                         status = "Active",
@@ -1134,45 +1070,117 @@
                     RadiusBottomRight: =0
                     RadiusTopLeft: =0
                     RadiusTopRight: =0
-                    Visible: =CurrentTab = 3
+                    Visible: =currentTab = 3
                     Width: =Parent.Width
-                    ZIndex: =2
+                    ZIndex: =1
 
-                "'NewSowModal-form-container-2' As groupContainer.horizontalAutoLayoutContainer":
-                    DropShadow: =DropShadow.None
-                    Height: =Parent.Height
-                    LayoutGap: =designSystem.paddingDefault
-                    LayoutGridColumns: =6
-                    LayoutGridRows: =6
-                    LayoutMode: =LayoutMode.Auto
-                    LayoutOverflowY: =LayoutOverflow.Scroll
-                    LayoutWrap: =true
-                    RadiusBottomLeft: =0
-                    RadiusBottomRight: =0
-                    RadiusTopLeft: =0
-                    RadiusTopRight: =0
-                    Visible: =CurrentTab = 2
-                    Width: =Parent.Width
-                    ZIndex: =3
+                    "'fc-billingType' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =25
 
-                "'NewSowModal-form-container-1' As groupContainer.horizontalAutoLayoutContainer":
-                    DropShadow: =DropShadow.None
-                    Height: =Parent.Height
-                    LayoutGap: =designSystem.paddingDefault
-                    LayoutGridColumns: =6
-                    LayoutGridRows: =6
-                    LayoutMode: =LayoutMode.Auto
-                    LayoutOverflowY: =LayoutOverflow.Scroll
-                    LayoutWrap: =true
-                    RadiusBottomLeft: =0
-                    RadiusBottomRight: =0
-                    RadiusTopLeft: =0
-                    RadiusTopRight: =0
-                    Visible: =CurrentTab = 1
-                    Width: =Parent.Width
-                    ZIndex: =4
+                        "'fc-billingType-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
 
-                    "'form-control-projectName' As groupContainer.horizontalAutoLayoutContainer":
+                            "'fc-billingType-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.billingType.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-billingType-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.billingType.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbBillingType As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.billingType.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =32
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-totalAmount' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1191,27 +1199,71 @@
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
-                        Width: =Parent.Width
-                        ZIndex: =1
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =26
 
-                        lblProjectName As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-totalAmount-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Service Work Order"
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                        "txtProjectName As 'Entrada de texto'":
+                            "'fc-totalAmount-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.totalAmount.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-totalAmount-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.totalAmount.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtTotalAmount As 'Entrada de texto'":
                             AccessibleLabel: =""
                             Align: =""
                             AlignInContainer: =AlignInContainer.Stretch
@@ -1237,7 +1289,129 @@
                             MaxLength: =-1
                             Mode: ="SingleLine"
                             OnChange: =false
-                            Placeholder: =""
+                            Placeholder: =formNewSowData.item.totalAmount.placeholder
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Numeric"
+                            ValidationState: ="None"
+                            Value: =
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-mana' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =27
+
+                        "'fc-mana-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-mana-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.mana.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-mana-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.mana.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtMana As 'Entrada de texto'":
+                            AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =formNewSowData.item.mana.placeholder
                             Required: =false
                             TabIndex: =0
                             Tooltip: =""
@@ -1251,7 +1425,1494 @@
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-org' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-mkt' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =28
+
+                        "'fc-mkt-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-mkt-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.mkt.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-mkt-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.mkt.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtMkt As 'Entrada de texto'":
+                            AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =formNewSowData.item.mkt.placeholder
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-ext' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =29
+
+                        "'fc-ext-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-ext-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.ext.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-ext-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.ext.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtExt As 'Entrada de texto'":
+                            AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =formNewSowData.item.ext.placeholder
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-cmSale' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =30
+
+                        "'fc-cmSale-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-cmSale-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.cmSale.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-cmSale-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.cmSale.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtCmSale As 'Entrada de texto'":
+                            AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =formNewSowData.item.cmSale.placeholder
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-percentageCostTeam' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =31
+
+                        "'fc-percentageCostTeam-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-percentageCostTeam-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.percentageCostTeam.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-percentageCostTeam-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.percentageCostTeam.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtPercentageCostTeam As 'Entrada de texto'":
+                            AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =formNewSowData.item.percentageCostTeam.placeholder
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-amountCostTeam' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =32
+
+                        "'fc-amountCostTeam-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-amountCostTeam-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.amountCostTeam.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-amountCostTeam-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.amountCostTeam.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtAmountCostTeam As 'Entrada de texto'":
+                            AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =formNewSowData.item.amountCostTeam.placeholder
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =
+                            Visible: =true
+                            Width: =320
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                "'NewSowModal-form-container-2' As groupContainer.horizontalAutoLayoutContainer":
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =designSystem.paddingDefault
+                    LayoutGridColumns: =6
+                    LayoutGridRows: =6
+                    LayoutMode: =LayoutMode.Auto
+                    LayoutOverflowY: =LayoutOverflow.Scroll
+                    LayoutWrap: =true
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Visible: =currentTab = 2
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    "'fc-itOrNonIT' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =65
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =1
+
+                        "'fc-itOrNonIT-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-itOrNonIT-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.itOrNonIT.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-itOrNonIT-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.itOrNonIT.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbItOrNonIT As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.itOrNonIT.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-typeService' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =65
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        X: =40
+                        Y: =40
+                        ZIndex: =2
+
+                        "'fc-typeService-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-typeService-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.typeService.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-typeService-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.typeService.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbTypeService As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.typeService.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =32
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-engagementType' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =65
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =3
+
+                        "'fc-engagementType-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-engagementType-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.engagementType.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-engagementType-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.engagementType.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbEngagementType As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.engagementType.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =32
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-deliveryStrategy' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =65
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =4
+
+                        "'fc-deliveryStrategy-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-deliveryStrategy-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.deliveryStrategy.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-deliveryStrategy-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.deliveryStrategy.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbDeliveryStrategy As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.deliveryStrategy.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =32
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-technologyCluster' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                        ZIndex: =5
+
+                        "'fc-technologyCluster-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-technologyCluster-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.technologyCluster.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-technologyCluster-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.technologyCluster.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbTechnologyCluster As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.technologyCluster.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =32
+                            LayoutMinWidth: =320
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-capability' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                        ZIndex: =23
+
+                        "'fc-capability-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-capability-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.capability.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-capability-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.capability.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbCapability As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.capability.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =32
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-technology' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                        ZIndex: =24
+
+                        "'fc-technology-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-technology-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.technology.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-technology-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.technology.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbTechnology As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.technology.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =32
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                "'NewSowModal-form-container-1' As groupContainer.horizontalAutoLayoutContainer":
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =designSystem.paddingDefault
+                    LayoutGridColumns: =6
+                    LayoutGridRows: =6
+                    LayoutMode: =LayoutMode.Auto
+                    LayoutOverflowY: =LayoutOverflow.Scroll
+                    LayoutWrap: =true
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Visible: =currentTab = 1
+                    Width: =Parent.Width
+                    ZIndex: =4
+
+                    "'fc-org' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =1
+
+                        "'fc-org-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-org-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.org.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-org-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.org.label
+                                ZIndex: =2
+
+                        cbbOrg As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.org.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =4
+
+                    "'fc-un' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1273,35 +2934,77 @@
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                         ZIndex: =2
 
-                        Label2_5 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-un-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Organization/LSA"
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                        ddwOrg As Desplegable.pcfdataset:
+                            "'fc-un-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.un.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-un-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.un.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbUn As Desplegable.pcfdataset:
                             AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
                             Appearance: ="FilledDarker"
                             BorderStyle: =""
                             ContentLanguage: =""
                             DisplayMode: =DisplayMode.Edit
                             FontSize: =0
                             Height: =32
-                            Items: |-
-                                =[
-                                    "Argentina", "BRAZIL", "Colombia", "DACH", "GTO", "Italy", "Portugal", "Spain", "USA", "ZNA"
-                                ]
+                            Items: =formNewSowData.item.un.items
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
@@ -1317,7 +3020,7 @@
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-un' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-sowName' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1336,54 +3039,111 @@
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        Width: =Parent.Width
                         ZIndex: =3
 
-                        Label2_6 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-sowName-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Business unit"
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                        ddwUn As Desplegable.pcfdataset:
+                            "'fc-sowName-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.sowName.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-sowName-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.sowName.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtSowName As 'Entrada de texto'":
                             AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
                             Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
                             BorderStyle: =""
                             ContentLanguage: =""
                             DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
                             FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
                             Height: =32
-                            Items: |-
-                                =[
-                                   "AS", "BPS", "CYBER", "DS", "DT", "ES", "INSURANCE", "IS", "OVERSIS"
-                                ]
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
                             OnChange: =false
+                            Placeholder: =formNewSowData.item.sowName.placeholder
                             Required: =false
                             TabIndex: =0
                             Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
                             ValidationState: ="None"
+                            Value: =
                             Visible: =true
-                            Width: =Parent.Width
+                            Width: =320
                             X: =0
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-startDate' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-startDate' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1405,23 +3165,67 @@
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                         ZIndex: =4
 
-                        Label2_1 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-startDate-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Start Date"
-                            Width: =
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
+
+                            "'fc-startDate-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.startDate.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-startDate-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.startDate.label
+                                Width: =
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
 
                         "dpkStartDate As 'Selector de fecha'":
                             AccessibleLabel: =""
@@ -1449,7 +3253,7 @@
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
                             OnChange: =false
-                            Placeholder: ="Seleccionar una fecha..."
+                            Placeholder: =formNewSowData.item.startDate.placeholder
                             Required: =false
                             StartOfWeek: ="Sunday"
                             TabIndex: =0
@@ -1461,7 +3265,7 @@
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-endDate' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-endDate' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1483,22 +3287,66 @@
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                         ZIndex: =5
 
-                        Label2_2 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-endDate-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="End Date"
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
+
+                            "'fc-endDate-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.endDate.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-endDate-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.endDate.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
 
                         "dpkEndDate As 'Selector de fecha'":
                             AccessibleLabel: =""
@@ -1526,7 +3374,7 @@
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
                             OnChange: =false
-                            Placeholder: ="Seleccionar una fecha..."
+                            Placeholder: =formNewSowData.item.endDate.placeholder
                             Required: =false
                             StartOfWeek: ="Sunday"
                             TabIndex: =0
@@ -1538,7 +3386,7 @@
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-zurichLineManager' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-customer' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1557,44 +3405,96 @@
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        Width: =Parent.Width
                         ZIndex: =6
 
-                        Label2_9 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-customer-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Zurich  Manager"
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                        "TextInputCanvas1 As 'Entrada de texto'":
-                            AccessibleLabel: ="Zurich approver"
-                            BasePaletteColor: =
-                            BorderColor: =
+                            "'fc-customer-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.customer.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-customer-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.customer.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbCustomer As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
                             DisplayMode: =DisplayMode.Edit
-                            Fill: =
-                            FontColor: =RGBA(106, 122, 127, 1)
+                            FontSize: =0
                             Height: =32
+                            Items: =formNewSowData.item.customer.items
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            Width: =320
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
                             X: =0
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-company' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-zurichLineManager' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1616,48 +3516,86 @@
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                         ZIndex: =7
 
-                        Label2_4 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-zurichLineManager-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Billin entity"
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                        ddwCompany As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
+                            "'fc-zurichLineManager-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.zurichLineManager.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-zurichLineManager-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.zurichLineManager.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtZurichLineManager As 'Entrada de texto'":
+                            AccessibleLabel: ="Zurich approver"
+                            AlignInContainer: =AlignInContainer.Stretch
+                            BasePaletteColor: =
+                            BorderColor: =
                             DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
+                            Fill: =
+                            FontColor: =RGBA(106, 122, 127, 1)
                             Height: =32
-                            Items: =["ServiZurich SA", "ZBANK", "Zurich American Insurance Company", "Zurich Argentina Compañía de Seguro", "Zurich Colombia", "ZURICH INSURANCE COMPANY LTD", "Zurich Insurance Company Ltd Italian Branch", "Zurich Insurance Company Ltd.", "ZURICH Insurance Europe AG Italian Branch", "ZURICH Insurance Europe AG Italian Branch /Zurich Investments Life S.p.A", "ZURICH INSURANCE EUROPE AG SUCURSAL ESPAÑA", "Zurich Insurance Europe AG, Sucursal em Portugal", "Zurich Insurance Europe AG, Sucursal en España ZIE", "Zurich Insurance PLC, Sucursal en España", "Zurich Investments Life S.p.A", "Zurich Minas Brasil Seguros S.A", "Zurich USA, Canada, UK, Ireland, Spain, Germany, Italy, Swiss, France", "Zürich Versicherungs-Gesellschaft AG"]
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
+                            Placeholder: =formNewSowData.item.zurichLineManager.placeholder
+                            Width: =300
                             X: =0
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-IT or non-IT' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-extensionOrNew' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -1679,537 +3617,338 @@
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                         ZIndex: =8
 
-                        Label2_10 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
+                        "'fc-extensionOrNew-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
                             LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="IT or Non-IT"
+                            LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                        ddwExtension_1 As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
+                            "'fc-extensionOrNew-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.extensionOrNew.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-extensionOrNew-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.extensionOrNew.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbExtensionOrNew As Desplegable.pcfdataset:
+                            AlignInContainer: =AlignInContainer.Stretch
                             DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
                             Height: =32
-                            Items: |-
-                                =[
-                                    "IT",
-                                    "Non-IT"
-                                ]
+                            Items: =formNewSowData.item.extensionOrNew.items
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
                             Width: =Parent.Width
                             X: =0
                             Y: =0
                             ZIndex: =2
 
-                    "'form-control-Type of service' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        X: =40
-                        Y: =40
-                        ZIndex: =9
+            "'form-control-submit' As groupContainer.horizontalAutoLayoutContainer":
+                ContentLanguage: =
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: |+
+                    =40
+                    
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =Parent.Width - designSystem.paddingDefault
+                X: =40
+                Y: =40
+                ZIndex: =4
 
-                        Label2_11 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Type of service"
-                            ZIndex: =1
-
-                        ddwExtension_2 As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: |-
-                                =[
-                                    "SFA", "Project", "Enhacement", "Maintenance"
-                                ]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-Billing type' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =10
-
-                        Label2_12 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Billing type"
-                            ZIndex: =1
-
-                        ddwExtension_3 As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: |-
-                                =[
-                                    "Fixed", "Variable"
-                                ]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-Engagement type' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =11
-
-                        Label2_8 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Engagement type"
-                            ZIndex: =1
-
-                        ddwCostumerName As Desplegable.pcfdataset:
-                            AccessibleLabel: =""
-                            Appearance: ="FilledDarker"
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            FontSize: =0
-                            Height: =32
-                            Items: =["Application Maintenance Services", "BTO", "Cloud & Backend / Application Development (Azure)", "Cloud Migration & Support", "Compliance", "CRM ADM", "Data Architect", "Data Services", "Data Services (including API)", "DB2", "DBA", "DBE Databricks", "GDP", "Guidewire ADM", "IT&S", "Mainframe Optimisation", "Microstrategy", "PMO", "SAP", "SAP AM", "SAS", "Testing services"]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            OnChange: =false
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            ValidationState: ="None"
-                            Visible: =true
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-Total amount' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =12
-
-                        Label2_13 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Total amount SOW/WO excluding VAT in $"
-                            ZIndex: =1
-
-                        "TextInputCanvas1_1 As 'Entrada de texto'":
-                            AccessibleLabel: ="Zurich approver"
-                            Align: =""
-                            Appearance: ="FilledDarker"
-                            BasePaletteColor: =
-                            BorderColor: =
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            Fill: =
-                            Font: =""
-                            FontColor: =RGBA(106, 122, 127, 1)
-                            FontItalic: =false
-                            FontSize: =0
-                            FontStrikethrough: =false
-                            FontUnderline: =false
-                            FontWeight: =""
-                            Height: =32
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            MaxLength: =-1
-                            Mode: ="SingleLine"
-                            OnChange: =false
-                            Placeholder: =""
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            TriggerOutput: ="FocusOut"
-                            Type: ="Text"
-                            ValidationState: ="None"
-                            Value: =""
-                            Visible: =true
-                            Width: =320
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-extension' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =13
-
-                        Label2_3 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="New / Extension"
-                            ZIndex: =1
-
-                        ddwExtension As Desplegable.pcfdataset:
-                            DisplayMode: =DisplayMode.Edit
-                            Height: =32
-                            Items: |-
-                                =[
-                                    "New",
-                                    "Extension"
-                                ]
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            Width: =Parent.Width
-                            X: =0
-                            Y: =0
-                            ZIndex: =3
-
-                    "'form-control-Total amount_1' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =14
-
-                        Label2_15 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Total amount SOW/WO excluding VAT in $"
-                            ZIndex: =1
-
-                        "TextInputCanvas1_2 As 'Entrada de texto'":
-                            AccessibleLabel: ="Zurich approver"
-                            Align: =""
-                            Appearance: ="FilledDarker"
-                            BasePaletteColor: =
-                            BorderColor: =
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            Fill: =
-                            Font: =""
-                            FontColor: =RGBA(106, 122, 127, 1)
-                            FontItalic: =false
-                            FontSize: =0
-                            FontStrikethrough: =false
-                            FontUnderline: =false
-                            FontWeight: =""
-                            Height: =32
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            MaxLength: =-1
-                            Mode: ="SingleLine"
-                            OnChange: =false
-                            Placeholder: =""
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            TriggerOutput: ="FocusOut"
-                            Type: ="Text"
-                            ValidationState: ="None"
-                            Value: =""
-                            Visible: =true
-                            Width: =320
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
-
-                    "'form-control-Total amount_2' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.Start
-                        ContentLanguage: =
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: |
-                            =65
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGridColumns: =6
-                        LayoutGridRows: =6
-                        LayoutMaxHeight: =0
-                        LayoutMaxWidth: =0
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =15
-
-                        Label2_16 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Font: =designSystem.fontFamily
-                            FontWeight: =designSystem.style.label.fontWeight
-                            Height: =30
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =designSystem.style.label.fontSize
-                            Text: ="Total amount SOW/WO excluding VAT in $"
-                            ZIndex: =1
-
-                        "TextInputCanvas1_3 As 'Entrada de texto'":
-                            AccessibleLabel: ="Zurich approver"
-                            Align: =""
-                            Appearance: ="FilledDarker"
-                            BasePaletteColor: =
-                            BorderColor: =
-                            BorderStyle: =""
-                            ContentLanguage: =""
-                            DisplayMode: =DisplayMode.Edit
-                            Fill: =
-                            Font: =""
-                            FontColor: =RGBA(106, 122, 127, 1)
-                            FontItalic: =false
-                            FontSize: =0
-                            FontStrikethrough: =false
-                            FontUnderline: =false
-                            FontWeight: =""
-                            Height: =32
-                            LayoutMaxHeight: =0
-                            LayoutMaxWidth: =0
-                            LayoutMinHeight: =16
-                            LayoutMinWidth: =16
-                            MaxLength: =-1
-                            Mode: ="SingleLine"
-                            OnChange: =false
-                            Placeholder: =""
-                            Required: =false
-                            TabIndex: =0
-                            Tooltip: =""
-                            TriggerOutput: ="FocusOut"
-                            Type: ="Text"
-                            ValidationState: ="None"
-                            Value: =""
-                            Visible: =true
-                            Width: =320
-                            X: =0
-                            Y: =0
-                            ZIndex: =2
+                ButtonCanvas1 As Botón:
+                    AcceptsFocus: =true
+                    AccessibleLabel: =""
+                    Align: =""
+                    AlignInContainer: =AlignInContainer.Center
+                    Appearance: ="Primary"
+                    BasePaletteColor: =
+                    BorderColor: =
+                    BorderStyle: =""
+                    ContentLanguage: =""
+                    DisplayMode: =DisplayMode.Edit
+                    Font: =""
+                    FontColor: =
+                    FontItalic: =false
+                    FontSize: =0
+                    FontStrikethrough: =false
+                    FontUnderline: =false
+                    FontWeight: =""
+                    Height: =32
+                    Icon: =""
+                    IconRotation: =0
+                    IconStyle: ="Outline"
+                    Layout: ="Icon before"
+                    LayoutMaxHeight: =0
+                    LayoutMaxWidth: =0
+                    LayoutMinHeight: =16
+                    LayoutMinWidth: =16
+                    OnSelect: |-
+                        =With(
+                            {
+                                // ------------------------------------- Contract Details 
+                        
+                                _org                : cbbOrg.Selected.Value,
+                                _un                 : cbbUn.Selected.Value,
+                                _sowName            : txtSowName.Value,
+                                _startDate          : dpkStartDate.SelectedDate,
+                                _endDate            : dpkEndDate.SelectedDate,
+                                _customer           : cbbCustomer.Selected.Value,
+                                _zurichLineManager  : txtZurichLineManager.Value,
+                                _extensionOrNew     : cbbExtensionOrNew.Selected.Value,
+                        
+                                // ------------------------------------- Service Information 
+                        
+                                _itOrNonIT          : cbbItOrNonIT.Selected.Value,
+                                _typeService        : cbbTypeService.Selected.Value,
+                                _engagementType     : cbbEngagementType.Selected.Value,
+                                _deliveryStrategy   : cbbDeliveryStrategy.Selected.Value,
+                                _technologyCluster  : cbbTechnologyCluster.Selected.Value,
+                                _capability         : cbbCapability.Selected.Value,
+                                _technology         : cbbTechnology.Selected.Value,
+                        
+                                // ------------------------------------- Financial Data 
+                        
+                                _billingType        : cbbBillingType.Selected.Value,
+                                _totalAmount        : txtTotalAmount.Value,
+                                _mana               : txtMana.Value,
+                                _mkt                : txtMkt.Value,
+                                _ext                : txtExt.Value,
+                                _cmSale             : txtCmSale.Value,
+                                _percentageCostTeam : txtPercentageCostTeam.Value,
+                                _amountCostTeam     : txtAmountCostTeam.Value,
+                        
+                                // ------------------------------------- Extra data
+                                
+                                _user               : User().FullName,
+                                _attach             : DataCardValue.Attachments
+                            },
+                            If(
+                                //validation
+                                    // ------------------------------------- Contract Details 
+                                    IsBlank(_org),
+                                    Notify(formNewSowData.item.org.errorMessage, NotificationType.Error); SetFocus(cbbOrg),
+                        
+                                    IsBlank(_un),
+                                    Notify(formNewSowData.item.un.errorMessage, NotificationType.Error); SetFocus(cbbUn),
+                        
+                                    Len(_sowName) < 3,
+                                    Notify(formNewSowData.item.sowName.errorMessage, NotificationType.Error); SetFocus(txtSowName), //text
+                        
+                                    IsBlank(_startDate),
+                                    Notify(formNewSowData.item.startDate.errorMessage, NotificationType.Error); SetFocus(dpkStartDate), //date
+                        
+                                    IsBlank(_endDate),
+                                    Notify(formNewSowData.item.endDate.errorMessage, NotificationType.Error); SetFocus(dpkEndDate), //date
+                        
+                                    IsBlank(_customer),
+                                    Notify(formNewSowData.item.customer.errorMessage, NotificationType.Error); SetFocus(cbbCustomer),
+                        
+                                    IsBlank(_zurichLineManager),
+                                    Notify(formNewSowData.item.zurichLineManager.errorMessage, NotificationType.Error); SetFocus(txtZurichLineManager), //text
+                        
+                                    IsBlank(_extensionOrNew),
+                                    Notify(formNewSowData.item.extensionOrNew.errorMessage, NotificationType.Error); SetFocus(cbbExtensionOrNew),
+                        
+                                    // ------------------------------------- Service Information
+                                    IsBlank(_itOrNonIT),
+                                    Notify(formNewSowData.item.itOrNonIT.errorMessage, NotificationType.Error); SetFocus(cbbItOrNonIT),
+                        
+                                    IsBlank(_typeService),
+                                    Notify(formNewSowData.item.typeService.errorMessage, NotificationType.Error); SetFocus(cbbTypeService),
+                        
+                                    IsBlank(_engagementType),
+                                    Notify(formNewSowData.item.engagementType.errorMessage, NotificationType.Error); SetFocus(cbbEngagementType),
+                        
+                                    IsBlank(_deliveryStrategy),
+                                    Notify(formNewSowData.item.deliveryStrategy.errorMessage, NotificationType.Error); SetFocus(cbbDeliveryStrategy),
+                        
+                                    IsBlank(_technologyCluster),
+                                    Notify(formNewSowData.item.technologyCluster.errorMessage, NotificationType.Error); SetFocus(cbbTechnologyCluster),
+                        
+                                    IsBlank(_capability),
+                                    Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),
+                        
+                                    IsBlank(_technology),
+                                    Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(cbbTechnology),
+                        
+                                    // ------------------------------------- Financial Data 
+                                    IsBlank(_billingType),
+                                    Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),
+                        
+                                    !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,
+                                    Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number
+                        
+                                    Len(_mana) < 3,
+                                    Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text
+                        
+                                    Len(_mkt) < 3,
+                                    Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text
+                        
+                                    Len(_ext) < 3,
+                                    Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text
+                        
+                                    !IsNumeric(_cmSale) || Value(_cmSale) < 0,
+                                    Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number
+                        
+                                    !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0,
+                                    Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number
+                        
+                                    !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,
+                                    Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number
+                                
+                                // success
+                                    //loader
+                                    UpdateContext({loaderNewSowModal:true});
+                                    
+                                    //action
+                                    With(
+                                        {
+                                            _response: flow_createSow.Run(
+                                                _org,
+                                                _un,
+                                                _sowName,
+                                                Text(_startDate, "yyyy-mm-dd"),
+                                                Text(_endDate, "yyyy-mm-dd"),
+                                                _customer,
+                                                _zurichLineManager,
+                                                _extensionOrNew,
+                                                _itOrNonIT,
+                                                _typeService,
+                                                _engagementType,
+                                                _deliveryStrategy,
+                                                _technologyCluster,
+                                                _capability,
+                                                _technology,
+                                                _billingType,
+                                                _totalAmount,
+                                                _mana,
+                                                _mkt,
+                                                _ext,
+                                                _cmSale,
+                                                _percentageCostTeam,
+                                                _amountCostTeam,
+                                                _user
+                                            ).response
+                                        },
+                                        
+                                        //success message
+                                        Notify(_response, NotificationType.Success);
+                        
+                                        // clean controls
+                                        Reset(cbbOrg);
+                                        Reset(cbbUn);
+                                        Reset(txtSowName);
+                                        Reset(dpkStartDate);
+                                        Reset(dpkEndDate);
+                                        Reset(cbbCustomer);
+                                        Reset(txtZurichLineManager);
+                                        Reset(cbbExtensionOrNew);
+                                        Reset(cbbItOrNonIT);
+                                        Reset(cbbTypeService);
+                                        Reset(cbbEngagementType);
+                                        Reset(cbbDeliveryStrategy);
+                                        Reset(cbbTechnologyCluster);
+                                        Reset(cbbCapability);
+                                        Reset(cbbTechnology);
+                                        Reset(cbbBillingType);
+                                        Reset(txtTotalAmount);
+                                        Reset(txtMana);
+                                        Reset(txtMkt);
+                                        Reset(txtExt);
+                                        Reset(txtCmSale);
+                                        Reset(txtPercentageCostTeam);
+                                        Reset(txtAmountCostTeam);
+                                        
+                                        // close modal
+                                        UpdateContext({loaderNewSowModal:false});
+                                        UpdateContext({showNewSowModal:false});
+                                        UpdateContext({showBackdrop:false});
+                                        
+                                        // Reset tabs
+                                        UpdateContext({currentTab:1});
+                                        UpdateContext({currentTab: 1});
+                                        UpdateIf(
+                                            colTabs,
+                                            status = "Active",
+                                            { status: "Pending" }
+                                        );
+                                        Patch(
+                                            colTabs,
+                                            LookUp(colTabs, index = 1),
+                                            { status: "Active" }
+                                        )
+                                    )     
+                            )
+                        )
+                    TabIndex: =0
+                    Text: ="Submit"
+                    Tooltip: =""
+                    VerticalAlign: =""
+                    Visible: =true
+                    Width: =96
+                    X: =(Parent.Width - Self.Width) / 2
+                    Y: =(Parent.Height - Self.Height) / 2
+                    ZIndex: =1
 
         "'NewSowModal-loader' As groupContainer.verticalAutoLayoutContainer":
             Fill: =RGBA(255, 255, 255, .8)

@@ -158,33 +158,6 @@ Screens:
                         Parent.Width,
                         100
                     )
-      - form-control-submit:
-          Control: GroupContainer@1.4.0
-          Variant: AutoLayout
-          Properties:
-            ContentLanguage: =
-            DropShadow: =DropShadow.None
-            Height: |+
-              =40
-
-            LayoutDirection: =LayoutDirection.Vertical
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Width: =Parent.Width - designSystem.paddingDefault
-            X: =16
-            Y: =40
-          Children:
-            - ButtonCanvas1:
-                Control: Button@0.0.45
-                Properties:
-                  AlignInContainer: =AlignInContainer.Center
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                  OnSelect: "=With(\r\n    {\r\n        _projectName    : txtProjectName.Value,\r\n        _startDate      : dpkStartDate.SelectedDate,\r\n        _endDate        : dpkEndDate.SelectedDate,\r\n        _extension      : ddwExtension.Selected.Value,\r\n        _company        : ddwCompany.Selected.Value,\r\n        _org            : ddwOrg.Selected.Value,\r\n        _un             : ddwUn.Selected.Value,\r\n        _costumerName   : ddwCostumerName.Selected.Value,\r\n        _zurichLineManager  :TextInputCanvas1.Value,\r\n        _user           : User().FullName,\r\n        _attach         : DataCardValue.Attachments\r\n    },\r\n    If(\r\n        //validation\r\n            Len(_projectName) < 3,\r\n            Notify(\"agrega un nombre de proyecto valido\", NotificationType.Error); SetFocus(txtProjectName),\r\n            IsBlank(_startDate),\r\n            Notify(\"Selecciona una fecha de inicio\", NotificationType.Error); SetFocus(dpkStartDate),\r\n            IsBlank(_endDate),\r\n            Notify(\"Selecciona una fecha de termino\", NotificationType.Error); SetFocus(dpkEndDate),\r\n            IsBlank(_extension),\r\n            Notify(\"Selecciona extension\", NotificationType.Error); SetFocus(ddwExtension),\r\n            IsBlank(_company),\r\n            Notify(\"Selecciona company\", NotificationType.Error); SetFocus(ddwCompany),\r\n            IsBlank(_org),\r\n            Notify(\"Selecciona org\", NotificationType.Error); SetFocus(ddwOrg),\r\n            IsBlank(_un),\r\n            Notify(\"Selecciona un\", NotificationType.Error); SetFocus(ddwUn),\r\n            IsBlank(_costumerName),\r\n            Notify(\"Selecciona costumerName\", NotificationType.Error); SetFocus(ddwCostumerName),\r\n            IsBlank(_zurichLineManager),\r\n            Notify(\"Selecciona zurichLineManager\", NotificationType.Error); SetFocus(TextInputCanvas1),\r\n            CountRows(_attach) = 0,\r\n            Notify(\"Adjunta algun documento\", NotificationType.Error),\r\n        \r\n        \r\n            //loader\r\n            UpdateContext({loaderNewSowModal:true});\r\n            \r\n            //action\r\n            With(\r\n                {\r\n                    _response: flow_createSow.Run(\r\n                        _projectName,\r\n                        Text(_startDate, \"yyyy-mm-dd\"),\r\n                        Text(_endDate, \"yyyy-mm-dd\"),\r\n                        _extension,\r\n                        _company,\r\n                        _org,\r\n                        _un,\r\n                        _costumerName,\r\n                        _zurichLineManager,\r\n                        _user\r\n                    ).response\r\n                },\r\n                //success message\r\n                Notify(_response, NotificationType.Success);\r\n                \r\n\r\n                // clean controls\r\n                Reset(txtProjectName);\r\n                Reset(dpkStartDate);\r\n                Reset(dpkEndDate);\r\n                Reset(ddwExtension);\r\n                Reset(ddwCompany);\r\n                Reset(ddwOrg);\r\n                Reset(ddwUn);\r\n                Reset(ddwCostumerName);\r\n                Reset(TextInputCanvas1);\r\n\r\n                \r\n                // close modal\r\n                UpdateContext({loaderNewSowModal:false});\r\n                UpdateContext({showNewSowModal:false});\r\n                UpdateContext({showBackdrop:false});\r\n            )     \r\n    )\r\n)"
-                  X: =(Parent.Width - Self.Width) / 2
-                  Y: =(Parent.Height - Self.Height) / 2
       - form-control-attach:
           Control: GroupContainer@1.4.0
           Variant: AutoLayout
@@ -547,7 +520,10 @@ Screens:
                                     LayoutMinWidth: =16
                                     OnSelect: |-
                                       =UpdateContext({showNewSowModal:true});
-                                      UpdateContext({showBackdrop:true})
+                                      UpdateContext({showBackdrop:true});
+
+                                      // set the current tab for the first time
+                                      If(IsBlank(currentTab),UpdateContext({currentTab: 1}))
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -662,9 +638,49 @@ Screens:
                   HoverColor: =RGBA(255, 255, 255, 1)
                   HoverFill: =RGBA(0, 0, 0, 0.55)
                   OnSelect: |-
-                    =UpdateContext({showBackdrop:false});
+                    = // clean controls
+                    Reset(cbbOrg);
+                    Reset(cbbUn);
+                    Reset(txtSowName);
+                    Reset(dpkStartDate);
+                    Reset(dpkEndDate);
+                    Reset(cbbCustomer);
+                    Reset(txtZurichLineManager);
+                    Reset(cbbExtensionOrNew);
+                    Reset(cbbItOrNonIT);
+                    Reset(cbbTypeService);
+                    Reset(cbbEngagementType);
+                    Reset(cbbDeliveryStrategy);
+                    Reset(cbbTechnologyCluster);
+                    Reset(cbbCapability);
+                    Reset(cbbTechnology);
+                    Reset(cbbBillingType);
+                    Reset(txtTotalAmount);
+                    Reset(txtMana);
+                    Reset(txtMkt);
+                    Reset(txtExt);
+                    Reset(txtCmSale);
+                    Reset(txtPercentageCostTeam);
+                    Reset(txtAmountCostTeam);
+
+                    // close modal
                     UpdateContext({showNewSowModal:false});
+                    UpdateContext({showBackdrop:false});
                     UpdateContext({loaderNewSowModal:false});
+
+                    // Reset tabs
+                    UpdateContext({currentTab:1});
+                    UpdateContext({currentTab: 1});
+                    UpdateIf(
+                        colTabs,
+                        status = "Active",
+                        { status: "Pending" }
+                    );
+                    Patch(
+                        colTabs,
+                        LookUp(colTabs, index = 1),
+                        { status: "Active" }
+                    )
                   PressedBorderColor: =Self.Fill
                   PressedColor: =Self.Fill
                   PressedFill: =RGBA(0,0,0, 0.5)
@@ -697,6 +713,7 @@ Screens:
                   Height: =Parent.Height
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
                   PaddingBottom: =designSystem.paddingDefault
                   PaddingLeft: =designSystem.paddingDefault
                   PaddingRight: =designSystem.paddingDefault
@@ -714,7 +731,7 @@ Screens:
                       Properties:
                         DropShadow: =DropShadow.None
                         FillPortions: =0
-                        Height: =80
+                        Height: =60
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
@@ -763,22 +780,51 @@ Screens:
                                     IconStyle: ='ButtonCanvas.IconStyle'.Filled
                                     Layout: ='ButtonCanvas.Layout'.IconOnly
                                     OnSelect: |-
-                                      =UpdateContext({showNewSowModal:false});
-                                      UpdateContext({showBackdrop:false});
-
-                                      // clean controls
-                                      Reset(txtProjectName);
+                                      = // clean controls
+                                      Reset(cbbOrg);
+                                      Reset(cbbUn);
+                                      Reset(txtSowName);
                                       Reset(dpkStartDate);
                                       Reset(dpkEndDate);
-                                      Reset(ddwExtension);
-                                      Reset(ddwCompany);
-                                      Reset(ddwOrg);
-                                      Reset(ddwUn);
-                                      Reset(ddwCostumerName);
-                                      Reset(TextInputCanvas1);
-                                      ResetForm(TempForm);
+                                      Reset(cbbCustomer);
+                                      Reset(txtZurichLineManager);
+                                      Reset(cbbExtensionOrNew);
+                                      Reset(cbbItOrNonIT);
+                                      Reset(cbbTypeService);
+                                      Reset(cbbEngagementType);
+                                      Reset(cbbDeliveryStrategy);
+                                      Reset(cbbTechnologyCluster);
+                                      Reset(cbbCapability);
+                                      Reset(cbbTechnology);
+                                      Reset(cbbBillingType);
+                                      Reset(txtTotalAmount);
+                                      Reset(txtMana);
+                                      Reset(txtMkt);
+                                      Reset(txtExt);
+                                      Reset(txtCmSale);
+                                      Reset(txtPercentageCostTeam);
+                                      Reset(txtAmountCostTeam);
+
+                                      // close modal
+                                      UpdateContext({showNewSowModal:false});
+                                      UpdateContext({showBackdrop:false});
+                                      UpdateContext({loaderNewSowModal:false});
+
+                                      // Reset tabs
+                                      UpdateContext({currentTab:1});
+                                      UpdateContext({currentTab: 1});
+                                      UpdateIf(
+                                          colTabs,
+                                          status = "Active",
+                                          { status: "Pending" }
+                                      );
+                                      Patch(
+                                          colTabs,
+                                          LookUp(colTabs, index = 1),
+                                          { status: "Active" }
+                                      )
                                     Width: =35
-                  - FormHeader_1:
+                  - NewSowModal-tabs:
                       Control: CanvasComponent
                       ComponentName: FormHeader
                       Properties:
@@ -787,7 +833,7 @@ Screens:
                         Items: =colTabs
                         LayoutMinWidth: =0
                         OnTabSelect: |-
-                          =UpdateContext({CurrentTab: Index});
+                          =UpdateContext({currentTab: Index});
                           UpdateIf(
                               colTabs,
                               status = "Active",
@@ -823,8 +869,508 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Visible: =CurrentTab = 3
+                              Visible: =currentTab = 3
                               Width: =Parent.Width
+                            Children:
+                              - fc-billingType:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-billingType-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-billingType-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.billingType.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-billingType-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.billingType.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbBillingType:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.billingType.items
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
+                              - fc-totalAmount:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                  Children:
+                                    - fc-totalAmount-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-totalAmount-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.totalAmount.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-totalAmount-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.totalAmount.label
+                                                X: =40
+                                                Y: =40
+                                    - txtTotalAmount:
+                                        Control: TextInput@0.0.54
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.totalAmount.placeholder
+                                          Type: ="Numeric"
+                                          Value: =
+                              - fc-mana:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-mana-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-mana-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.mana.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-mana-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.mana.label
+                                                X: =40
+                                                Y: =40
+                                    - txtMana:
+                                        Control: TextInput@0.0.54
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.mana.placeholder
+                                          Value: =
+                              - fc-mkt:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-mkt-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-mkt-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.mkt.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-mkt-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.mkt.label
+                                                X: =40
+                                                Y: =40
+                                    - txtMkt:
+                                        Control: TextInput@0.0.54
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.mkt.placeholder
+                                          Value: =
+                              - fc-ext:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-ext-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-ext-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.ext.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-ext-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.ext.label
+                                                X: =40
+                                                Y: =40
+                                    - txtExt:
+                                        Control: TextInput@0.0.54
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.ext.placeholder
+                                          Value: =
+                              - fc-cmSale:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-cmSale-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-cmSale-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.cmSale.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-cmSale-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.cmSale.label
+                                                X: =40
+                                                Y: =40
+                                    - txtCmSale:
+                                        Control: TextInput@0.0.54
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.cmSale.placeholder
+                                          Value: =
+                              - fc-percentageCostTeam:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-percentageCostTeam-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-percentageCostTeam-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.percentageCostTeam.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-percentageCostTeam-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.percentageCostTeam.label
+                                                X: =40
+                                                Y: =40
+                                    - txtPercentageCostTeam:
+                                        Control: TextInput@0.0.54
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.percentageCostTeam.placeholder
+                                          Value: =
+                              - fc-amountCostTeam:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-amountCostTeam-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-amountCostTeam-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.amountCostTeam.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-amountCostTeam-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.amountCostTeam.label
+                                                X: =40
+                                                Y: =40
+                                    - txtAmountCostTeam:
+                                        Control: TextInput@0.0.54
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.amountCostTeam.placeholder
+                                          Value: =
                         - NewSowModal-form-container-2:
                             Control: GroupContainer@1.4.0
                             Variant: AutoLayout
@@ -839,8 +1385,436 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Visible: =CurrentTab = 2
+                              Visible: =currentTab = 2
                               Width: =Parent.Width
+                            Children:
+                              - fc-itOrNonIT:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =65
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-itOrNonIT-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-itOrNonIT-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.itOrNonIT.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-itOrNonIT-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.itOrNonIT.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbItOrNonIT:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.itOrNonIT.items
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
+                              - fc-typeService:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =65
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-typeService-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-typeService-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.typeService.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-typeService-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.typeService.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbTypeService:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.typeService.items
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
+                              - fc-engagementType:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =65
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                  Children:
+                                    - fc-engagementType-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-engagementType-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.engagementType.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-engagementType-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.engagementType.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbEngagementType:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.engagementType.items
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
+                              - fc-deliveryStrategy:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =65
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                  Children:
+                                    - fc-deliveryStrategy-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-deliveryStrategy-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.deliveryStrategy.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-deliveryStrategy-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.deliveryStrategy.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbDeliveryStrategy:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.deliveryStrategy.items
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
+                              - fc-technologyCluster:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-technologyCluster-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-technologyCluster-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.technologyCluster.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-technologyCluster-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.technologyCluster.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbTechnologyCluster:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.technologyCluster.items
+                                          Width: =Parent.Width
+                              - fc-capability:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-capability-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-capability-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.capability.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-capability-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.capability.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbCapability:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.capability.items
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
+                              - fc-technology:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    X: =40
+                                    Y: =40
+                                  Children:
+                                    - fc-technology-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-technology-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.technology.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-technology-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.technology.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbTechnology:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.technology.items
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
                         - NewSowModal-form-container-1:
                             Control: GroupContainer@1.4.0
                             Variant: AutoLayout
@@ -855,10 +1829,137 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Visible: =CurrentTab = 1
+                              Visible: =currentTab = 1
                               Width: =Parent.Width
                             Children:
-                              - form-control-projectName:
+                              - fc-org:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                  Children:
+                                    - fc-org-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-org-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.org.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-org-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.org.label
+                                    - cbbOrg:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.org.items
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =0
+                                          Width: =Parent.Width
+                              - fc-un:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                                  Children:
+                                    - fc-un-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-un-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.un.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-un-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.un.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbUn:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.un.items
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Width: =Parent.Width
+                              - fc-sowName:
                                   Control: GroupContainer@1.4.0
                                   Variant: AutoLayout
                                   Properties:
@@ -877,30 +1978,53 @@ Screens:
                                     RadiusTopRight: =0
                                     Width: =Parent.Width
                                   Children:
-                                    - lblProjectName:
-                                        Control: Label@2.5.1
+                                    - fc-sowName-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
                                         Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Service Work Order"
-                                    - txtProjectName:
+                                        Children:
+                                          - fc-sowName-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.sowName.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-sowName-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.sowName.label
+                                                X: =40
+                                                Y: =40
+                                    - txtSowName:
                                         Control: TextInput@0.0.54
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Stretch
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
+                                          Placeholder: =formNewSowData.item.sowName.placeholder
                                           Value: =
-                              - form-control-org:
+                              - fc-startDate:
                                   Control: GroupContainer@1.4.0
                                   Variant: AutoLayout
                                   Properties:
@@ -919,120 +2043,53 @@ Screens:
                                     RadiusTopRight: =0
                                     Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                   Children:
-                                    - Label2_5:
-                                        Control: Label@2.5.1
+                                    - fc-startDate-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
                                         Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Organization/LSA"
-                                    - ddwOrg:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: |-
-                                            =[
-                                                "Argentina", "BRAZIL", "Colombia", "DACH", "GTO", "Italy", "Portugal", "Spain", "USA", "ZNA"
-                                            ]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Width: =Parent.Width
-                              - form-control-un:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_6:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Business unit"
-                                    - ddwUn:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: |-
-                                            =[
-                                               "AS", "BPS", "CYBER", "DS", "DT", "ES", "INSURANCE", "IS", "OVERSIS"
-                                            ]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Width: =Parent.Width
-                              - form-control-startDate:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_1:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Start Date"
-                                          Width: =
+                                        Children:
+                                          - fc-startDate-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.startDate.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-startDate-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.startDate.label
+                                                Width: =
+                                                X: =40
+                                                Y: =40
                                     - dpkStartDate:
                                         Control: DatePicker@0.0.46
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Stretch
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                              - form-control-endDate:
+                                          Placeholder: =formNewSowData.item.startDate.placeholder
+                              - fc-endDate:
                                   Control: GroupContainer@1.4.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1051,29 +2108,117 @@ Screens:
                                     RadiusTopRight: =0
                                     Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                   Children:
-                                    - Label2_2:
-                                        Control: Label@2.5.1
+                                    - fc-endDate-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
                                         Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="End Date"
+                                        Children:
+                                          - fc-endDate-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.endDate.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-endDate-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.endDate.label
+                                                X: =40
+                                                Y: =40
                                     - dpkEndDate:
                                         Control: DatePicker@0.0.46
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Stretch
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                              - form-control-zurichLineManager:
+                                          Placeholder: =formNewSowData.item.endDate.placeholder
+                              - fc-customer:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    ContentLanguage: =
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: |
+                                      =65
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - fc-customer-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-customer-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.customer.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-customer-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.customer.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbCustomer:
+                                        Control: DropDown@0.0.45
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.customer.items
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Width: =Parent.Width
+                              - fc-zurichLineManager:
                                   Control: GroupContainer@1.4.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1092,30 +2237,55 @@ Screens:
                                     RadiusTopRight: =0
                                     Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                   Children:
-                                    - Label2_9:
-                                        Control: Label@2.5.1
+                                    - fc-zurichLineManager-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
                                         Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Zurich  Manager"
-                                    - TextInputCanvas1:
+                                        Children:
+                                          - fc-zurichLineManager-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.zurichLineManager.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-zurichLineManager-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.zurichLineManager.label
+                                                X: =40
+                                                Y: =40
+                                    - txtZurichLineManager:
                                         Control: TextInput@0.0.54
                                         Properties:
                                           AccessibleLabel: ="Zurich approver"
+                                          AlignInContainer: =AlignInContainer.Stretch
                                           FontColor: =RGBA(106, 122, 127, 1)
                                           LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                              - form-control-company:
+                                          LayoutMinWidth: =0
+                                          Placeholder: =formNewSowData.item.zurichLineManager.placeholder
+                                          Width: =300
+                              - fc-extensionOrNew:
                                   Control: GroupContainer@1.4.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1134,381 +2304,81 @@ Screens:
                                     RadiusTopRight: =0
                                     Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                   Children:
-                                    - Label2_4:
-                                        Control: Label@2.5.1
+                                    - fc-extensionOrNew-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
                                         Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Billin entity"
-                                    - ddwCompany:
+                                        Children:
+                                          - fc-extensionOrNew-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.extensionOrNew.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-extensionOrNew-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.extensionOrNew.label
+                                                X: =40
+                                                Y: =40
+                                    - cbbExtensionOrNew:
                                         Control: DropDown@0.0.45
                                         Properties:
-                                          Items: =["ServiZurich SA", "ZBANK", "Zurich American Insurance Company", "Zurich Argentina Compañía de Seguro", "Zurich Colombia", "ZURICH INSURANCE COMPANY LTD", "Zurich Insurance Company Ltd Italian Branch", "Zurich Insurance Company Ltd.", "ZURICH Insurance Europe AG Italian Branch", "ZURICH Insurance Europe AG Italian Branch /Zurich Investments Life S.p.A", "ZURICH INSURANCE EUROPE AG SUCURSAL ESPAÑA", "Zurich Insurance Europe AG, Sucursal em Portugal", "Zurich Insurance Europe AG, Sucursal en España ZIE", "Zurich Insurance PLC, Sucursal en España", "Zurich Investments Life S.p.A", "Zurich Minas Brasil Seguros S.A", "Zurich USA, Canada, UK, Ireland, Spain, Germany, Italy, Swiss, France", "Zürich Versicherungs-Gesellschaft AG"]
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Items: =formNewSowData.item.extensionOrNew.items
                                           LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
+                                          LayoutMinWidth: =0
                                           Width: =Parent.Width
-                              - form-control-IT or non-IT:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_10:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="IT or Non-IT"
-                                    - ddwExtension_1:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: |-
-                                            =[
-                                                "IT",
-                                                "Non-IT"
-                                            ]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Width: =Parent.Width
-                              - form-control-Type of service:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                    X: =40
-                                    Y: =40
-                                  Children:
-                                    - Label2_11:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Type of service"
-                                    - ddwExtension_2:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: |-
-                                            =[
-                                                "SFA", "Project", "Enhacement", "Maintenance"
-                                            ]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Width: =Parent.Width
-                              - form-control-Billing type:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_12:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Billing type"
-                                    - ddwExtension_3:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: |-
-                                            =[
-                                                "Fixed", "Variable"
-                                            ]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Width: =Parent.Width
-                              - form-control-Engagement type:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_8:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Engagement type"
-                                    - ddwCostumerName:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: =["Application Maintenance Services", "BTO", "Cloud & Backend / Application Development (Azure)", "Cloud Migration & Support", "Compliance", "CRM ADM", "Data Architect", "Data Services", "Data Services (including API)", "DB2", "DBA", "DBE Databricks", "GDP", "Guidewire ADM", "IT&S", "Mainframe Optimisation", "Microstrategy", "PMO", "SAP", "SAP AM", "SAS", "Testing services"]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Width: =Parent.Width
-                              - form-control-Total amount:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_13:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Total amount SOW/WO excluding VAT in $"
-                                    - TextInputCanvas1_1:
-                                        Control: TextInput@0.0.54
-                                        Properties:
-                                          AccessibleLabel: ="Zurich approver"
-                                          FontColor: =RGBA(106, 122, 127, 1)
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                              - form-control-extension:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_3:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="New / Extension"
-                                    - ddwExtension:
-                                        Control: DropDown@0.0.45
-                                        Properties:
-                                          Items: |-
-                                            =[
-                                                "New",
-                                                "Extension"
-                                            ]
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Width: =Parent.Width
-                              - form-control-Total amount_1:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_15:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Total amount SOW/WO excluding VAT in $"
-                                    - TextInputCanvas1_2:
-                                        Control: TextInput@0.0.54
-                                        Properties:
-                                          AccessibleLabel: ="Zurich approver"
-                                          FontColor: =RGBA(106, 122, 127, 1)
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                              - form-control-Total amount_2:
-                                  Control: GroupContainer@1.4.0
-                                  Variant: AutoLayout
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Start
-                                    ContentLanguage: =
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: |
-                                      =65
-                                    LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                                  Children:
-                                    - Label2_16:
-                                        Control: Label@2.5.1
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Font: =designSystem.fontFamily
-                                          FontWeight: =designSystem.style.label.fontWeight
-                                          Height: =30
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =designSystem.style.label.fontSize
-                                          Text: ="Total amount SOW/WO excluding VAT in $"
-                                    - TextInputCanvas1_3:
-                                        Control: TextInput@0.0.54
-                                        Properties:
-                                          AccessibleLabel: ="Zurich approver"
-                                          FontColor: =RGBA(106, 122, 127, 1)
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
+                  - form-control-submit:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |+
+                          =40
+
+                        LayoutDirection: =LayoutDirection.Vertical
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width - designSystem.paddingDefault
+                        X: =40
+                        Y: =40
+                      Children:
+                        - ButtonCanvas1:
+                            Control: Button@0.0.45
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              OnSelect: "=With(\r\n    {\r\n        // ------------------------------------- Contract Details \r\n\r\n        _org                : cbbOrg.Selected.Value,\r\n        _un                 : cbbUn.Selected.Value,\r\n        _sowName            : txtSowName.Value,\r\n        _startDate          : dpkStartDate.SelectedDate,\r\n        _endDate            : dpkEndDate.SelectedDate,\r\n        _customer           : cbbCustomer.Selected.Value,\r\n        _zurichLineManager  : txtZurichLineManager.Value,\r\n        _extensionOrNew     : cbbExtensionOrNew.Selected.Value,\r\n\r\n        // ------------------------------------- Service Information \r\n\r\n        _itOrNonIT          : cbbItOrNonIT.Selected.Value,\r\n        _typeService        : cbbTypeService.Selected.Value,\r\n        _engagementType     : cbbEngagementType.Selected.Value,\r\n        _deliveryStrategy   : cbbDeliveryStrategy.Selected.Value,\r\n        _technologyCluster  : cbbTechnologyCluster.Selected.Value,\r\n        _capability         : cbbCapability.Selected.Value,\r\n        _technology         : cbbTechnology.Selected.Value,\r\n\r\n        // ------------------------------------- Financial Data \r\n\r\n        _billingType        : cbbBillingType.Selected.Value,\r\n        _totalAmount        : txtTotalAmount.Value,\r\n        _mana               : txtMana.Value,\r\n        _mkt                : txtMkt.Value,\r\n        _ext                : txtExt.Value,\r\n        _cmSale             : txtCmSale.Value,\r\n        _percentageCostTeam : txtPercentageCostTeam.Value,\r\n        _amountCostTeam     : txtAmountCostTeam.Value,\r\n\r\n        // ------------------------------------- Extra data\r\n        \r\n        _user               : User().FullName,\r\n        _attach             : DataCardValue.Attachments\r\n    },\r\n    If(\r\n        //validation\r\n            // ------------------------------------- Contract Details \r\n            IsBlank(_org),\r\n            Notify(formNewSowData.item.org.errorMessage, NotificationType.Error); SetFocus(cbbOrg),\r\n\r\n            IsBlank(_un),\r\n            Notify(formNewSowData.item.un.errorMessage, NotificationType.Error); SetFocus(cbbUn),\r\n\r\n            Len(_sowName) < 3,\r\n            Notify(formNewSowData.item.sowName.errorMessage, NotificationType.Error); SetFocus(txtSowName), //text\r\n\r\n            IsBlank(_startDate),\r\n            Notify(formNewSowData.item.startDate.errorMessage, NotificationType.Error); SetFocus(dpkStartDate), //date\r\n\r\n            IsBlank(_endDate),\r\n            Notify(formNewSowData.item.endDate.errorMessage, NotificationType.Error); SetFocus(dpkEndDate), //date\r\n\r\n            IsBlank(_customer),\r\n            Notify(formNewSowData.item.customer.errorMessage, NotificationType.Error); SetFocus(cbbCustomer),\r\n\r\n            IsBlank(_zurichLineManager),\r\n            Notify(formNewSowData.item.zurichLineManager.errorMessage, NotificationType.Error); SetFocus(txtZurichLineManager), //text\r\n\r\n            IsBlank(_extensionOrNew),\r\n            Notify(formNewSowData.item.extensionOrNew.errorMessage, NotificationType.Error); SetFocus(cbbExtensionOrNew),\r\n\r\n            // ------------------------------------- Service Information\r\n            IsBlank(_itOrNonIT),\r\n            Notify(formNewSowData.item.itOrNonIT.errorMessage, NotificationType.Error); SetFocus(cbbItOrNonIT),\r\n\r\n            IsBlank(_typeService),\r\n            Notify(formNewSowData.item.typeService.errorMessage, NotificationType.Error); SetFocus(cbbTypeService),\r\n\r\n            IsBlank(_engagementType),\r\n            Notify(formNewSowData.item.engagementType.errorMessage, NotificationType.Error); SetFocus(cbbEngagementType),\r\n\r\n            IsBlank(_deliveryStrategy),\r\n            Notify(formNewSowData.item.deliveryStrategy.errorMessage, NotificationType.Error); SetFocus(cbbDeliveryStrategy),\r\n\r\n            IsBlank(_technologyCluster),\r\n            Notify(formNewSowData.item.technologyCluster.errorMessage, NotificationType.Error); SetFocus(cbbTechnologyCluster),\r\n\r\n            IsBlank(_capability),\r\n            Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),\r\n\r\n            IsBlank(_technology),\r\n            Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(cbbTechnology),\r\n\r\n            // ------------------------------------- Financial Data \r\n            IsBlank(_billingType),\r\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\r\n\r\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\r\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\r\n\r\n            Len(_mana) < 3,\r\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\r\n\r\n            Len(_mkt) < 3,\r\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\r\n\r\n            Len(_ext) < 3,\r\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\r\n\r\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0,\r\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number\r\n\r\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0,\r\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number\r\n\r\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\r\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\r\n        \r\n        // success\r\n            //loader\r\n            UpdateContext({loaderNewSowModal:true});\r\n            \r\n            //action\r\n            With(\r\n                {\r\n                    _response: flow_createSow.Run(\r\n                        _org,\r\n                        _un,\r\n                        _sowName,\r\n                        Text(_startDate, \"yyyy-mm-dd\"),\r\n                        Text(_endDate, \"yyyy-mm-dd\"),\r\n                        _customer,\r\n                        _zurichLineManager,\r\n                        _extensionOrNew,\r\n                        _itOrNonIT,\r\n                        _typeService,\r\n                        _engagementType,\r\n                        _deliveryStrategy,\r\n                        _technologyCluster,\r\n                        _capability,\r\n                        _technology,\r\n                        _billingType,\r\n                        _totalAmount,\r\n                        _mana,\r\n                        _mkt,\r\n                        _ext,\r\n                        _cmSale,\r\n                        _percentageCostTeam,\r\n                        _amountCostTeam,\r\n                        _user\r\n                    ).response\r\n                },\r\n                \r\n                //success message\r\n                Notify(_response, NotificationType.Success);\r\n\r\n                // clean controls\r\n                Reset(cbbOrg);\r\n                Reset(cbbUn);\r\n                Reset(txtSowName);\r\n                Reset(dpkStartDate);\r\n                Reset(dpkEndDate);\r\n                Reset(cbbCustomer);\r\n                Reset(txtZurichLineManager);\r\n                Reset(cbbExtensionOrNew);\r\n                Reset(cbbItOrNonIT);\r\n                Reset(cbbTypeService);\r\n                Reset(cbbEngagementType);\r\n                Reset(cbbDeliveryStrategy);\r\n                Reset(cbbTechnologyCluster);\r\n                Reset(cbbCapability);\r\n                Reset(cbbTechnology);\r\n                Reset(cbbBillingType);\r\n                Reset(txtTotalAmount);\r\n                Reset(txtMana);\r\n                Reset(txtMkt);\r\n                Reset(txtExt);\r\n                Reset(txtCmSale);\r\n                Reset(txtPercentageCostTeam);\r\n                Reset(txtAmountCostTeam);\r\n                \r\n                // close modal\r\n                UpdateContext({loaderNewSowModal:false});\r\n                UpdateContext({showNewSowModal:false});\r\n                UpdateContext({showBackdrop:false});\r\n                \r\n                // Reset tabs\r\n                UpdateContext({currentTab:1});\r\n                UpdateContext({currentTab: 1});\r\n                UpdateIf(\r\n                    colTabs,\r\n                    status = \"Active\",\r\n                    { status: \"Pending\" }\r\n                );\r\n                Patch(\r\n                    colTabs,\r\n                    LookUp(colTabs, index = 1),\r\n                    { status: \"Active\" }\r\n                )\r\n            )     \r\n    )\r\n)"
+                              Text: ="Submit"
+                              X: =(Parent.Width - Self.Width) / 2
+                              Y: =(Parent.Height - Self.Height) / 2
             - NewSowModal-loader:
                 Control: GroupContainer@1.4.0
                 Variant: AutoLayout

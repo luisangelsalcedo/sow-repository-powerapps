@@ -1,51 +1,47 @@
 App As appinfo:
     BackEnabled: =true
     OnStart: |-
-        =
-        
-        Set(designSystem,{
-        
-            paddingDefault: 16,
-            
-            fontFamily: Font.'Lato Black',
-        
-            colors:{
-                default: ColorValue("#333333"),
-                primary: ColorValue("#070F26"),
-                secondary: ColorValue("#4C7EFF")
-            },
-            
-            style:{
-                label: {
-                    fontSize: 10,
-                    fontWeight: FontWeight.Bold
+        =Set(
+            designSystem,
+            {
+                paddingDefault: 16,
+                fontFamily: Font.'Lato Black',
+                colors: {
+                    default: ColorValue("#333333"),
+                    primary: ColorValue("#070F26"),
+                    secondary: ColorValue("#4C7EFF")
                 },
-                title: {
-                    fontSize: 24,
-                    fontWeight: FontWeight.Bold
-                },
-                subtitle: {
-                    fontSize: 1,
-                    fontWeight: FontWeight.Bold
-                },
-                mdBtn: {
-                    fontSize: 16,
-                    fontWeight: FontWeight.Normal
-                },
-                smBtn: {
-                    fontSize: 14,
-                    fontWeight: FontWeight.Normal
+                style: {
+                    label: {
+                        fontSize: 10,
+                        fontWeight: FontWeight.Bold
+                    },
+                    title: {
+                        fontSize: 24,
+                        fontWeight: FontWeight.Bold
+                    },
+                    subtitle: {
+                        fontSize: 1,
+                        fontWeight: FontWeight.Bold
+                    },
+                    mdBtn: {
+                        fontSize: 16,
+                        fontWeight: FontWeight.Normal
+                    },
+                    smBtn: {
+                        fontSize: 14,
+                        fontWeight: FontWeight.Normal
+                    }
                 }
             }
-        });
-        
+        );
         ClearCollect(
             colTabs,
             Table(
                 {
                     index: 1,
                     label: "Contract Details",
-                    status: "Active"  // Pending | Active | Completed | Error
+                    status: "Active"// Pending | Active | Completed | Error
                 },
                 {
                     index: 2,
@@ -58,6 +54,459 @@ App As appinfo:
                     status: "Pending"
                 }
             )
+        );
+        Set(
+            formNewSowData,
+            {
+                item: {
+                    // ------------------ Contract Details 
+                    org: {
+                        label: "Organization/LSA",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "org Error Message",
+                        items: [
+                            "Argentina",
+                            "BRAZIL",
+                            "Colombia",
+                            "DACH",
+                            "GTO",
+                            "Italy",
+                            "Portugal",
+                            "Spain",
+                            "USA",
+                            "ZNA"
+                        ]
+                    },
+                    un: {
+                        label: "Business unit",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "un Error Message",
+                        items: [
+                            "AS",
+                            "BPS",
+                            "CYBER",
+                            "DS",
+                            "DT",
+                            "ES",
+                            "INSURANCE",
+                            "IS",
+                            "OVERSIS"
+                        ]
+                    },
+                    sowName: {
+                        label: "Service work order name",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "sowName Error Message",
+                        items: []
+                    },
+                    startDate: {
+                        label: "SOW Start date",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "startDate Error Message",
+                        items: []
+                    },
+                    endDate: {
+                        label: "SOW End Date",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "endDate Error Message",
+                        items: []
+                    },
+                    customer: {
+                        label: "Billing entity",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "customer Error Message",
+                        items: [
+                            "ServiZurich SA",
+                            "ZBANK",
+                            "Zurich American Insurance Company",
+                            "Zurich Argentina Compañía de Seguro",
+                            "Zurich Colombia",
+                            "ZURICH INSURANCE COMPANY LTD",
+                            "Zurich Insurance Company Ltd Italian Branch",
+                            "Zurich Insurance Company Ltd.",
+                            "ZURICH Insurance Europe AG Italian Branch",
+                            "ZURICH Insurance Europe AG Italian Branch /Zurich Investments Life S.p.A",
+                            "ZURICH INSURANCE EUROPE AG SUCURSAL ESPAÑA",
+                            "Zurich Insurance Europe AG, Sucursal em Portugal",
+                            "Zurich Insurance Europe AG, Sucursal en España ZIE",
+                            "Zurich Insurance PLC, Sucursal en España",
+                            "Zurich Investments Life S.p.A",
+                            "Zurich Minas Brasil Seguros S.A",
+                            "Zurich USA, Canada, UK, Ireland, Spain, Germany, Italy, Swiss, France",
+                            "Zürich Versicherungs-Gesellschaft AG"
+                        ]
+                    },
+                    zurichLineManager: {
+                        label: "Zurich line manager",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "zurichLineManager Error Message",
+                        items: []
+                    },
+                    extensionOrNew: {
+                        label: "Extension or new",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "extensionOrNew Error Message",
+                        items: [
+                            "Extension",
+                            "New SOW"
+                        ]
+                    },
+                    // ------------------Service Information 
+                    itOrNonIT: {
+                        label: "IT or non-IT project",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "itOrNonIT Error Message",
+                        items: [
+                            "IT",
+                            "non-IT"
+                        ]
+                    },
+                    typeService: {
+                        label: "Type of service",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "typeService Error Message",
+                        items: [
+                            "SFA",
+                            "Project",
+                            "Enhacement",
+                            "Maintenance"
+                        ]
+                    },
+                    engagementType: {
+                        label: "Engagement type",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "engagementType Error Message",
+                        items: [
+                            "Application Maintenance Services",
+                            "BTO",
+                            "Cloud & Backend / Application Development (Azure)",
+                            "Cloud Migration & Support",
+                            "Compliance",
+                            "CRM ADM",
+                            "Data Architect",
+                            "Data Services",
+                            "Data Services (including API)",
+                            "DB2",
+                            "DBA",
+                            "DBE Databricks",
+                            "GDP",
+                            "Guidewire ADM",
+                            "IT&S",
+                            "Mainframe Optimisation",
+                            "Microstrategy",
+                            "PMO",
+                            "SAP",
+                            "SAP AM",
+                            "SAS",
+                            "Testing services"
+                        ]
+                    },
+                    deliveryStrategy: {
+                        label: "Delivery strategy",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "deliveryStrategy Error Message",
+                        items: [
+                            "Onshore",
+                            "Offshore",
+                            "Nearshore"
+                        ]
+                    },
+                    technologyCluster: {
+                        label: "Technology cluster",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "technologyCluster Error Message",
+                        items: [
+                            "Application Maintenance Services",
+                            "BTO",
+                            "Cloud & Backend / Application Development (Azure)",
+                            "Cloud Migration & Support",
+                            "Compliance",
+                            "CRM ADM",
+                            "Data Architect",
+                            "Data Services",
+                            "Data Services (incl. API)",
+                            "Data Services (including API)",
+                            "DB2",
+                            "DBA",
+                            "DBT Databricks",
+                            "GDP",
+                            "Guidewire ADM",
+                            "IT&S",
+                            "Mainframe Optimisation",
+                            "Microstrategy",
+                            "PMO",
+                            "SAP",
+                            "SAP ADM",
+                            "SAS",
+                            "Testing",
+                            "Testing Services",
+                            "Translation",
+                            "(Vacías)"
+                        ]
+                    },
+                    capability: {
+                        label: "Capability",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "capability Error Message",
+                        items: [
+                            ".Net Developer",
+                            "Agile consultant",
+                            "AI & Automation",
+                            "AM Services",
+                            "Analyst Expert",
+                            "Analyst Jr",
+                            "Audit and Compliance Analyst",
+                            "Azure",
+                            "BORP Consultant",
+                            "Business Tools",
+                            "Cloud",
+                            "Cloud Security Architect",
+                            "Cyber",
+                            "Data",
+                            "Data Architect",
+                            "Data Engineer",
+                            "Data Engineer DBT",
+                            "Databricks senior Engineer",
+                            "DB2",
+                            "DBA Nearshore",
+                            "Developer",
+                            "Developer IAM Services",
+                            "DevOps & Testing",
+                            "DevOps Engineer",
+                            "Digital AI Developer",
+                            "DLP and Endpoint Analyst",
+                            "DLP and Endpoint Analyst Junior",
+                            "DLP and Endpoint Analyst Senior",
+                            "DLP and Endpoint Management",
+                            "Dynatrace Engineer",
+                            "Endpoint Security-crowdstrike Anyst",
+                            "IAM Services",
+                            "Informatica Developer",
+                            "IPC",
+                            "Microstrategy",
+                            "Microstrategy Platform Manager",
+                            "MOveit Analyst",
+                            "Network Security & Operational Engineer",
+                            "Network, Telephony, and Security Audit Controls Assessor (ICIF & NIST)",
+                            "Next Gen AV & Cert Management Analyst Sr",
+                            "Next Gen AV & Cert Management Analyst Sr",
+                            "Next Gen AV & Cert management Analyst Sr.",
+                            "Next Gen AV & Cert Management Consultant",
+                            "Non-IT function/Other",
+                            "Platform Engineer",
+                            "Platforms",
+                            "Platforms Developer",
+                            "PM",
+                            "Programming Languages",
+                            "R studio Admin",
+                            "R-studio",
+                            "SAP Basis Engineer",
+                            "SAP Nearshore",
+                            "SAS, Flexera, NDR, Solarwinds Analyst Jr",
+                            "SAS, Flexera, NDR, Solarwinds Consultant",
+                            "SAS, Flexera, NDR, Solarwinds Jr.Analyst",
+                            "SAS, Flexera, NDR, Solarwinds Sr Analyst",
+                            "Secure File Transfer Analyst",
+                            "Secure File Transfer Analyst Jr",
+                            "Secure File Transfer Analyst Senior",
+                            "Secure File Transfer Consultant",
+                            "Security Manager",
+                            "Senior Solution Architect",
+                            "Shared Service Apps",
+                            "Solutions Architect",
+                            "Splunk Analyst",
+                            "Splunk Jr. Analys",
+                            "SQL DBA",
+                            "Translation"
+                        ]
+                    },
+                    technology: {
+                        label: "Technology",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "technology Error Message",
+                        items: [
+                            "ADF",
+                            "Agentic",
+                            "Angular",
+                            "Angular / Python",
+                            "APIs Backend",
+                            "Application Developer",
+                            "Atlassian",
+                            "Audit, Compliance",
+                            "AWS / Azure",
+                            "Azure",
+                            "Azure DevOps & Cloud",
+                            "BI apps",
+                            "Business Analyst",
+                            "Cloud + R-studio",
+                            "Cloud architect",
+                            "Cloud Migration",
+                            "Cloud Security",
+                            "cobol",
+                            "Compliance",
+                            "Copilot and PowerAutomate",
+                            "Cybersecurity",
+                            "Data Architect",
+                            "Data Loss Prevention, Endpoint Protection, Email Security",
+                            "Databricks",
+                            "Databricks, Atlassian, SAP",
+                            "Dataiku",
+                            "DB2",
+                            "DB2 / SQL / IPC",
+                            "Db2 LUW, MSSQL and Snowflake database administration",
+                            "DBT",
+                            "DBT Databricks",
+                            "DBT, Databricks",
+                            "DBT, Databricks, Azure",
+                            "DLP",
+                            "DLP , ENDPOINT",
+                            "DLP, Endpoint",
+                            "Dynamics 365",
+                            "Dynatrace",
+                            "EBX",
+                            "Endpoint Security-crowdstrike Anyst",
+                            "ETL, PBI and .Net",
+                            "Functional Testing",
+                            "IDMC",
+                            "Informatica",
+                            "Informatica IDMC, Linux administration and shell scripting",
+                            "IPC",
+                            "IT Engineer",
+                            "Java Script",
+                            "LAN, WiFi, WAN, SD-WAN, and NAC",
+                            "MicroStrategy",
+                            "ML",
+                            "Move IT",
+                            "MS SQL, Azure SQL",
+                            "MS SQL, Azure SQL, and PostgreSQL",
+                            "MS Dynamics",
+                            "Mulesoft",
+                            ".Net",
+                            "Net; .Net Core, Entity;, Azure",
+                            "Network, Telephony, and Security Audit Controls Assessor (ICIF & NIST)",
+                            "Next Gen AV",
+                            "Next Gen AV & Cert Management",
+                            "Next Gen AV & Cert Management Analyst Sr.",
+                            "Operations",
+                            "Otel",
+                            "Phyton, DBT",
+                            "Phyton, Java, Angular",
+                            "PMO",
+                            "PostgreSQL",
+                            "Power BI",
+                            "Power BI Developer",
+                            "Power Center (PC) Intelligent Data Management Cloud (IDMC)",
+                            "PowerBI",
+                            "PowerBI / Databricks",
+                            "Project / Program Manager",
+                            "Project Management",
+                            "Python",
+                            "RStudio",
+                            "Reltio MDM, Reltio Integration Hub, Mulesoft, Postman and Anypoint Studio",
+                            "Sailpoint IIQ",
+                            "SAP",
+                            "SAP Basis / BO",
+                            "SAP BO",
+                            "SAP Fico",
+                            "SAS",
+                            "SAS, Flexera, NDR, Solarwinds",
+                            "SAS, Flexera, NDR, Solarwinds Analist Jr",
+                            "SAS, R, DBT, Databricks",
+                            "Scrum Master",
+                            "Scrum Master (Agile frameworks)",
+                            "Secure file transfer",
+                            "Security",
+                            "Selenium",
+                            "Snowflake",
+                            "Snowflake, IDMC, SAP Basis",
+                            "Splunk",
+                            "SQL",
+                            "SQL DBA",
+                            "SSIS",
+                            "Test & Quality Manager",
+                            "Translator",
+                            "UI Development ,Angular/ React JS, Bootstrap, jQuery, Ajax, CSS, JS",
+                            "UiPath/Bluesprism",
+                            "Veracode",
+                            "WPS",
+                            "Z-Horizon+"
+                        ]
+                    },
+                    // ------------------Financial Data
+                    billingType: {
+                        label: "Billing type",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "billingType Error Message",
+                        items: ["Fixed", "Variable"] 
+                    },
+                    totalAmount: {
+                        label: "Total amount SOW/WO excluding VAT in $",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "totalAmount Error Message",
+                        items: []
+                    },
+                    mana: {
+                        label: "MANA opportunity",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "mana Error Message",
+                        items: []
+                    },
+                    mkt: {
+                        label: "MKT",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "mkt Error Message",
+                        items: []
+                    },
+                    ext: {
+                        label: "EXT",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "ext Error Message",
+                        items: []
+                    },
+                    cmSale: {
+                        label: "% Contract margin sale",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "cmSale Error Message",
+                        items: []
+                    },
+                    percentageCostTeam: {
+                        label: "% INSURANCE cost team included in SOW",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "percentageCostTeam Error Message",
+                        items: []
+                    },
+                    amountCostTeam: {
+                        label: "Amount INSURANCE cost team included in SOW",
+                        info: "",
+                        placeholder: "",
+                        errorMessage: "amountCostTeam Error Message",
+                        items: []
+                    }
+        
+                }
+            }
         )
     Theme: =PowerAppsTheme
 

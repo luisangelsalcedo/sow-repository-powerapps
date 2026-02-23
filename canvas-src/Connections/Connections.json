@@ -48,16 +48,13 @@
     "dependents": [
       "a0349846-3b70-466c-a72a-511e3b3b4d72"
     ],
+    "endpoints": [],
     "id": "201cc980-5397-4a61-b702-bccaef255164"
   },
   "a0349846-3b70-466c-a72a-511e3b3b4d72": {
-    "appActions": [
-      "Run"
-    ],
     "connectionRef": {
-      "apiTier": "Standard",
       "displayName": "Flujos lógicos",
-      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1766/1.0.1766.4330/logicflows/icon.png",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1774/1.0.1774.4397/logicflows/icon.png",
       "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
       "parameterHints": {
         "201cc980-5397-4a61-b702-bccaef255164": {

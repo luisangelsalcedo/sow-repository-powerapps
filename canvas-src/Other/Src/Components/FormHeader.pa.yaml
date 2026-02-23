@@ -52,6 +52,7 @@ ComponentDefinitions:
               Default: =100
     Properties:
       Height: =150
+      Width: =400
     Children:
       - ContainerFormHeader:
           Control: GroupContainer@1.4.0
@@ -113,6 +114,7 @@ ComponentDefinitions:
                         OnSelect: |+
                           =FormHeader.OnTabSelect(ThisItem.index);
                         Text: =ThisItem.label
+                        VerticalAlign: =VerticalAlign.Middle
                         Width: =Parent.TemplateWidth
                         Y: |+
                           =0
