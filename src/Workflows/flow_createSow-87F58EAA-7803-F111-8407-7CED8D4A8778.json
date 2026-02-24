@@ -368,7 +368,7 @@
               "parameters/contentTypeId": "0x0120D52000FA1377E518C5D1418987B08475BD576C00C498A10ACA405D4BBD088CDCBB3CDD13",
               "parameters/DynamicProperties/Title": "@concat('sow',variables('contractID'))",
               "parameters/DynamicProperties/ContractID": "@variables('contractID')",
-              "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_16']",
+              "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_19']",
               "parameters/DynamicProperties/org": "@triggerBody()?['text']",
               "parameters/DynamicProperties/Business_x0020_unit": "@triggerBody()?['text_1']",
               "parameters/DynamicProperties/ProjectName": "@triggerBody()?['text_2']",

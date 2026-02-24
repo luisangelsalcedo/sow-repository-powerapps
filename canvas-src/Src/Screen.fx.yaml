@@ -879,8 +879,8 @@
         Visible: =showNewSowModal
         Width: |-
             =If(
-                Screen.Width > 600,
-                600,
+                Screen.Width > 650,
+                650,
                 Parent.Width - (designSystem.paddingDefault * 2)
             )
         X: =Parent.Width - Self.Width
@@ -2034,6 +2034,556 @@
                             X: =0
                             Y: =0
                             ZIndex: =2
+
+                    "'fc-tableFte' As groupContainer.verticalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        DropShadow: =DropShadow.None
+                        Height: ='fc-tableFte-container'.Height + 'fc-tableFte-table'.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =33
+
+                        "'fc-tableFte-container' As groupContainer.horizontalAutoLayoutContainer":
+                            ContentLanguage: =
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =30
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-tableFte-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.tableFte.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-tableFte-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.tableFte.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "'fc-tableFte-table-scroll' As groupContainer.verticalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: ='fc-tableFte-table'.Height
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            LayoutOverflowX: =LayoutOverflow.Scroll
+                            Width: =Parent.Width
+                            ZIndex: =2
+
+                            "'fc-tableFte-table' As groupContainer.horizontalAutoLayoutContainer":
+                                AlignInContainer: =AlignInContainer.Start
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                Height: ='fc-tableFte-table-header'.Height + 'fc-tableFte-table-body'.Height + 'fc-tableFte-table-add'.Height + (Self.LayoutGap * 3) + 20
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutGap: =3
+                                LayoutGridColumns: =6
+                                LayoutGridRows: =6
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =3
+                                PaddingLeft: =3
+                                PaddingRight: =3
+                                PaddingTop: =3
+                                Width: =Functions.ResponsiveOnCellphone(550, Parent.Width)
+                                ZIndex: =34
+
+                                "'fc-tableFte-table-header' As groupContainer.horizontalAutoLayoutContainer":
+                                    AlignInContainer: =AlignInContainer.Start
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =30
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGridColumns: =6
+                                    LayoutGridRows: =6
+                                    LayoutMaxHeight: =0
+                                    LayoutMaxWidth: =0
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    LayoutMode: =LayoutMode.Auto
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    lblRole As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =9
+                                        Text: ="Role"
+                                        ZIndex: =1
+
+                                    lblCountry As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =9
+                                        Text: ="Country"
+                                        ZIndex: =2
+
+                                    lblLocationCity As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =9
+                                        Text: ="Location city"
+                                        ZIndex: =3
+
+                                    lblFteUnits As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =9
+                                        Text: ="FTE units"
+                                        ZIndex: =4
+
+                                    lblRate As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =9
+                                        Text: ="Rate"
+                                        ZIndex: =5
+
+                                    lblCurrency As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =9
+                                        Text: ="Currency "
+                                        ZIndex: =6
+
+                                "'fc-tableFte-table-body' As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+                                    '#CopilotOverlayLabel': ="Filtrada"
+                                    AlignInContainer: =AlignInContainer.SetByContainer
+                                    DelayItemLoading: =true
+                                    FillPortions: =0
+                                    Height: =Self.TemplateHeight * Self.AllItemsCount
+                                    Items: =colTableFte
+                                    Layout: =Layout.Vertical
+                                    LayoutMaxHeight: =0
+                                    LayoutMaxWidth: =0
+                                    LayoutMinHeight: =287
+                                    LayoutMinWidth: =320
+                                    LoadingSpinner: =LoadingSpinner.Data
+                                    ShowScrollbar: =false
+                                    TemplatePadding: =0
+                                    TemplateSize: =35
+                                    Width: =Parent.Width
+                                    ZIndex: =2
+
+                                    "'fc-tableFte-table-row' As groupContainer.horizontalAutoLayoutContainer":
+                                        DropShadow: =DropShadow.None
+                                        Height: =35
+                                        LayoutAlignItems: =LayoutAlignItems.Center
+                                        LayoutGap: =3
+                                        LayoutGridColumns: =6
+                                        LayoutGridRows: =6
+                                        LayoutMode: =LayoutMode.Auto
+                                        Width: =Parent.Width
+                                        ZIndex: =1
+
+                                        "'fc-tableFte-table-col1' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {role: Self.Value})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.role
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =1
+
+                                        "'fc-tableFte-table-col2' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {country: Self.Value})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.country
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =2
+
+                                        "'fc-tableFte-table-col3' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {locationCity: Self.Value})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.locationCity
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =3
+
+                                        "'fc-tableFte-table-col4' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {fteUnits: Self.Value})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.fteUnits
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =4
+
+                                        "'fc-tableFte-table-col5' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {rate: Self.Value})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.rate
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =5
+
+                                        "'fc-tableFte-table-col6' As Desplegable.pcfdataset":
+                                            DefaultSelectedItems: |-
+                                                =[{Value: ThisItem.currency}]
+                                            DisplayMode: =DisplayMode.Edit
+                                            FillPortions: =1
+                                            Height: =32
+                                            Items: =["EUR", "CHF", "USD"]
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {currency: Self.Selected.Value})
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =6
+
+                                        ButtonCanvas4 As Botón:
+                                            AcceptsFocus: =true
+                                            AccessibleLabel: =""
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Appearance: ='ButtonCanvas.Appearance'.Subtle
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =15
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: ="Bold"
+                                            Height: =32
+                                            Icon: ="DismissCircle"
+                                            IconRotation: =0
+                                            IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                            Layout: ='ButtonCanvas.Layout'.IconOnly
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            OnSelect: =Remove(colTableFte, ThisItem)
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            TabIndex: =0
+                                            Text: ="Botón"
+                                            Tooltip: =""
+                                            VerticalAlign: =""
+                                            Visible: =true
+                                            Width: =18
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =7
+
+                                "'fc-tableFte-table-add' As Botón":
+                                    AcceptsFocus: =true
+                                    AccessibleLabel: =""
+                                    Align: =""
+                                    Appearance: ='ButtonCanvas.Appearance'.Subtle
+                                    BasePaletteColor: =
+                                    BorderColor: =
+                                    BorderStyle: =""
+                                    ContentLanguage: =""
+                                    DisplayMode: =DisplayMode.Edit
+                                    Font: =""
+                                    FontColor: =
+                                    FontItalic: =false
+                                    FontSize: =9
+                                    FontStrikethrough: =false
+                                    FontUnderline: =false
+                                    FontWeight: ="Bold"
+                                    Height: =10
+                                    Icon: ="Add"
+                                    IconRotation: =0
+                                    IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                    Layout: ='ButtonCanvas.Layout'.IconBefore
+                                    LayoutMaxHeight: =0
+                                    LayoutMaxWidth: =0
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: |-
+                                        =Collect(
+                                            colTableFte,
+                                            {
+                                                id: GUID(),
+                                                role: "",
+                                                country: "",
+                                                locationCity: "",
+                                                fteUnits: "",
+                                                rate: "",
+                                                currency: ""
+                                            }
+                                        )
+                                    TabIndex: =0
+                                    Text: ="Add Row"
+                                    Tooltip: =""
+                                    VerticalAlign: =""
+                                    Visible: =true
+                                    Width: =Parent.Width
+                                    X: =40
+                                    Y: =40
+                                    ZIndex: =3
 
                 "'NewSowModal-form-container-2' As groupContainer.horizontalAutoLayoutContainer":
                     DropShadow: =DropShadow.None
@@ -3926,7 +4476,6 @@
                                         
                                         // Reset tabs
                                         UpdateContext({currentTab:1});
-                                        UpdateContext({currentTab: 1});
                                         UpdateIf(
                                             colTabs,
                                             status = "Active",

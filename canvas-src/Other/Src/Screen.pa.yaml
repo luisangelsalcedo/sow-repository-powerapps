@@ -696,8 +696,8 @@ Screens:
             Visible: =showNewSowModal
             Width: |-
               =If(
-                  Screen.Width > 600,
-                  600,
+                  Screen.Width > 650,
+                  650,
                   Parent.Width - (designSystem.paddingDefault * 2)
               )
             X: =Parent.Width - Self.Width
@@ -1371,6 +1371,321 @@ Screens:
                                           LayoutMinWidth: =16
                                           Placeholder: =formNewSowData.item.amountCostTeam.placeholder
                                           Value: =
+                              - fc-tableFte:
+                                  Control: GroupContainer@1.4.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    DropShadow: =DropShadow.None
+                                    Height: ='fc-tableFte-container'.Height + 'fc-tableFte-table'.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width
+                                  Children:
+                                    - fc-tableFte-container:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          ContentLanguage: =
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =30
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                        Children:
+                                          - fc-tableFte-info:
+                                              Control: InfoButton@0.0.33
+                                              Properties:
+                                                Content: =formNewSowData.item.tableFte.info
+                                                Height: =25
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Visible: =!IsBlank(Self.Content)
+                                                Width: =25
+                                          - fc-tableFte-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                FillPortions: =1
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: =formNewSowData.item.tableFte.label
+                                                X: =40
+                                                Y: =40
+                                    - fc-tableFte-table-scroll:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: ='fc-tableFte-table'.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          LayoutOverflowX: =LayoutOverflow.Scroll
+                                          Width: =Parent.Width
+                                        Children:
+                                          - fc-tableFte-table:
+                                              Control: GroupContainer@1.4.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Start
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                Height: ='fc-tableFte-table-header'.Height + 'fc-tableFte-table-body'.Height + 'fc-tableFte-table-add'.Height + (Self.LayoutGap * 3) + 20
+                                                LayoutDirection: =LayoutDirection.Vertical
+                                                LayoutGap: =3
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =3
+                                                PaddingLeft: =3
+                                                PaddingRight: =3
+                                                PaddingTop: =3
+                                                Width: =Functions.ResponsiveOnCellphone(550, Parent.Width)
+                                              Children:
+                                                - fc-tableFte-table-header:
+                                                    Control: GroupContainer@1.4.0
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Start
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =0
+                                                      Height: =30
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutMinHeight: =16
+                                                      LayoutMinWidth: =16
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - lblRole:
+                                                          Control: Label@2.5.1
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            AutoHeight: =true
+                                                            BorderColor: =RGBA(0, 18, 107, 1)
+                                                            FillPortions: =1
+                                                            Font: =Font.'Open Sans'
+                                                            FontWeight: =FontWeight.Bold
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            Size: =9
+                                                            Text: ="Role"
+                                                      - lblCountry:
+                                                          Control: Label@2.5.1
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            AutoHeight: =true
+                                                            BorderColor: =RGBA(0, 18, 107, 1)
+                                                            FillPortions: =1
+                                                            Font: =Font.'Open Sans'
+                                                            FontWeight: =FontWeight.Bold
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            Size: =9
+                                                            Text: ="Country"
+                                                      - lblLocationCity:
+                                                          Control: Label@2.5.1
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            AutoHeight: =true
+                                                            BorderColor: =RGBA(0, 18, 107, 1)
+                                                            FillPortions: =1
+                                                            Font: =Font.'Open Sans'
+                                                            FontWeight: =FontWeight.Bold
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            Size: =9
+                                                            Text: ="Location city"
+                                                      - lblFteUnits:
+                                                          Control: Label@2.5.1
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            AutoHeight: =true
+                                                            BorderColor: =RGBA(0, 18, 107, 1)
+                                                            FillPortions: =1
+                                                            Font: =Font.'Open Sans'
+                                                            FontWeight: =FontWeight.Bold
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            Size: =9
+                                                            Text: ="FTE units"
+                                                      - lblRate:
+                                                          Control: Label@2.5.1
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            AutoHeight: =true
+                                                            BorderColor: =RGBA(0, 18, 107, 1)
+                                                            FillPortions: =1
+                                                            Font: =Font.'Open Sans'
+                                                            FontWeight: =FontWeight.Bold
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            Size: =9
+                                                            Text: ="Rate"
+                                                      - lblCurrency:
+                                                          Control: Label@2.5.1
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            AutoHeight: =true
+                                                            BorderColor: =RGBA(0, 18, 107, 1)
+                                                            FillPortions: =1
+                                                            Font: =Font.'Open Sans'
+                                                            FontWeight: =FontWeight.Bold
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            Size: =9
+                                                            Text: ="Currency "
+                                                - fc-tableFte-table-body:
+                                                    Control: Gallery@2.15.0
+                                                    Variant: BrowseLayout_Vertical_OneTextVariant_ver5.0
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.SetByContainer
+                                                      BorderColor: =RGBA(0, 18, 107, 1)
+                                                      FillPortions: =0
+                                                      Height: =Self.TemplateHeight * Self.AllItemsCount
+                                                      Items: =colTableFte
+                                                      ShowScrollbar: =false
+                                                      TemplateSize: =35
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - fc-tableFte-table-row:
+                                                          Control: GroupContainer@1.4.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            DropShadow: =DropShadow.None
+                                                            Height: =35
+                                                            LayoutAlignItems: =LayoutAlignItems.Center
+                                                            LayoutDirection: =LayoutDirection.Horizontal
+                                                            LayoutGap: =3
+                                                            Width: =Parent.Width
+                                                          Children:
+                                                            - fc-tableFte-table-col1:
+                                                                Control: TextInput@0.0.54
+                                                                Properties:
+                                                                  Align: =Align.Left
+                                                                  FillPortions: =1
+                                                                  FontSize: =12
+                                                                  LayoutMinHeight: =16
+                                                                  LayoutMinWidth: =16
+                                                                  OnChange: |-
+                                                                    =Patch(colTableFte, ThisItem, {role: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                  Value: =ThisItem.role
+                                                            - fc-tableFte-table-col2:
+                                                                Control: TextInput@0.0.54
+                                                                Properties:
+                                                                  Align: =Align.Left
+                                                                  FillPortions: =1
+                                                                  FontSize: =12
+                                                                  LayoutMinHeight: =16
+                                                                  LayoutMinWidth: =16
+                                                                  OnChange: |-
+                                                                    =Patch(colTableFte, ThisItem, {country: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                  Value: =ThisItem.country
+                                                            - fc-tableFte-table-col3:
+                                                                Control: TextInput@0.0.54
+                                                                Properties:
+                                                                  Align: =Align.Left
+                                                                  FillPortions: =1
+                                                                  FontSize: =12
+                                                                  LayoutMinHeight: =16
+                                                                  LayoutMinWidth: =16
+                                                                  OnChange: |-
+                                                                    =Patch(colTableFte, ThisItem, {locationCity: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                  Value: =ThisItem.locationCity
+                                                            - fc-tableFte-table-col4:
+                                                                Control: TextInput@0.0.54
+                                                                Properties:
+                                                                  Align: =Align.Left
+                                                                  FillPortions: =1
+                                                                  FontSize: =12
+                                                                  LayoutMinHeight: =16
+                                                                  LayoutMinWidth: =16
+                                                                  OnChange: |-
+                                                                    =Patch(colTableFte, ThisItem, {fteUnits: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                  Value: =ThisItem.fteUnits
+                                                            - fc-tableFte-table-col5:
+                                                                Control: TextInput@0.0.54
+                                                                Properties:
+                                                                  Align: =Align.Left
+                                                                  FillPortions: =1
+                                                                  FontSize: =12
+                                                                  LayoutMinHeight: =16
+                                                                  LayoutMinWidth: =16
+                                                                  OnChange: |-
+                                                                    =Patch(colTableFte, ThisItem, {rate: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                  Value: =ThisItem.rate
+                                                            - fc-tableFte-table-col6:
+                                                                Control: DropDown@0.0.45
+                                                                Properties:
+                                                                  DefaultSelectedItems: |-
+                                                                    =[{Value: ThisItem.currency}]
+                                                                  FillPortions: =1
+                                                                  Items: =["EUR", "CHF", "USD"]
+                                                                  LayoutMinHeight: =16
+                                                                  LayoutMinWidth: =16
+                                                                  OnChange: |-
+                                                                    =Patch(colTableFte, ThisItem, {currency: Self.Selected.Value})
+                                                            - ButtonCanvas4:
+                                                                Control: Button@0.0.45
+                                                                Properties:
+                                                                  Align: =Align.Center
+                                                                  AlignInContainer: =AlignInContainer.Stretch
+                                                                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                                                                  FontSize: =15
+                                                                  FontWeight: ="Bold"
+                                                                  Icon: ="DismissCircle"
+                                                                  IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                                                  Layout: ='ButtonCanvas.Layout'.IconOnly
+                                                                  LayoutMinHeight: =16
+                                                                  LayoutMinWidth: =16
+                                                                  OnSelect: =Remove(colTableFte, ThisItem)
+                                                                  PaddingBottom: =0
+                                                                  PaddingLeft: =0
+                                                                  PaddingRight: =0
+                                                                  PaddingTop: =0
+                                                                  Width: =18
+                                                - fc-tableFte-table-add:
+                                                    Control: Button@0.0.45
+                                                    Properties:
+                                                      Appearance: ='ButtonCanvas.Appearance'.Subtle
+                                                      FontSize: =9
+                                                      FontWeight: ="Bold"
+                                                      Height: =10
+                                                      Icon: ="Add"
+                                                      IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                                      Layout: ='ButtonCanvas.Layout'.IconBefore
+                                                      LayoutMinHeight: =16
+                                                      LayoutMinWidth: =16
+                                                      OnSelect: |-
+                                                        =Collect(
+                                                            colTableFte,
+                                                            {
+                                                                id: GUID(),
+                                                                role: "",
+                                                                country: "",
+                                                                locationCity: "",
+                                                                fteUnits: "",
+                                                                rate: "",
+                                                                currency: ""
+                                                            }
+                                                        )
+                                                      Text: ="Add Row"
+                                                      Width: =Parent.Width
+                                                      X: =40
+                                                      Y: =40
                         - NewSowModal-form-container-2:
                             Control: GroupContainer@1.4.0
                             Variant: AutoLayout
@@ -2375,7 +2690,7 @@ Screens:
                               AlignInContainer: =AlignInContainer.Center
                               LayoutMinHeight: =16
                               LayoutMinWidth: =16
-                              OnSelect: "=With(\r\n    {\r\n        // ------------------------------------- Contract Details \r\n\r\n        _org                : cbbOrg.Selected.Value,\r\n        _un                 : cbbUn.Selected.Value,\r\n        _sowName            : txtSowName.Value,\r\n        _startDate          : dpkStartDate.SelectedDate,\r\n        _endDate            : dpkEndDate.SelectedDate,\r\n        _customer           : cbbCustomer.Selected.Value,\r\n        _zurichLineManager  : txtZurichLineManager.Value,\r\n        _extensionOrNew     : cbbExtensionOrNew.Selected.Value,\r\n\r\n        // ------------------------------------- Service Information \r\n\r\n        _itOrNonIT          : cbbItOrNonIT.Selected.Value,\r\n        _typeService        : cbbTypeService.Selected.Value,\r\n        _engagementType     : cbbEngagementType.Selected.Value,\r\n        _deliveryStrategy   : cbbDeliveryStrategy.Selected.Value,\r\n        _technologyCluster  : cbbTechnologyCluster.Selected.Value,\r\n        _capability         : cbbCapability.Selected.Value,\r\n        _technology         : cbbTechnology.Selected.Value,\r\n\r\n        // ------------------------------------- Financial Data \r\n\r\n        _billingType        : cbbBillingType.Selected.Value,\r\n        _totalAmount        : txtTotalAmount.Value,\r\n        _mana               : txtMana.Value,\r\n        _mkt                : txtMkt.Value,\r\n        _ext                : txtExt.Value,\r\n        _cmSale             : txtCmSale.Value,\r\n        _percentageCostTeam : txtPercentageCostTeam.Value,\r\n        _amountCostTeam     : txtAmountCostTeam.Value,\r\n\r\n        // ------------------------------------- Extra data\r\n        \r\n        _user               : User().FullName,\r\n        _attach             : DataCardValue.Attachments\r\n    },\r\n    If(\r\n        //validation\r\n            // ------------------------------------- Contract Details \r\n            IsBlank(_org),\r\n            Notify(formNewSowData.item.org.errorMessage, NotificationType.Error); SetFocus(cbbOrg),\r\n\r\n            IsBlank(_un),\r\n            Notify(formNewSowData.item.un.errorMessage, NotificationType.Error); SetFocus(cbbUn),\r\n\r\n            Len(_sowName) < 3,\r\n            Notify(formNewSowData.item.sowName.errorMessage, NotificationType.Error); SetFocus(txtSowName), //text\r\n\r\n            IsBlank(_startDate),\r\n            Notify(formNewSowData.item.startDate.errorMessage, NotificationType.Error); SetFocus(dpkStartDate), //date\r\n\r\n            IsBlank(_endDate),\r\n            Notify(formNewSowData.item.endDate.errorMessage, NotificationType.Error); SetFocus(dpkEndDate), //date\r\n\r\n            IsBlank(_customer),\r\n            Notify(formNewSowData.item.customer.errorMessage, NotificationType.Error); SetFocus(cbbCustomer),\r\n\r\n            IsBlank(_zurichLineManager),\r\n            Notify(formNewSowData.item.zurichLineManager.errorMessage, NotificationType.Error); SetFocus(txtZurichLineManager), //text\r\n\r\n            IsBlank(_extensionOrNew),\r\n            Notify(formNewSowData.item.extensionOrNew.errorMessage, NotificationType.Error); SetFocus(cbbExtensionOrNew),\r\n\r\n            // ------------------------------------- Service Information\r\n            IsBlank(_itOrNonIT),\r\n            Notify(formNewSowData.item.itOrNonIT.errorMessage, NotificationType.Error); SetFocus(cbbItOrNonIT),\r\n\r\n            IsBlank(_typeService),\r\n            Notify(formNewSowData.item.typeService.errorMessage, NotificationType.Error); SetFocus(cbbTypeService),\r\n\r\n            IsBlank(_engagementType),\r\n            Notify(formNewSowData.item.engagementType.errorMessage, NotificationType.Error); SetFocus(cbbEngagementType),\r\n\r\n            IsBlank(_deliveryStrategy),\r\n            Notify(formNewSowData.item.deliveryStrategy.errorMessage, NotificationType.Error); SetFocus(cbbDeliveryStrategy),\r\n\r\n            IsBlank(_technologyCluster),\r\n            Notify(formNewSowData.item.technologyCluster.errorMessage, NotificationType.Error); SetFocus(cbbTechnologyCluster),\r\n\r\n            IsBlank(_capability),\r\n            Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),\r\n\r\n            IsBlank(_technology),\r\n            Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(cbbTechnology),\r\n\r\n            // ------------------------------------- Financial Data \r\n            IsBlank(_billingType),\r\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\r\n\r\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\r\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\r\n\r\n            Len(_mana) < 3,\r\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\r\n\r\n            Len(_mkt) < 3,\r\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\r\n\r\n            Len(_ext) < 3,\r\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\r\n\r\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0,\r\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number\r\n\r\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0,\r\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number\r\n\r\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\r\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\r\n        \r\n        // success\r\n            //loader\r\n            UpdateContext({loaderNewSowModal:true});\r\n            \r\n            //action\r\n            With(\r\n                {\r\n                    _response: flow_createSow.Run(\r\n                        _org,\r\n                        _un,\r\n                        _sowName,\r\n                        Text(_startDate, \"yyyy-mm-dd\"),\r\n                        Text(_endDate, \"yyyy-mm-dd\"),\r\n                        _customer,\r\n                        _zurichLineManager,\r\n                        _extensionOrNew,\r\n                        _itOrNonIT,\r\n                        _typeService,\r\n                        _engagementType,\r\n                        _deliveryStrategy,\r\n                        _technologyCluster,\r\n                        _capability,\r\n                        _technology,\r\n                        _billingType,\r\n                        _totalAmount,\r\n                        _mana,\r\n                        _mkt,\r\n                        _ext,\r\n                        _cmSale,\r\n                        _percentageCostTeam,\r\n                        _amountCostTeam,\r\n                        _user\r\n                    ).response\r\n                },\r\n                \r\n                //success message\r\n                Notify(_response, NotificationType.Success);\r\n\r\n                // clean controls\r\n                Reset(cbbOrg);\r\n                Reset(cbbUn);\r\n                Reset(txtSowName);\r\n                Reset(dpkStartDate);\r\n                Reset(dpkEndDate);\r\n                Reset(cbbCustomer);\r\n                Reset(txtZurichLineManager);\r\n                Reset(cbbExtensionOrNew);\r\n                Reset(cbbItOrNonIT);\r\n                Reset(cbbTypeService);\r\n                Reset(cbbEngagementType);\r\n                Reset(cbbDeliveryStrategy);\r\n                Reset(cbbTechnologyCluster);\r\n                Reset(cbbCapability);\r\n                Reset(cbbTechnology);\r\n                Reset(cbbBillingType);\r\n                Reset(txtTotalAmount);\r\n                Reset(txtMana);\r\n                Reset(txtMkt);\r\n                Reset(txtExt);\r\n                Reset(txtCmSale);\r\n                Reset(txtPercentageCostTeam);\r\n                Reset(txtAmountCostTeam);\r\n                \r\n                // close modal\r\n                UpdateContext({loaderNewSowModal:false});\r\n                UpdateContext({showNewSowModal:false});\r\n                UpdateContext({showBackdrop:false});\r\n                \r\n                // Reset tabs\r\n                UpdateContext({currentTab:1});\r\n                UpdateContext({currentTab: 1});\r\n                UpdateIf(\r\n                    colTabs,\r\n                    status = \"Active\",\r\n                    { status: \"Pending\" }\r\n                );\r\n                Patch(\r\n                    colTabs,\r\n                    LookUp(colTabs, index = 1),\r\n                    { status: \"Active\" }\r\n                )\r\n            )     \r\n    )\r\n)"
+                              OnSelect: "=With(\r\n    {\r\n        // ------------------------------------- Contract Details \r\n\r\n        _org                : cbbOrg.Selected.Value,\r\n        _un                 : cbbUn.Selected.Value,\r\n        _sowName            : txtSowName.Value,\r\n        _startDate          : dpkStartDate.SelectedDate,\r\n        _endDate            : dpkEndDate.SelectedDate,\r\n        _customer           : cbbCustomer.Selected.Value,\r\n        _zurichLineManager  : txtZurichLineManager.Value,\r\n        _extensionOrNew     : cbbExtensionOrNew.Selected.Value,\r\n\r\n        // ------------------------------------- Service Information \r\n\r\n        _itOrNonIT          : cbbItOrNonIT.Selected.Value,\r\n        _typeService        : cbbTypeService.Selected.Value,\r\n        _engagementType     : cbbEngagementType.Selected.Value,\r\n        _deliveryStrategy   : cbbDeliveryStrategy.Selected.Value,\r\n        _technologyCluster  : cbbTechnologyCluster.Selected.Value,\r\n        _capability         : cbbCapability.Selected.Value,\r\n        _technology         : cbbTechnology.Selected.Value,\r\n\r\n        // ------------------------------------- Financial Data \r\n\r\n        _billingType        : cbbBillingType.Selected.Value,\r\n        _totalAmount        : txtTotalAmount.Value,\r\n        _mana               : txtMana.Value,\r\n        _mkt                : txtMkt.Value,\r\n        _ext                : txtExt.Value,\r\n        _cmSale             : txtCmSale.Value,\r\n        _percentageCostTeam : txtPercentageCostTeam.Value,\r\n        _amountCostTeam     : txtAmountCostTeam.Value,\r\n\r\n        // ------------------------------------- Extra data\r\n        \r\n        _user               : User().FullName,\r\n        _attach             : DataCardValue.Attachments\r\n    },\r\n    If(\r\n        //validation\r\n            // ------------------------------------- Contract Details \r\n            IsBlank(_org),\r\n            Notify(formNewSowData.item.org.errorMessage, NotificationType.Error); SetFocus(cbbOrg),\r\n\r\n            IsBlank(_un),\r\n            Notify(formNewSowData.item.un.errorMessage, NotificationType.Error); SetFocus(cbbUn),\r\n\r\n            Len(_sowName) < 3,\r\n            Notify(formNewSowData.item.sowName.errorMessage, NotificationType.Error); SetFocus(txtSowName), //text\r\n\r\n            IsBlank(_startDate),\r\n            Notify(formNewSowData.item.startDate.errorMessage, NotificationType.Error); SetFocus(dpkStartDate), //date\r\n\r\n            IsBlank(_endDate),\r\n            Notify(formNewSowData.item.endDate.errorMessage, NotificationType.Error); SetFocus(dpkEndDate), //date\r\n\r\n            IsBlank(_customer),\r\n            Notify(formNewSowData.item.customer.errorMessage, NotificationType.Error); SetFocus(cbbCustomer),\r\n\r\n            IsBlank(_zurichLineManager),\r\n            Notify(formNewSowData.item.zurichLineManager.errorMessage, NotificationType.Error); SetFocus(txtZurichLineManager), //text\r\n\r\n            IsBlank(_extensionOrNew),\r\n            Notify(formNewSowData.item.extensionOrNew.errorMessage, NotificationType.Error); SetFocus(cbbExtensionOrNew),\r\n\r\n            // ------------------------------------- Service Information\r\n            IsBlank(_itOrNonIT),\r\n            Notify(formNewSowData.item.itOrNonIT.errorMessage, NotificationType.Error); SetFocus(cbbItOrNonIT),\r\n\r\n            IsBlank(_typeService),\r\n            Notify(formNewSowData.item.typeService.errorMessage, NotificationType.Error); SetFocus(cbbTypeService),\r\n\r\n            IsBlank(_engagementType),\r\n            Notify(formNewSowData.item.engagementType.errorMessage, NotificationType.Error); SetFocus(cbbEngagementType),\r\n\r\n            IsBlank(_deliveryStrategy),\r\n            Notify(formNewSowData.item.deliveryStrategy.errorMessage, NotificationType.Error); SetFocus(cbbDeliveryStrategy),\r\n\r\n            IsBlank(_technologyCluster),\r\n            Notify(formNewSowData.item.technologyCluster.errorMessage, NotificationType.Error); SetFocus(cbbTechnologyCluster),\r\n\r\n            IsBlank(_capability),\r\n            Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),\r\n\r\n            IsBlank(_technology),\r\n            Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(cbbTechnology),\r\n\r\n            // ------------------------------------- Financial Data \r\n            IsBlank(_billingType),\r\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\r\n\r\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\r\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\r\n\r\n            Len(_mana) < 3,\r\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\r\n\r\n            Len(_mkt) < 3,\r\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\r\n\r\n            Len(_ext) < 3,\r\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\r\n\r\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0,\r\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number\r\n\r\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0,\r\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number\r\n\r\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\r\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\r\n        \r\n        // success\r\n            //loader\r\n            UpdateContext({loaderNewSowModal:true});\r\n            \r\n            //action\r\n            With(\r\n                {\r\n                    _response: flow_createSow.Run(\r\n                        _org,\r\n                        _un,\r\n                        _sowName,\r\n                        Text(_startDate, \"yyyy-mm-dd\"),\r\n                        Text(_endDate, \"yyyy-mm-dd\"),\r\n                        _customer,\r\n                        _zurichLineManager,\r\n                        _extensionOrNew,\r\n                        _itOrNonIT,\r\n                        _typeService,\r\n                        _engagementType,\r\n                        _deliveryStrategy,\r\n                        _technologyCluster,\r\n                        _capability,\r\n                        _technology,\r\n                        _billingType,\r\n                        _totalAmount,\r\n                        _mana,\r\n                        _mkt,\r\n                        _ext,\r\n                        _cmSale,\r\n                        _percentageCostTeam,\r\n                        _amountCostTeam,\r\n                        _user\r\n                    ).response\r\n                },\r\n                \r\n                //success message\r\n                Notify(_response, NotificationType.Success);\r\n\r\n                // clean controls\r\n                Reset(cbbOrg);\r\n                Reset(cbbUn);\r\n                Reset(txtSowName);\r\n                Reset(dpkStartDate);\r\n                Reset(dpkEndDate);\r\n                Reset(cbbCustomer);\r\n                Reset(txtZurichLineManager);\r\n                Reset(cbbExtensionOrNew);\r\n                Reset(cbbItOrNonIT);\r\n                Reset(cbbTypeService);\r\n                Reset(cbbEngagementType);\r\n                Reset(cbbDeliveryStrategy);\r\n                Reset(cbbTechnologyCluster);\r\n                Reset(cbbCapability);\r\n                Reset(cbbTechnology);\r\n                Reset(cbbBillingType);\r\n                Reset(txtTotalAmount);\r\n                Reset(txtMana);\r\n                Reset(txtMkt);\r\n                Reset(txtExt);\r\n                Reset(txtCmSale);\r\n                Reset(txtPercentageCostTeam);\r\n                Reset(txtAmountCostTeam);\r\n                \r\n                // close modal\r\n                UpdateContext({loaderNewSowModal:false});\r\n                UpdateContext({showNewSowModal:false});\r\n                UpdateContext({showBackdrop:false});\r\n                \r\n                // Reset tabs\r\n                UpdateContext({currentTab:1});\r\n                UpdateIf(\r\n                    colTabs,\r\n                    status = \"Active\",\r\n                    { status: \"Pending\" }\r\n                );\r\n                Patch(\r\n                    colTabs,\r\n                    LookUp(colTabs, index = 1),\r\n                    { status: \"Active\" }\r\n                )\r\n            )     \r\n    )\r\n)"
                               Text: ="Submit"
                               X: =(Parent.Width - Self.Width) / 2
                               Y: =(Parent.Height - Self.Height) / 2

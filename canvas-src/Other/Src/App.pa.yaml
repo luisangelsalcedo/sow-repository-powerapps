@@ -63,6 +63,36 @@ App:
               }
           )
       );
+      ClearCollect(
+          colTableFte,
+          {
+              id: "1",
+              role: "",
+              country: "",
+              locationCity: "",
+              fteUnits: "",
+              rate: "",
+              currency: ""
+          },
+          {
+              id: "2",
+              role: "",
+              country: "",
+              locationCity: "",
+              fteUnits: "",
+              rate: "",
+              currency: ""
+          },
+          {
+              id: "3",
+              role: "",
+              country: "",
+              locationCity: "",
+              fteUnits: "",
+              rate: "",
+              currency: ""
+          }
+      );
       Set(
           formNewSowData,
           {
@@ -461,7 +491,10 @@ App:
                       info: "",
                       placeholder: "",
                       errorMessage: "billingType Error Message",
-                      items: ["Fixed", "Variable"] 
+                      items: [
+                          "Fixed",
+                          "Variable"
+                      ]
                   },
                   totalAmount: {
                       label: "Total amount SOW/WO excluding VAT in $",
@@ -511,8 +544,14 @@ App:
                       placeholder: "",
                       errorMessage: "amountCostTeam Error Message",
                       items: []
+                  },
+                  tableFte: {
+                      label: "FTE",
+                      info: "",
+                      placeholder: "",
+                      errorMessage: "FTE Error Message",
+                      items: []
                   }
-
               }
           }
       )
