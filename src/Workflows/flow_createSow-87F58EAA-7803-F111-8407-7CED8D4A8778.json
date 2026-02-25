@@ -44,7 +44,7 @@
                 },
                 "text_1": {
                   "description": "Please enter your input",
-                  "title": "_un",
+                  "title": "_fundation",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
@@ -204,6 +204,34 @@
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
+                },
+                "text_7": {
+                  "description": "Please enter your input",
+                  "title": "_nttCompany",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_8": {
+                  "description": "Please enter your input",
+                  "title": "_zurichArea",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_20": {
+                  "description": "Please enter your input",
+                  "title": "_extensionOf",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_21": {
+                  "description": "Please enter your input",
+                  "title": "_supportedApplications",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
                 }
               },
               "required": [
@@ -230,7 +258,11 @@
                 "number_1",
                 "number_2",
                 "number_3",
-                "text_19"
+                "text_19",
+                "text_7",
+                "text_8",
+                "text_20",
+                "text_21"
               ]
             }
           }
@@ -246,14 +278,17 @@
           "type": "Compose",
           "inputs": {
             "contractID": "@{variables('contractID')}",
+            "nttCompany": "@{triggerBody()?['text_7']}",
             "org": "@{triggerBody()?['text']}",
-            "un": "@{triggerBody()?['text_1']}",
+            "zurichArea": "@{triggerBody()?['text_8']}",
+            "fundation": "@{triggerBody()?['text_1']}",
             "sowName": "@{triggerBody()?['text_2']}",
             "startDate": "@{triggerBody()?['date']}",
             "endDate": "@{triggerBody()?['date_1']}",
             "customer": "@{triggerBody()?['text_4']}",
             "zurichLineManager": "@{triggerBody()?['text_5']}",
             "extensionOrNew": "@{triggerBody()?['text_6']}",
+            "extensionOf": "@{triggerBody()?['text_20']}",
             "itOrNonIT": "@{triggerBody()?['text_3']}",
             "typeService": "@{triggerBody()?['text_9']}",
             "engagementType": "@{triggerBody()?['text_10']}",
@@ -261,6 +296,7 @@
             "technologyCluster": "@{triggerBody()?['text_12']}",
             "capability": "@{triggerBody()?['text_13']}",
             "technology": "@{triggerBody()?['text_14']}",
+            "supportedApplications": "@{triggerBody()?['text_21']}",
             "billingType": "@{triggerBody()?['text_15']}",
             "totalAmount": "@{triggerBody()?['number']}",
             "mana": "@{triggerBody()?['text_16']}",
@@ -369,7 +405,9 @@
               "parameters/DynamicProperties/Title": "@concat('sow',variables('contractID'))",
               "parameters/DynamicProperties/ContractID": "@variables('contractID')",
               "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_19']",
+              "parameters/DynamicProperties/NTT_x0020_Company": "@triggerBody()?['text_7']",
               "parameters/DynamicProperties/org": "@triggerBody()?['text']",
+              "parameters/DynamicProperties/Zurich_x0020_area": "@triggerBody()?['text_8']",
               "parameters/DynamicProperties/Business_x0020_unit": "@triggerBody()?['text_1']",
               "parameters/DynamicProperties/ProjectName": "@triggerBody()?['text_2']",
               "parameters/DynamicProperties/OData__startDate": "@triggerBody()?['date']",
@@ -377,13 +415,15 @@
               "parameters/DynamicProperties/costumerName": "@triggerBody()?['text_4']",
               "parameters/DynamicProperties/zurichLineManager": "@triggerBody()?['text_5']",
               "parameters/DynamicProperties/extension": "@triggerBody()?['text_6']",
+              "parameters/DynamicProperties/Extension_x0020_of": "@triggerBody()?['text_20']",
               "parameters/DynamicProperties/OData__org": "@triggerBody()?['text_3']",
-              "parameters/DynamicProperties/company": "@triggerBody()?['text_9']",
               "parameters/DynamicProperties/engagementType": "@triggerBody()?['text_10']",
-              "parameters/DynamicProperties/Delivery_x0020_strategy": "@triggerBody()?['text_11']",
+              "parameters/DynamicProperties/company": "@triggerBody()?['text_9']",
               "parameters/DynamicProperties/Technology_x0020_cluster": "@triggerBody()?['text_12']",
+              "parameters/DynamicProperties/Delivery_x0020_strategy": "@triggerBody()?['text_11']",
               "parameters/DynamicProperties/Capability": "@triggerBody()?['text_13']",
               "parameters/DynamicProperties/Technology": "@triggerBody()?['text_14']",
+              "parameters/DynamicProperties/Supported_x0020_applications": "@triggerBody()?['text_21']",
               "parameters/DynamicProperties/Billing_x0020_type": "@triggerBody()?['text_15']",
               "parameters/DynamicProperties/Total_x0020_amount_x0020_SOW_x002F_WO_x0020_excluding_x0020_VAT_x0020_in_x0020__x0024_1": "@triggerBody()?['number']",
               "parameters/DynamicProperties/MANA_x0020_opportunity": "@triggerBody()?['text_16']",

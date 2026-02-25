@@ -88,7 +88,7 @@
                 "OptimizeForDevices": "Off",
                 "Parent": "Gallery2",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 205,
+                "PublishOrderIndex": 233,
                 "Rules": [
                   {
                     "Category": "Design",
@@ -229,7 +229,7 @@
                 "OptimizeForDevices": "Off",
                 "Parent": "Gallery2",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 206,
+                "PublishOrderIndex": 234,
                 "Rules": [
                   {
                     "Category": "Design",
@@ -365,7 +365,7 @@
                 "OptimizeForDevices": "Off",
                 "Parent": "Gallery2",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 207,
+                "PublishOrderIndex": 235,
                 "Rules": [
                   {
                     "Category": "Data",
@@ -603,7 +603,7 @@
                 "OptimizeForDevices": "Off",
                 "Parent": "Gallery2",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 208,
+                "PublishOrderIndex": 236,
                 "Rules": [
                   {
                     "Category": "Data",
@@ -902,7 +902,7 @@
             "OptimizeForDevices": "Off",
             "Parent": "ContainerFormHeader",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 204,
+            "PublishOrderIndex": 232,
             "Rules": [
               {
                 "Category": "Data",
@@ -1241,7 +1241,7 @@
         "OptimizeForDevices": "Off",
         "Parent": "FormHeader",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 203,
+        "PublishOrderIndex": 231,
         "Rules": [
           {
             "Category": "Design",
@@ -1467,7 +1467,7 @@
       "OnTabSelect_Index",
       "OnTabSelect"
     ],
-    "LastModifiedTimestamp": "639074931764616766",
+    "LastModifiedTimestamp": "639075799905400994",
     "Name": "FormHeader",
     "Rules": [
       {
@@ -1583,7 +1583,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "639074931764616766",
+  "LastModifiedTimestamp": "639075799905400994",
   "Name": "6e5a8ddba0f640f6b7407bf234bc8172",
   "OverridableProperties": {},
   "Version": "1.0"

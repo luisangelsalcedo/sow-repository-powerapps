@@ -26,6 +26,10 @@
       <number name="ManualTriggerInput_number_2_def" />
       <number name="ManualTriggerInput_number_3_def" />
       <string name="ManualTriggerInput_text_19_def" />
+      <string name="ManualTriggerInput_text_7_def" />
+      <string name="ManualTriggerInput_text_8_def" />
+      <string name="ManualTriggerInput_text_20_def" />
+      <string name="ManualTriggerInput_text_21_def" />
       <object name="ManualTriggerInput">
         <property name="text" type="string" />
         <property name="text_1" type="string" />
@@ -51,6 +55,10 @@
         <property name="number_2" type="number" />
         <property name="number_3" type="number" />
         <property name="text_19" type="string" />
+        <property name="text_7" type="string" />
+        <property name="text_8" type="string" />
+        <property name="text_20" type="string" />
+        <property name="text_21" type="string" />
       </object>
       <string name="ResponseActionOutput_response_def" />
       <object name="ResponseActionOutput">
@@ -73,7 +81,7 @@
               <doc title="_org" />
             </param>
             <param style="plain" name="text_1" path="/text_1" type="xs:string" required="true">
-              <doc title="_un" />
+              <doc title="_fundation" />
             </param>
             <param style="plain" name="text_2" path="/text_2" type="xs:string" required="true">
               <doc title="_sowName" />
@@ -140,6 +148,18 @@
             </param>
             <param style="plain" name="text_19" path="/text_19" type="xs:string" required="true">
               <doc title="_userName" />
+            </param>
+            <param style="plain" name="text_7" path="/text_7" type="xs:string" required="true">
+              <doc title="_nttCompany" />
+            </param>
+            <param style="plain" name="text_8" path="/text_8" type="xs:string" required="true">
+              <doc title="_zurichArea" />
+            </param>
+            <param style="plain" name="text_20" path="/text_20" type="xs:string" required="true">
+              <doc title="_extensionOf" />
+            </param>
+            <param style="plain" name="text_21" path="/text_21" type="xs:string" required="true">
+              <doc title="_supportedApplications" />
             </param>
           </representation>
         </request>

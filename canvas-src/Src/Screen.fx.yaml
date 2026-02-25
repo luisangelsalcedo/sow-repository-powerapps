@@ -821,50 +821,63 @@
             Fill: =RGBA(0, 0, 0, 0.5)
             Height: =Parent.Height
             HoverFill: =RGBA(0, 0, 0, 0.55)
-            OnSelect: |-
-                = // clean controls
-                Reset(cbbOrg);
-                Reset(cbbUn);
-                Reset(txtSowName);
-                Reset(dpkStartDate);
-                Reset(dpkEndDate);
-                Reset(cbbCustomer);
-                Reset(txtZurichLineManager);
-                Reset(cbbExtensionOrNew);
-                Reset(cbbItOrNonIT);
-                Reset(cbbTypeService);
-                Reset(cbbEngagementType);
-                Reset(cbbDeliveryStrategy);
-                Reset(cbbTechnologyCluster);
-                Reset(cbbCapability);
-                Reset(cbbTechnology);
-                Reset(cbbBillingType);
-                Reset(txtTotalAmount);
-                Reset(txtMana);
-                Reset(txtMkt);
-                Reset(txtExt);
-                Reset(txtCmSale);
-                Reset(txtPercentageCostTeam);
-                Reset(txtAmountCostTeam);
+            OnSelect: |+
+                =If(showNewSowModal,
+                    // clean controls
+                    Reset(cbbNttCompany);
+                    Reset(cbbOrg);
+                    Reset(cbbZurichArea); UpdateContext({showZurichArea : false}); //hide field
+                    Reset(cbbFundation);
+                    Reset(txtSowName);
+                    Reset(dpkStartDate);
+                    Reset(dpkEndDate);
+                    Reset(cbbCustomer);
+                    Reset(txtZurichLineManager);
+                    Reset(cbbExtensionOrNew);
+                    Reset(txtExtensionOf); UpdateContext({showExtensionOf: false}); //hide field
+                    Reset(cbbItOrNonIT);
+                    Reset(cbbTypeService);
+                    Reset(cbbEngagementType);
+                    Reset(cbbDeliveryStrategy);
+                    Reset(cbbTechnologyCluster);
+                    Reset(cbbCapability);
+                    Reset(txtTechnology);
+                    Reset(txtSupportedApplications);
+                    Reset(cbbBillingType);
+                    Reset(txtTotalAmount);
+                    Reset(txtMana);
+                    Reset(txtMkt);
+                    Reset(txtExt);
+                    Reset(txtCmSale);
+                    Reset(txtPercentageCostTeam);
+                    Reset(txtAmountCostTeam);
                 
-                // close modal
-                UpdateContext({showNewSowModal:false});
-                UpdateContext({showBackdrop:false});
-                UpdateContext({loaderNewSowModal:false});
+                    // close modal
+                    UpdateContext({showNewSowModal:false});
+                    UpdateContext({showBackdrop:false});
+                    UpdateContext({loaderNewSowModal:false});
                 
-                // Reset tabs
-                UpdateContext({currentTab:1});
-                UpdateContext({currentTab: 1});
-                UpdateIf(
-                    colTabs,
-                    status = "Active",
-                    { status: "Pending" }
-                );
-                Patch(
-                    colTabs,
-                    LookUp(colTabs, index = 1),
-                    { status: "Active" }
+                    // Reset tabs
+                    UpdateContext({currentTab:1});
+                    UpdateContext({currentTab: 1});
+                    UpdateIf(
+                        colTabs,
+                        status = "Active",
+                        { status: "Pending" }
+                    );
+                    Patch(
+                        colTabs,
+                        LookUp(colTabs, index = 1),
+                        { status: "Active" }
+                    );
+                
+                    // Reset table FTE
+                    ClearCollect(
+                        colTableFte,
+                        colTableFteTemp
+                    );
                 )
+                
             PressedFill: =RGBA(0,0,0, 0.5)
             Text: =
             Visible: |
@@ -879,8 +892,8 @@
         Visible: =showNewSowModal
         Width: |-
             =If(
-                Screen.Width > 650,
-                650,
+                Screen.Width > 900,
+                950,
                 Parent.Width - (designSystem.paddingDefault * 2)
             )
         X: =Parent.Width - Self.Width
@@ -974,21 +987,25 @@
                         Layout: ='ButtonCanvas.Layout'.IconOnly
                         OnSelect: |-
                             = // clean controls
+                            Reset(cbbNttCompany);
                             Reset(cbbOrg);
-                            Reset(cbbUn);
+                            Reset(cbbZurichArea); UpdateContext({showZurichArea : false}); //hide field
+                            Reset(cbbFundation);
                             Reset(txtSowName);
                             Reset(dpkStartDate);
                             Reset(dpkEndDate);
                             Reset(cbbCustomer);
                             Reset(txtZurichLineManager);
                             Reset(cbbExtensionOrNew);
+                            Reset(txtExtensionOf); UpdateContext({showExtensionOf: false}); //hide field
                             Reset(cbbItOrNonIT);
                             Reset(cbbTypeService);
                             Reset(cbbEngagementType);
                             Reset(cbbDeliveryStrategy);
                             Reset(cbbTechnologyCluster);
                             Reset(cbbCapability);
-                            Reset(cbbTechnology);
+                            Reset(txtTechnology);
+                            Reset(txtSupportedApplications);
                             Reset(cbbBillingType);
                             Reset(txtTotalAmount);
                             Reset(txtMana);
@@ -1015,7 +1032,13 @@
                                 colTabs,
                                 LookUp(colTabs, index = 1),
                                 { status: "Active" }
-                            )
+                            );
+                            
+                            // Reset table FTE
+                            ClearCollect(
+                                colTableFte,
+                                colTableFteTemp
+                            );
                         Width: =35
                         X: =0
                         Y: =0
@@ -2144,7 +2167,7 @@
                                 PaddingLeft: =3
                                 PaddingRight: =3
                                 PaddingTop: =3
-                                Width: =Functions.ResponsiveOnCellphone(550, Parent.Width)
+                                Width: =900
                                 ZIndex: =34
 
                                 "'fc-tableFte-table-header' As groupContainer.horizontalAutoLayoutContainer":
@@ -2172,7 +2195,7 @@
                                         LayoutMaxWidth: =0
                                         LayoutMinHeight: =16
                                         LayoutMinWidth: =16
-                                        Size: =9
+                                        Size: =8
                                         Text: ="Role"
                                         ZIndex: =1
 
@@ -2185,7 +2208,7 @@
                                         LayoutMaxWidth: =0
                                         LayoutMinHeight: =16
                                         LayoutMinWidth: =16
-                                        Size: =9
+                                        Size: =8
                                         Text: ="Country"
                                         ZIndex: =2
 
@@ -2198,7 +2221,7 @@
                                         LayoutMaxWidth: =0
                                         LayoutMinHeight: =16
                                         LayoutMinWidth: =16
-                                        Size: =9
+                                        Size: =8
                                         Text: ="Location city"
                                         ZIndex: =3
 
@@ -2211,7 +2234,7 @@
                                         LayoutMaxWidth: =0
                                         LayoutMinHeight: =16
                                         LayoutMinWidth: =16
-                                        Size: =9
+                                        Size: =8
                                         Text: ="FTE units"
                                         ZIndex: =4
 
@@ -2224,9 +2247,22 @@
                                         LayoutMaxWidth: =0
                                         LayoutMinHeight: =16
                                         LayoutMinWidth: =16
-                                        Size: =9
+                                        Size: =8
                                         Text: ="Rate"
                                         ZIndex: =5
+
+                                    lblCost As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =8
+                                        Text: ="Cost"
+                                        ZIndex: =6
 
                                     lblCurrency As label:
                                         AlignInContainer: =AlignInContainer.Center
@@ -2237,9 +2273,48 @@
                                         LayoutMaxWidth: =0
                                         LayoutMinHeight: =16
                                         LayoutMinWidth: =16
-                                        Size: =9
-                                        Text: ="Currency "
-                                        ZIndex: =6
+                                        Size: =8
+                                        Text: ="Currency"
+                                        ZIndex: =7
+
+                                    lblConsultantName As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =8
+                                        Text: ="Consultant name"
+                                        ZIndex: =37
+
+                                    lblType As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =8
+                                        Text: ="Type"
+                                        ZIndex: =38
+
+                                    lblChargability As label:
+                                        AlignInContainer: =AlignInContainer.Center
+                                        AutoHeight: =true
+                                        FillPortions: =1
+                                        FontWeight: =FontWeight.Bold
+                                        LayoutMaxHeight: =0
+                                        LayoutMaxWidth: =0
+                                        LayoutMinHeight: =16
+                                        LayoutMinWidth: =16
+                                        Size: =8
+                                        Text: ="Chargability (%)"
+                                        ZIndex: =39
 
                                 "'fc-tableFte-table-body' As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
                                     '#CopilotOverlayLabel': ="Filtrada"
@@ -2461,7 +2536,7 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {rate: Self.Value})
+                                                =Patch(colTableFte, ThisItem, {rate: Value(Self.Value)})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
@@ -2476,7 +2551,48 @@
                                             Y: =0
                                             ZIndex: =5
 
-                                        "'fc-tableFte-table-col6' As Desplegable.pcfdataset":
+                                        "'fc-tableFte-table-col6' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {cost: Value(Self.Value)})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.cost
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =6
+
+                                        "'fc-tableFte-table-col7' As Desplegable.pcfdataset":
                                             DefaultSelectedItems: |-
                                                 =[{Value: ThisItem.currency}]
                                             DisplayMode: =DisplayMode.Edit
@@ -2492,9 +2608,119 @@
                                             Width: =320
                                             X: =0
                                             Y: =0
-                                            ZIndex: =6
+                                            ZIndex: =7
 
-                                        ButtonCanvas4 As Botón:
+                                        "'fc-tableFte-table-col8' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {consultantName: Self.Value})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.consultantName
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =8
+
+                                        "'fc-tableFte-table-col9' As Desplegable.pcfdataset":
+                                            AccessibleLabel: =""
+                                            Appearance: ="FilledDarker"
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DefaultSelectedItems: |-
+                                                =[{Value: ThisItem.type}]
+                                            DisplayMode: =DisplayMode.Edit
+                                            FillPortions: =1
+                                            FontSize: =0
+                                            Height: =32
+                                            Items: =["Intern", "Extern"]
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {type: Self.Selected.Value})
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            ValidationState: ="None"
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =9
+
+                                        "'fc-tableFte-table-col10' As 'Entrada de texto'":
+                                            AccessibleLabel: =""
+                                            Align: =Align.Left
+                                            Appearance: ="FilledDarker"
+                                            BasePaletteColor: =
+                                            BorderColor: =
+                                            BorderStyle: =""
+                                            ContentLanguage: =""
+                                            DisplayMode: =DisplayMode.Edit
+                                            Fill: =
+                                            FillPortions: =1
+                                            Font: =""
+                                            FontColor: =
+                                            FontItalic: =false
+                                            FontSize: =12
+                                            FontStrikethrough: =false
+                                            FontUnderline: =false
+                                            FontWeight: =""
+                                            Height: =32
+                                            LayoutMaxHeight: =0
+                                            LayoutMaxWidth: =0
+                                            LayoutMinHeight: =16
+                                            LayoutMinWidth: =16
+                                            MaxLength: =-1
+                                            Mode: ="SingleLine"
+                                            OnChange: |-
+                                                =Patch(colTableFte, ThisItem, {chargability: Value(Self.Value)})
+                                            Placeholder: =""
+                                            Required: =false
+                                            TabIndex: =0
+                                            Tooltip: =""
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            Type: ="Text"
+                                            ValidationState: ="None"
+                                            Value: =ThisItem.chargability
+                                            Visible: =true
+                                            Width: =320
+                                            X: =0
+                                            Y: =0
+                                            ZIndex: =10
+
+                                        "'fc-tableFte-table-remove' As Botón":
                                             AcceptsFocus: =true
                                             AccessibleLabel: =""
                                             Align: =Align.Center
@@ -2534,7 +2760,7 @@
                                             Width: =18
                                             X: =0
                                             Y: =0
-                                            ZIndex: =7
+                                            ZIndex: =11
 
                                 "'fc-tableFte-table-add' As Botón":
                                     AcceptsFocus: =true
@@ -2571,8 +2797,12 @@
                                                 country: "",
                                                 locationCity: "",
                                                 fteUnits: "",
-                                                rate: "",
-                                                currency: ""
+                                                rate: 0,
+                                                cost: 0,
+                                                currency: "",
+                                                consultantName: "",
+                                                type: "",        
+                                                chargability: 0
                                             }
                                         )
                                     TabIndex: =0
@@ -3317,24 +3547,139 @@
                                 Y: =40
                                 ZIndex: =2
 
-                        cbbTechnology As Desplegable.pcfdataset:
+                        "txtTechnology As 'Entrada de texto'":
+                            BasePaletteColor: =
+                            BorderColor: =
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            FontColor: =
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            Placeholder: =formNewSowData.item.technology.placeholder
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =3
+
+                    "'fc-supportedApplications' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                        ZIndex: =36
+
+                        "'fc-supportedApplications-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-supportedApplications-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.supportedApplications.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-supportedApplications-label' As label":
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.supportedApplications.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtSupportedApplications As 'Entrada de texto'":
                             AccessibleLabel: =""
+                            Align: =""
                             AlignInContainer: =AlignInContainer.Stretch
                             Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
                             BorderStyle: =""
                             ContentLanguage: =""
                             DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
                             FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
                             Height: =32
-                            Items: =formNewSowData.item.technology.items
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
-                            LayoutMinHeight: =32
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
                             OnChange: =false
+                            Placeholder: =formNewSowData.item.supportedApplications.placeholder
                             Required: =false
                             TabIndex: =0
                             Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
                             ValidationState: ="None"
+                            Value: =""
                             Visible: =true
                             Width: =Parent.Width
                             X: =0
@@ -3358,6 +3703,114 @@
                     Width: =Parent.Width
                     ZIndex: =4
 
+                    "'fc-nttCompany' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        "'fc-nttCompany-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-nttCompany-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.nttCompany.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-nttCompany-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.nttCompany.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        cbbNttCompany As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.nttCompany.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
                     "'fc-org' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
@@ -3378,7 +3831,7 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =1
+                        ZIndex: =2
 
                         "'fc-org-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
@@ -3451,7 +3904,13 @@
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
-                            OnChange: =false
+                            OnChange: |-
+                                =If(
+                                    Self.Selected.Value = "GTO",
+                                    UpdateContext({showZurichArea : true}),
+                                    UpdateContext({showZurichArea : false});
+                                    Reset(cbbZurichArea)
+                                )
                             Required: =false
                             TabIndex: =0
                             Tooltip: =""
@@ -3462,7 +3921,7 @@
                             Y: =0
                             ZIndex: =4
 
-                    "'fc-un' As groupContainer.horizontalAutoLayoutContainer":
+                    "'fc-zurichArea' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         ContentLanguage: =
                         DropShadow: =DropShadow.None
@@ -3481,10 +3940,11 @@
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
+                        Visible: =showZurichArea
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =2
+                        ZIndex: =3
 
-                        "'fc-un-container' As groupContainer.horizontalAutoLayoutContainer":
+                        "'fc-zurichArea-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
                             LayoutAlignItems: =LayoutAlignItems.Center
                             LayoutGridColumns: =6
@@ -3496,11 +3956,11 @@
                             LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                            "'fc-un-info' As 'Botón de información'":
+                            "'fc-zurichArea-info' As 'Botón de información'":
                                 AcceptsFocus: =true
                                 AccessibleLabel: =""
                                 BasePaletteColor: =
-                                Content: =formNewSowData.item.un.info
+                                Content: =formNewSowData.item.zurichArea.info
                                 ContentLanguage: =""
                                 DisplayMode: =DisplayMode.Edit
                                 Font: =""
@@ -3525,7 +3985,111 @@
                                 Y: =0
                                 ZIndex: =1
 
-                            "'fc-un-label' As label":
+                            "'fc-zurichArea-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.zurichArea.label
+                                ZIndex: =2
+
+                        cbbZurichArea As Desplegable.pcfdataset:
+                            AccessibleLabel: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            FontSize: =0
+                            Height: =32
+                            Items: =formNewSowData.item.zurichArea.items
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            OnChange: =false
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            ValidationState: ="None"
+                            Visible: =true
+                            Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-fundation' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =4
+
+                        "'fc-fundation-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-fundation-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.fundation.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-fundation-label' As label":
                                 AlignInContainer: =AlignInContainer.Stretch
                                 FillPortions: =1
                                 Font: =designSystem.fontFamily
@@ -3540,12 +4104,12 @@
                                 PaddingRight: =0
                                 PaddingTop: =0
                                 Size: =designSystem.style.label.fontSize
-                                Text: =formNewSowData.item.un.label
+                                Text: =formNewSowData.item.fundation.label
                                 X: =40
                                 Y: =40
                                 ZIndex: =2
 
-                        cbbUn As Desplegable.pcfdataset:
+                        cbbFundation As Desplegable.pcfdataset:
                             AccessibleLabel: =""
                             AlignInContainer: =AlignInContainer.Stretch
                             Appearance: ="FilledDarker"
@@ -3554,7 +4118,7 @@
                             DisplayMode: =DisplayMode.Edit
                             FontSize: =0
                             Height: =32
-                            Items: =formNewSowData.item.un.items
+                            Items: =formNewSowData.item.fundation.items
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
@@ -3589,8 +4153,11 @@
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
-                        Width: =Parent.Width
-                        ZIndex: =3
+                        Width: |-
+                            =If(showZurichArea, 
+                            Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault),
+                            Parent.Width)
+                        ZIndex: =5
 
                         "'fc-sowName-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
@@ -3713,7 +4280,7 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =4
+                        ZIndex: =6
 
                         "'fc-startDate-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
@@ -3835,7 +4402,7 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =5
+                        ZIndex: =7
 
                         "'fc-endDate-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
@@ -3955,8 +4522,16 @@
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
-                        Width: =Parent.Width
-                        ZIndex: =6
+                        Width: |-
+                            =If(
+                                showExtensionOf,
+                                Functions.GetWidthForTwoColumns(
+                                    Parent.Width,
+                                    designSystem.paddingDefault
+                                ),
+                                Parent.Width
+                            )
+                        ZIndex: =8
 
                         "'fc-customer-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
@@ -4064,7 +4639,7 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =7
+                        ZIndex: =9
 
                         "'fc-zurichLineManager-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
@@ -4165,7 +4740,7 @@
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                         Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
-                        ZIndex: =8
+                        ZIndex: =10
 
                         "'fc-extensionOrNew-container' As groupContainer.horizontalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
@@ -4236,7 +4811,138 @@
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
                             LayoutMinHeight: =16
+                            OnChange: |-
+                                =If(
+                                    Self.Selected.Value = "Extension",
+                                    UpdateContext({showExtensionOf : true}),
+                                    UpdateContext({showExtensionOf : false});
+                                    Reset(txtExtensionOf)
+                                )
                             Width: =Parent.Width
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
+
+                    "'fc-extensionOf' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Start
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: |
+                            =65
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGridColumns: =6
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =showExtensionOf
+                        Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
+                        ZIndex: =35
+
+                        "'fc-extensionOf-container' As groupContainer.horizontalAutoLayoutContainer":
+                            DropShadow: =DropShadow.None
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            LayoutMode: =LayoutMode.Auto
+                            ZIndex: =1
+
+                            "'fc-extensionOf-info' As 'Botón de información'":
+                                AcceptsFocus: =true
+                                AccessibleLabel: =""
+                                BasePaletteColor: =
+                                Content: =formNewSowData.item.extensionOf.info
+                                ContentLanguage: =""
+                                DisplayMode: =DisplayMode.Edit
+                                Font: =""
+                                FontColor: =
+                                FontItalic: =false
+                                FontSize: =0
+                                FontStrikethrough: =false
+                                FontUnderline: =false
+                                FontWeight: =""
+                                Height: =25
+                                IconColor: =
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                OnSelect: =false
+                                TabIndex: =0
+                                Tooltip: =""
+                                Visible: =!IsBlank(Self.Content)
+                                Width: =25
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                            "'fc-extensionOf-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                FillPortions: =1
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: =formNewSowData.item.extensionOf.label
+                                X: =40
+                                Y: =40
+                                ZIndex: =2
+
+                        "txtExtensionOf As 'Entrada de texto'":
+                            AccessibleLabel: =""
+                            Align: =""
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Appearance: ="FilledDarker"
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Fill: =
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =0
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            MaxLength: =-1
+                            Mode: ="SingleLine"
+                            OnChange: =false
+                            Placeholder: =formNewSowData.item.extensionOf.placeholder
+                            Required: =false
+                            TabIndex: =0
+                            Tooltip: =""
+                            TriggerOutput: ="FocusOut"
+                            Type: ="Text"
+                            ValidationState: ="None"
+                            Value: =""
+                            Visible: =true
+                            Width: =320
                             X: =0
                             Y: =0
                             ZIndex: =2
@@ -4296,50 +5002,60 @@
                         =With(
                             {
                                 // ------------------------------------- Contract Details 
-                        
-                                _org                : cbbOrg.Selected.Value,
-                                _un                 : cbbUn.Selected.Value,
-                                _sowName            : txtSowName.Value,
-                                _startDate          : dpkStartDate.SelectedDate,
-                                _endDate            : dpkEndDate.SelectedDate,
-                                _customer           : cbbCustomer.Selected.Value,
-                                _zurichLineManager  : txtZurichLineManager.Value,
-                                _extensionOrNew     : cbbExtensionOrNew.Selected.Value,
+                                
+                                _nttCompany             : cbbNttCompany.Selected.Value,
+                                _org                    : cbbOrg.Selected.Value,
+                                _zurichArea             : cbbZurichArea.Selected.Value,
+                                _fundation              : cbbFundation.Selected.Value,
+                                _sowName                : txtSowName.Value,
+                                _startDate              : dpkStartDate.SelectedDate,
+                                _endDate                : dpkEndDate.SelectedDate,
+                                _customer               : cbbCustomer.Selected.Value,
+                                _zurichLineManager      : txtZurichLineManager.Value,
+                                _extensionOrNew         : cbbExtensionOrNew.Selected.Value,
+                                _extensionOf            : txtExtensionOf.Value,
                         
                                 // ------------------------------------- Service Information 
                         
-                                _itOrNonIT          : cbbItOrNonIT.Selected.Value,
-                                _typeService        : cbbTypeService.Selected.Value,
-                                _engagementType     : cbbEngagementType.Selected.Value,
-                                _deliveryStrategy   : cbbDeliveryStrategy.Selected.Value,
-                                _technologyCluster  : cbbTechnologyCluster.Selected.Value,
-                                _capability         : cbbCapability.Selected.Value,
-                                _technology         : cbbTechnology.Selected.Value,
+                                _itOrNonIT              : cbbItOrNonIT.Selected.Value,
+                                _typeService            : cbbTypeService.Selected.Value,
+                                _engagementType         : cbbEngagementType.Selected.Value,
+                                _deliveryStrategy       : cbbDeliveryStrategy.Selected.Value,
+                                _technologyCluster      : cbbTechnologyCluster.Selected.Value,
+                                _capability             : cbbCapability.Selected.Value,
+                                _technology             : txtTechnology.Value,
+                                _supportedApplications  : txtSupportedApplications.Value,
                         
                                 // ------------------------------------- Financial Data 
                         
-                                _billingType        : cbbBillingType.Selected.Value,
-                                _totalAmount        : txtTotalAmount.Value,
-                                _mana               : txtMana.Value,
-                                _mkt                : txtMkt.Value,
-                                _ext                : txtExt.Value,
-                                _cmSale             : txtCmSale.Value,
-                                _percentageCostTeam : txtPercentageCostTeam.Value,
-                                _amountCostTeam     : txtAmountCostTeam.Value,
+                                _billingType            : cbbBillingType.Selected.Value,
+                                _totalAmount            : txtTotalAmount.Value,
+                                _mana                   : txtMana.Value,
+                                _mkt                    : txtMkt.Value,
+                                _ext                    : txtExt.Value,
+                                _cmSale                 : txtCmSale.Value,
+                                _percentageCostTeam     : txtPercentageCostTeam.Value,
+                                _amountCostTeam         : txtAmountCostTeam.Value,
                         
                                 // ------------------------------------- Extra data
                                 
-                                _user               : User().FullName,
-                                _attach             : DataCardValue.Attachments
+                                _user                   : User().FullName,
+                                _attach                 : DataCardValue.Attachments
                             },
                             If(
                                 //validation
                                     // ------------------------------------- Contract Details 
+                                    IsBlank(_nttCompany),
+                                    Notify(formNewSowData.item.nttCompany.errorMessage, NotificationType.Error); SetFocus(cbbNttCompany),
+                        
                                     IsBlank(_org),
                                     Notify(formNewSowData.item.org.errorMessage, NotificationType.Error); SetFocus(cbbOrg),
                         
-                                    IsBlank(_un),
-                                    Notify(formNewSowData.item.un.errorMessage, NotificationType.Error); SetFocus(cbbUn),
+                                    showZurichArea && IsBlank(_zurichArea),
+                                    Notify(formNewSowData.item.zurichArea.errorMessage, NotificationType.Error); SetFocus(cbbZurichArea),
+                        
+                                    IsBlank(_fundation),
+                                    Notify(formNewSowData.item.fundation.errorMessage, NotificationType.Error); SetFocus(cbbFundation),
                         
                                     Len(_sowName) < 3,
                                     Notify(formNewSowData.item.sowName.errorMessage, NotificationType.Error); SetFocus(txtSowName), //text
@@ -4358,6 +5074,9 @@
                         
                                     IsBlank(_extensionOrNew),
                                     Notify(formNewSowData.item.extensionOrNew.errorMessage, NotificationType.Error); SetFocus(cbbExtensionOrNew),
+                        
+                                    IsBlank(_extensionOf),
+                                    Notify(formNewSowData.item.extensionOf.errorMessage, NotificationType.Error); SetFocus(txtExtensionOf),
                         
                                     // ------------------------------------- Service Information
                                     IsBlank(_itOrNonIT),
@@ -4379,7 +5098,10 @@
                                     Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),
                         
                                     IsBlank(_technology),
-                                    Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(cbbTechnology),
+                                    Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(txtTechnology),
+                        
+                                    IsBlank(_supportedApplications),
+                                    Notify(formNewSowData.item.supportedApplications.errorMessage, NotificationType.Error); SetFocus(txtSupportedApplications),
                         
                                     // ------------------------------------- Financial Data 
                                     IsBlank(_billingType),
@@ -4415,7 +5137,7 @@
                                         {
                                             _response: flow_createSow.Run(
                                                 _org,
-                                                _un,
+                                                _fundation,
                                                 _sowName,
                                                 Text(_startDate, "yyyy-mm-dd"),
                                                 Text(_endDate, "yyyy-mm-dd"),
@@ -4428,7 +5150,7 @@
                                                 _deliveryStrategy,
                                                 _technologyCluster,
                                                 _capability,
-                                                _technology,
+                                                _technology,                        
                                                 _billingType,
                                                 _totalAmount,
                                                 _mana,
@@ -4437,7 +5159,13 @@
                                                 _cmSale,
                                                 _percentageCostTeam,
                                                 _amountCostTeam,
-                                                _user
+                                                _user,
+                        
+                                                // new fields
+                                                _nttCompany,
+                                                _zurichArea,
+                                                _extensionOf,
+                                                _supportedApplications
                                             ).response
                                         },
                                         
@@ -4445,21 +5173,25 @@
                                         Notify(_response, NotificationType.Success);
                         
                                         // clean controls
+                                        Reset(cbbNttCompany);
                                         Reset(cbbOrg);
-                                        Reset(cbbUn);
+                                        Reset(cbbZurichArea); UpdateContext({showZurichArea : false}); //hide field
+                                        Reset(cbbFundation);
                                         Reset(txtSowName);
                                         Reset(dpkStartDate);
                                         Reset(dpkEndDate);
                                         Reset(cbbCustomer);
                                         Reset(txtZurichLineManager);
                                         Reset(cbbExtensionOrNew);
+                                        Reset(txtExtensionOf); UpdateContext({showExtensionOf: false}); //hide field
                                         Reset(cbbItOrNonIT);
                                         Reset(cbbTypeService);
                                         Reset(cbbEngagementType);
                                         Reset(cbbDeliveryStrategy);
                                         Reset(cbbTechnologyCluster);
                                         Reset(cbbCapability);
-                                        Reset(cbbTechnology);
+                                        Reset(txtTechnology);
+                                        Reset(txtSupportedApplications);
                                         Reset(cbbBillingType);
                                         Reset(txtTotalAmount);
                                         Reset(txtMana);
@@ -4487,7 +5219,9 @@
                                             { status: "Active" }
                                         )
                                     )     
-                            )
+                            );
+                        
+                            // tabs validation
                         )
                     TabIndex: =0
                     Text: ="Submit"
