@@ -873,8 +873,8 @@
                 
                     // Reset table FTE
                     ClearCollect(
-                        colTableFte,
-                        colTableFteTemp
+                        colFteTable,
+                        Blank()
                     );
                 )
                 
@@ -1036,8 +1036,8 @@
                             
                             // Reset table FTE
                             ClearCollect(
-                                colTableFte,
-                                colTableFteTemp
+                                colFteTable,
+                                Blank()
                             );
                         Width: =35
                         X: =0
@@ -2061,7 +2061,7 @@
                     "'fc-tableFte' As groupContainer.verticalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.Start
                         DropShadow: =DropShadow.None
-                        Height: ='fc-tableFte-container'.Height + 'fc-tableFte-table'.Height
+                        Height: ='fc-fteTable-container'.Height + 'fc-fteTable-table'.Height
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGridColumns: =6
                         LayoutGridRows: =6
@@ -2073,7 +2073,7 @@
                         Width: =Parent.Width
                         ZIndex: =33
 
-                        "'fc-tableFte-container' As groupContainer.horizontalAutoLayoutContainer":
+                        "'fc-fteTable-container' As groupContainer.horizontalAutoLayoutContainer":
                             ContentLanguage: =
                             DropShadow: =DropShadow.None
                             FillPortions: =0
@@ -2087,11 +2087,11 @@
                             LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                            "'fc-tableFte-info' As 'Botón de información'":
+                            "'fc-fteTable-info' As 'Botón de información'":
                                 AcceptsFocus: =true
                                 AccessibleLabel: =""
                                 BasePaletteColor: =
-                                Content: =formNewSowData.item.tableFte.info
+                                Content: =formNewSowData.item.fteTable.info
                                 ContentLanguage: =""
                                 DisplayMode: =DisplayMode.Edit
                                 Font: =""
@@ -2116,7 +2116,7 @@
                                 Y: =0
                                 ZIndex: =1
 
-                            "'fc-tableFte-label' As label":
+                            "'fc-fteTable-label' As label":
                                 FillPortions: =1
                                 Font: =designSystem.fontFamily
                                 FontWeight: =designSystem.style.label.fontWeight
@@ -2128,15 +2128,40 @@
                                 PaddingRight: =0
                                 PaddingTop: =0
                                 Size: =designSystem.style.label.fontSize
-                                Text: =formNewSowData.item.tableFte.label
+                                Text: =formNewSowData.item.fteTable.label
                                 X: =40
                                 Y: =40
                                 ZIndex: =2
 
-                        "'fc-tableFte-table-scroll' As groupContainer.verticalAutoLayoutContainer":
+                        "'fc-fteTable-showTable' As Botón":
+                            Appearance: ='ButtonCanvas.Appearance'.Subtle
+                            BasePaletteColor: =
+                            BorderColor: =
+                            DisplayMode: =DisplayMode.Edit
+                            FontColor: =
+                            Height: =32
+                            Icon: ="Add"
+                            IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnSelect: |-
+                                =ClearCollect(
+                                    colFteTable,
+                                    colFteTableTemp
+                                );
+                            Text: ="Add FTE"
+                            Visible: =CountRows(colFteTable) = 0
+                            Width: =Parent.Width
+                            X: =40
+                            Y: =40
+                            ZIndex: =2
+
+                        "'fc-fteTable-table-scroll' As groupContainer.verticalAutoLayoutContainer":
                             DropShadow: =DropShadow.None
                             FillPortions: =0
-                            Height: ='fc-tableFte-table'.Height
+                            Height: ='fc-fteTable-table'.Height
                             LayoutDirection: =LayoutDirection.Vertical
                             LayoutGridColumns: =6
                             LayoutGridRows: =6
@@ -2146,14 +2171,15 @@
                             LayoutMinWidth: =16
                             LayoutMode: =LayoutMode.Auto
                             LayoutOverflowX: =LayoutOverflow.Scroll
+                            Visible: =CountRows(colFteTable) > 0
                             Width: =Parent.Width
-                            ZIndex: =2
+                            ZIndex: =3
 
-                            "'fc-tableFte-table' As groupContainer.horizontalAutoLayoutContainer":
+                            "'fc-fteTable-table' As groupContainer.horizontalAutoLayoutContainer":
                                 AlignInContainer: =AlignInContainer.Start
                                 DropShadow: =DropShadow.None
                                 FillPortions: =0
-                                Height: ='fc-tableFte-table-header'.Height + 'fc-tableFte-table-body'.Height + 'fc-tableFte-table-add'.Height + (Self.LayoutGap * 3) + 20
+                                Height: ='fc-fteTable-table-header'.Height + 'fc-fteTable-table-body'.Height + 'fc-fteTable-table-add'.Height + (Self.LayoutGap * 3) + 20
                                 LayoutDirection: =LayoutDirection.Vertical
                                 LayoutGap: =3
                                 LayoutGridColumns: =6
@@ -2168,9 +2194,9 @@
                                 PaddingRight: =3
                                 PaddingTop: =3
                                 Width: =900
-                                ZIndex: =34
+                                ZIndex: =2
 
-                                "'fc-tableFte-table-header' As groupContainer.horizontalAutoLayoutContainer":
+                                "'fc-fteTable-table-header' As groupContainer.horizontalAutoLayoutContainer":
                                     AlignInContainer: =AlignInContainer.Start
                                     DropShadow: =DropShadow.None
                                     FillPortions: =0
@@ -2316,13 +2342,13 @@
                                         Text: ="Chargability (%)"
                                         ZIndex: =39
 
-                                "'fc-tableFte-table-body' As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+                                "'fc-fteTable-table-body' As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
                                     '#CopilotOverlayLabel': ="Filtrada"
                                     AlignInContainer: =AlignInContainer.SetByContainer
                                     DelayItemLoading: =true
                                     FillPortions: =0
                                     Height: =Self.TemplateHeight * Self.AllItemsCount
-                                    Items: =colTableFte
+                                    Items: =colFteTable
                                     Layout: =Layout.Vertical
                                     LayoutMaxHeight: =0
                                     LayoutMaxWidth: =0
@@ -2344,7 +2370,7 @@
                                         LayoutGridRows: =6
                                         LayoutMode: =LayoutMode.Auto
                                         Width: =Parent.Width
-                                        ZIndex: =1
+                                        ZIndex: =2
 
                                         "'fc-tableFte-table-col1' As 'Entrada de texto'":
                                             AccessibleLabel: =""
@@ -2372,12 +2398,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {role: Self.Value})
+                                                =Patch(colFteTable, ThisItem, {role: Self.Value})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.role
@@ -2413,12 +2439,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {country: Self.Value})
+                                                =Patch(colFteTable, ThisItem, {country: Self.Value})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.country
@@ -2454,12 +2480,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {locationCity: Self.Value})
+                                                =Patch(colFteTable, ThisItem, {locationCity: Self.Value})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.locationCity
@@ -2495,12 +2521,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {fteUnits: Self.Value})
+                                                =Patch(colFteTable, ThisItem, {fteUnits: Value(Self.Value)})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.fteUnits
@@ -2536,12 +2562,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {rate: Value(Self.Value)})
+                                                =Patch(colFteTable, ThisItem, {rate: Value(Self.Value)})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.rate
@@ -2577,12 +2603,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {cost: Value(Self.Value)})
+                                                =Patch(colFteTable, ThisItem, {cost: Value(Self.Value)})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.cost
@@ -2604,7 +2630,7 @@
                                             LayoutMinHeight: =16
                                             LayoutMinWidth: =16
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {currency: Self.Selected.Value})
+                                                =Patch(colFteTable, ThisItem, {currency: Self.Selected.Value})
                                             Width: =320
                                             X: =0
                                             Y: =0
@@ -2636,12 +2662,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {consultantName: Self.Value})
+                                                =Patch(colFteTable, ThisItem, {consultantName: Self.Value})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.consultantName
@@ -2668,7 +2694,7 @@
                                             LayoutMinHeight: =16
                                             LayoutMinWidth: =16
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {type: Self.Selected.Value})
+                                                =Patch(colFteTable, ThisItem, {type: Self.Selected.Value})
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
@@ -2705,12 +2731,12 @@
                                             MaxLength: =-1
                                             Mode: ="SingleLine"
                                             OnChange: |-
-                                                =Patch(colTableFte, ThisItem, {chargability: Value(Self.Value)})
+                                                =Patch(colFteTable, ThisItem, {chargability: Value(Self.Value)})
                                             Placeholder: =""
                                             Required: =false
                                             TabIndex: =0
                                             Tooltip: =""
-                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                            TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                             Type: ="Text"
                                             ValidationState: ="None"
                                             Value: =ThisItem.chargability
@@ -2747,7 +2773,7 @@
                                             LayoutMaxWidth: =0
                                             LayoutMinHeight: =16
                                             LayoutMinWidth: =16
-                                            OnSelect: =Remove(colTableFte, ThisItem)
+                                            OnSelect: =Remove(colFteTable, ThisItem)
                                             PaddingBottom: =0
                                             PaddingLeft: =0
                                             PaddingRight: =0
@@ -2762,7 +2788,7 @@
                                             Y: =0
                                             ZIndex: =11
 
-                                "'fc-tableFte-table-add' As Botón":
+                                "'fc-fteTable-table-add' As Botón":
                                     AcceptsFocus: =true
                                     AccessibleLabel: =""
                                     Align: =""
@@ -2786,17 +2812,17 @@
                                     Layout: ='ButtonCanvas.Layout'.IconBefore
                                     LayoutMaxHeight: =0
                                     LayoutMaxWidth: =0
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
+                                    LayoutMinHeight: =32
+                                    LayoutMinWidth: =96
                                     OnSelect: |-
                                         =Collect(
-                                            colTableFte,
+                                            colFteTable,
                                             {
                                                 id: GUID(),
                                                 role: "",
                                                 country: "",
                                                 locationCity: "",
-                                                fteUnits: "",
+                                                fteUnits: 0,
                                                 rate: 0,
                                                 cost: 0,
                                                 currency: "",
@@ -4947,6 +4973,35 @@
                             Y: =0
                             ZIndex: =2
 
+            debug As Texto:
+                BorderColor: =
+                DisplayMode: =DisplayMode.Edit
+                Fill: =
+                FontColor: =
+                Height: =150
+                LayoutMaxHeight: =0
+                LayoutMaxWidth: =0
+                LayoutMinHeight: =16
+                LayoutMinWidth: =16
+                Text: |-
+                    =JSON(Filter(
+                                        colFteTable,
+                                        IsBlank(role) ||
+                                        IsBlank(country) ||
+                                        IsBlank(locationCity) ||
+                                        IsBlank(currency) ||
+                                        Value(rate) <= 0 ||
+                                        Value(fteUnits) <= 0 ||
+                                        !IsNumeric(chargability) ||
+                                        Value(chargability) < 0 ||
+                                        Value(chargability) > 100
+                                    ))
+                Visible: =false
+                Width: =Parent.Width
+                X: =40
+                Y: =40
+                ZIndex: =4
+
             "'form-control-submit' As groupContainer.horizontalAutoLayoutContainer":
                 ContentLanguage: =
                 DropShadow: =DropShadow.None
@@ -4969,7 +5024,7 @@
                 Width: =Parent.Width - designSystem.paddingDefault
                 X: =40
                 Y: =40
-                ZIndex: =4
+                ZIndex: =5
 
                 ButtonCanvas1 As Botón:
                     AcceptsFocus: =true
@@ -5005,7 +5060,7 @@
                                 
                                 _nttCompany             : cbbNttCompany.Selected.Value,
                                 _org                    : cbbOrg.Selected.Value,
-                                _zurichArea             : cbbZurichArea.Selected.Value,
+                                _zurichArea             : Coalesce(cbbZurichArea.Selected.Value, "_blank"),
                                 _fundation              : cbbFundation.Selected.Value,
                                 _sowName                : txtSowName.Value,
                                 _startDate              : dpkStartDate.SelectedDate,
@@ -5013,7 +5068,7 @@
                                 _customer               : cbbCustomer.Selected.Value,
                                 _zurichLineManager      : txtZurichLineManager.Value,
                                 _extensionOrNew         : cbbExtensionOrNew.Selected.Value,
-                                _extensionOf            : txtExtensionOf.Value,
+                                _extensionOf            : Coalesce(txtExtensionOf.Value, "_blank"),
                         
                                 // ------------------------------------- Service Information 
                         
@@ -5029,13 +5084,15 @@
                                 // ------------------------------------- Financial Data 
                         
                                 _billingType            : cbbBillingType.Selected.Value,
-                                _totalAmount            : txtTotalAmount.Value,
+                                _totalAmount            : Value(txtTotalAmount.Value),
                                 _mana                   : txtMana.Value,
                                 _mkt                    : txtMkt.Value,
                                 _ext                    : txtExt.Value,
-                                _cmSale                 : txtCmSale.Value,
-                                _percentageCostTeam     : txtPercentageCostTeam.Value,
-                                _amountCostTeam         : txtAmountCostTeam.Value,
+                                _cmSale                 : Value(txtCmSale.Value),
+                                _percentageCostTeam     : Value(txtPercentageCostTeam.Value),
+                                _amountCostTeam         : Value(txtAmountCostTeam.Value),
+                                _fteTable               : JSON(colFteTable),
+                           
                         
                                 // ------------------------------------- Extra data
                                 
@@ -5119,14 +5176,34 @@
                                     Len(_ext) < 3,
                                     Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text
                         
-                                    !IsNumeric(_cmSale) || Value(_cmSale) < 0,
-                                    Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number
+                                    !IsNumeric(_cmSale) || Value(_cmSale) < 0 || Value(_cmSale) > 100,
+                                    Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number(%)
                         
-                                    !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0,
-                                    Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number
+                                    !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0 || Value(_percentageCostTeam) > 100,
+                                    Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number(%)
                         
                                     !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,
                                     Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number
+                        
+                                    CountRows(
+                                        Filter(
+                                            colFteTable,
+                                            IsBlank(role) ||
+                                            IsBlank(country) ||
+                                            IsBlank(locationCity) ||
+                                            IsBlank(currency) ||
+                                            IsBlank(type) ||
+                                            Value(rate) <= 0 ||
+                                            Value(cost) <= 0 ||
+                                            Value(fteUnits) <= 0 ||
+                                            !IsNumeric(chargability) ||
+                                            Value(chargability) < 0 ||
+                                            Value(chargability) > 100
+                                        )
+                                    ) > 0,
+                                    Notify(formNewSowData.item.fteTable.errorMessage, NotificationType.Error),
+                        
+                                    
                                 
                                 // success
                                     //loader
@@ -5165,7 +5242,8 @@
                                                 _nttCompany,
                                                 _zurichArea,
                                                 _extensionOf,
-                                                _supportedApplications
+                                                _supportedApplications,
+                                                _fteTable
                                             ).response
                                         },
                                         
@@ -5217,11 +5295,18 @@
                                             colTabs,
                                             LookUp(colTabs, index = 1),
                                             { status: "Active" }
+                                        );
+                                        // Reset table FTE
+                                        ClearCollect(
+                                            colFteTable,
+                                            Blank()
                                         )
                                     )     
                             );
                         
                             // tabs validation
+                        
+                            Notify("validation tabs")
                         )
                     TabIndex: =0
                     Text: ="Submit"

@@ -232,6 +232,13 @@
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
+                },
+                "text_22": {
+                  "description": "Please enter your input",
+                  "title": "_fteTable",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
                 }
               },
               "required": [
@@ -262,57 +269,17 @@
                 "text_7",
                 "text_8",
                 "text_20",
-                "text_21"
+                "text_21",
+                "text_22"
               ]
             }
           }
         }
       },
       "actions": {
-        "Compose": {
-          "runAfter": {
-            "string_year": [
-              "Succeeded"
-            ]
-          },
-          "type": "Compose",
-          "inputs": {
-            "contractID": "@{variables('contractID')}",
-            "nttCompany": "@{triggerBody()?['text_7']}",
-            "org": "@{triggerBody()?['text']}",
-            "zurichArea": "@{triggerBody()?['text_8']}",
-            "fundation": "@{triggerBody()?['text_1']}",
-            "sowName": "@{triggerBody()?['text_2']}",
-            "startDate": "@{triggerBody()?['date']}",
-            "endDate": "@{triggerBody()?['date_1']}",
-            "customer": "@{triggerBody()?['text_4']}",
-            "zurichLineManager": "@{triggerBody()?['text_5']}",
-            "extensionOrNew": "@{triggerBody()?['text_6']}",
-            "extensionOf": "@{triggerBody()?['text_20']}",
-            "itOrNonIT": "@{triggerBody()?['text_3']}",
-            "typeService": "@{triggerBody()?['text_9']}",
-            "engagementType": "@{triggerBody()?['text_10']}",
-            "deliveryStrategy": "@{triggerBody()?['text_11']}",
-            "technologyCluster": "@{triggerBody()?['text_12']}",
-            "capability": "@{triggerBody()?['text_13']}",
-            "technology": "@{triggerBody()?['text_14']}",
-            "supportedApplications": "@{triggerBody()?['text_21']}",
-            "billingType": "@{triggerBody()?['text_15']}",
-            "totalAmount": "@{triggerBody()?['number']}",
-            "mana": "@{triggerBody()?['text_16']}",
-            "mkt": "@{triggerBody()?['text_17']}",
-            "ext": "@{triggerBody()?['text_18']}",
-            "cmSale": "@{triggerBody()?['number_1']}",
-            "percentageCostTeam": "@{triggerBody()?['number_2']}",
-            "amountCostTeam": "@{triggerBody()?['number_3']}",
-            "requestor": "@{triggerBody()?['text_19']}",
-            "createdDate": "@{utcNow()}",
-            "year": "@{variables('year')}"
-          }
-        },
         "Respond_to_a_Power_App_or_flow": {
           "runAfter": {
-            "Update_item": [
+            "Loop_to_FTE_items": [
               "Succeeded"
             ]
           },
@@ -337,57 +304,6 @@
             }
           }
         },
-        "string_contractID": {
-          "runAfter": {
-            "get_SR_ContractIndex": [
-              "Succeeded"
-            ]
-          },
-          "type": "InitializeVariable",
-          "inputs": {
-            "variables": [
-              {
-                "name": "contractID",
-                "type": "integer",
-                "value": "@add(\r\n  int(\r\n    coalesce(\r\n      body('get_SR_ContractIndex')?['value'][0]?['LastIndex'], 0)), 1)"
-              }
-            ]
-          }
-        },
-        "get_SR_ContractIndex": {
-          "runAfter": {},
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-              "table": "d9337804-c757-4e42-bb7f-40cd19d81830",
-              "$filter": "ContractType eq 'SOW'",
-              "$top": 1
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-              "operationId": "GetItems",
-              "connectionName": "shared_sharepointonline"
-            }
-          }
-        },
-        "string_year": {
-          "runAfter": {
-            "string_contractID": [
-              "Succeeded"
-            ]
-          },
-          "type": "InitializeVariable",
-          "inputs": {
-            "variables": [
-              {
-                "name": "year",
-                "type": "string",
-                "value": "@formatDateTime(triggerBody()?['date'], 'yyyy')"
-              }
-            ]
-          }
-        },
         "Create_new_document_set": {
           "runAfter": {
             "Create_Folder": [
@@ -405,6 +321,7 @@
               "parameters/DynamicProperties/Title": "@concat('sow',variables('contractID'))",
               "parameters/DynamicProperties/ContractID": "@variables('contractID')",
               "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_19']",
+              "parameters/DynamicProperties/createdDate": "@utcNow()",
               "parameters/DynamicProperties/NTT_x0020_Company": "@triggerBody()?['text_7']",
               "parameters/DynamicProperties/org": "@triggerBody()?['text']",
               "parameters/DynamicProperties/Zurich_x0020_area": "@triggerBody()?['text_8']",
@@ -510,6 +427,199 @@
             ]
           },
           "type": "Scope"
+        },
+        "Compose": {
+          "runAfter": {
+            "Parse_FTE_Table_(JSON)": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": {
+            "contractID": "@{variables('contractID')}",
+            "nttCompany": "@{triggerBody()?['text_7']}",
+            "org": "@{triggerBody()?['text']}",
+            "zurichArea": "@{triggerBody()?['text_8']}",
+            "fundation": "@{triggerBody()?['text_1']}",
+            "sowName": "@{triggerBody()?['text_2']}",
+            "startDate": "@{triggerBody()?['date']}",
+            "endDate": "@{triggerBody()?['date_1']}",
+            "customer": "@{triggerBody()?['text_4']}",
+            "zurichLineManager": "@{triggerBody()?['text_5']}",
+            "extensionOrNew": "@{triggerBody()?['text_6']}",
+            "extensionOf": "@{triggerBody()?['text_20']}",
+            "itOrNonIT": "@{triggerBody()?['text_3']}",
+            "typeService": "@{triggerBody()?['text_9']}",
+            "engagementType": "@{triggerBody()?['text_10']}",
+            "deliveryStrategy": "@{triggerBody()?['text_11']}",
+            "technologyCluster": "@{triggerBody()?['text_12']}",
+            "capability": "@{triggerBody()?['text_13']}",
+            "technology": "@{triggerBody()?['text_14']}",
+            "supportedApplications": "@{triggerBody()?['text_21']}",
+            "billingType": "@{triggerBody()?['text_15']}",
+            "totalAmount": "@{triggerBody()?['number']}",
+            "mana": "@{triggerBody()?['text_16']}",
+            "mkt": "@{triggerBody()?['text_17']}",
+            "ext": "@{triggerBody()?['text_18']}",
+            "cmSale": "@{triggerBody()?['number_1']}",
+            "percentageCostTeam": "@{triggerBody()?['number_2']}",
+            "amountCostTeam": "@{triggerBody()?['number_3']}",
+            "requestor": "@{triggerBody()?['text_19']}",
+            "fteTable": "@{body('Parse_FTE_Table_(JSON)')}",
+            "createdDate": "@{utcNow()}",
+            "year": "@{variables('year')}"
+          }
+        },
+        "Loop_to_FTE_items": {
+          "foreach": "@body('Parse_FTE_Table_(JSON)')",
+          "actions": {
+            "Create_item": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+                  "table": "3ce82981-2fcc-4225-b427-3caa08fd6b5e",
+                  "item/SOW/Id": "@outputs('Create_new_document_set')?['body/ID']",
+                  "item/Role": "@items('Loop_to_FTE_items')?['role']",
+                  "item/Country": "@items('Loop_to_FTE_items')?['country']",
+                  "item/Locationcity": "@items('Loop_to_FTE_items')?['locationCity']",
+                  "item/FTEunits": "@items('Loop_to_FTE_items')?['fteUnits']",
+                  "item/Rate": "@items('Loop_to_FTE_items')?['rate']",
+                  "item/Cost": "@items('Loop_to_FTE_items')?['cost']",
+                  "item/Currency": "@items('Loop_to_FTE_items')?['currency']",
+                  "item/Consultantname": "@items('Loop_to_FTE_items')?['consultantName']",
+                  "item/Type": "@items('Loop_to_FTE_items')?['type']",
+                  "item/Chargability": "@items('Loop_to_FTE_items')?['chargability']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "PostItem",
+                  "connectionName": "shared_sharepointonline"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Update_item": [
+              "Succeeded"
+            ]
+          },
+          "type": "Foreach"
+        },
+        "get_SR_ContractIndex": {
+          "runAfter": {},
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
+              "table": "d9337804-c757-4e42-bb7f-40cd19d81830",
+              "$filter": "ContractType eq 'SOW'",
+              "$top": 1
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetItems",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "string_contractID": {
+          "runAfter": {
+            "get_SR_ContractIndex": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "contractID",
+                "type": "integer",
+                "value": "@add(\r\n  int(\r\n    coalesce(\r\n      body('get_SR_ContractIndex')?['value'][0]?['LastIndex'], 0)), 1)"
+              }
+            ]
+          }
+        },
+        "string_year": {
+          "runAfter": {
+            "string_contractID": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "year",
+                "type": "string",
+                "value": "@formatDateTime(triggerBody()?['date'], 'yyyy')"
+              }
+            ]
+          }
+        },
+        "Parse_FTE_Table_(JSON)": {
+          "runAfter": {
+            "string_year": [
+              "Succeeded"
+            ]
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()?['text_22']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "locationCity": {
+                    "type": "string"
+                  },
+                  "fteUnits": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "rate": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "cost": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "consultantName": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "chargability": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },

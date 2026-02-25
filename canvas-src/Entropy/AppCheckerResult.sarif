@@ -1514,19 +1514,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-info'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-info'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-info'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-info'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-info'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-info'"
               }
             }
           ],
@@ -1544,19 +1544,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-label'.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-label'.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-label'.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-label'.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-label'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-label'"
               }
             }
           ],
@@ -1574,19 +1574,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-label'.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-label'.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-label'.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-label'.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-container'.'fc-tableFte-label'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-container'.'fc-fteTable-label'"
               }
             }
           ],
@@ -1604,19 +1604,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblConsultantName.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRole.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblConsultantName.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRole.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblConsultantName"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRole"
               }
             }
           ],
@@ -1634,19 +1634,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblConsultantName.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRole.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblConsultantName.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRole.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblConsultantName"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRole"
               }
             }
           ],
@@ -1664,19 +1664,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblChargability.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCountry.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblChargability.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCountry.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblChargability"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCountry"
               }
             }
           ],
@@ -1694,19 +1694,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblChargability.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCountry.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblChargability.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCountry.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblChargability"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCountry"
               }
             }
           ],
@@ -1724,19 +1724,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRole.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblLocationCity.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRole.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblLocationCity.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRole"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblLocationCity"
               }
             }
           ],
@@ -1754,19 +1754,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRole.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblLocationCity.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRole.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblLocationCity.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRole"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblLocationCity"
               }
             }
           ],
@@ -1784,19 +1784,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCountry.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblFteUnits.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCountry.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblFteUnits.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCountry"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblFteUnits"
               }
             }
           ],
@@ -1814,19 +1814,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCountry.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblFteUnits.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCountry.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblFteUnits.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCountry"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblFteUnits"
               }
             }
           ],
@@ -1844,19 +1844,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblLocationCity.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRate.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblLocationCity.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRate.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblLocationCity"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRate"
               }
             }
           ],
@@ -1874,19 +1874,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblLocationCity.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRate.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblLocationCity.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRate.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblLocationCity"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRate"
               }
             }
           ],
@@ -1904,19 +1904,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblFteUnits.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCost.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblFteUnits.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCost.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblFteUnits"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCost"
               }
             }
           ],
@@ -1934,19 +1934,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblFteUnits.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCost.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblFteUnits.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCost.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblFteUnits"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCost"
               }
             }
           ],
@@ -1964,19 +1964,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRate.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCurrency.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRate.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCurrency.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRate"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCurrency"
               }
             }
           ],
@@ -1994,19 +1994,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRate.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCurrency.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRate.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCurrency.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblRate"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblCurrency"
               }
             }
           ],
@@ -2024,19 +2024,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCost.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblConsultantName.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCost.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblConsultantName.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCost"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblConsultantName"
               }
             }
           ],
@@ -2054,19 +2054,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCost.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblConsultantName.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCost.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblConsultantName.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCost"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblConsultantName"
               }
             }
           ],
@@ -2084,19 +2084,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCurrency.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblType.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCurrency.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblType.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCurrency"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblType"
               }
             }
           ],
@@ -2114,19 +2114,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCurrency.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblType.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCurrency.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblType.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblCurrency"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblType"
               }
             }
           ],
@@ -2144,19 +2144,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblType.FocusedBorderThickness"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblChargability.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblType.FocusedBorderThickness",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblChargability.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblType"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblChargability"
               }
             }
           ],
@@ -2174,19 +2174,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblType.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblChargability.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblType.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblChargability.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-header'.lblType"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblChargability"
               }
             }
           ],
@@ -2204,19 +2204,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'"
               }
             }
           ],
@@ -2234,19 +2234,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.TabIndex"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.TabIndex",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'"
               }
             }
           ],
@@ -2264,19 +2264,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-remove'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col1'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-remove'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col1'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-remove'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col1'"
               }
             }
           ],
@@ -2294,19 +2294,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col1'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col2'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col1'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col2'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col1'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col2'"
               }
             }
           ],
@@ -2324,19 +2324,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col2'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col3'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col2'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col3'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col2'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col3'"
               }
             }
           ],
@@ -2354,19 +2354,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col3'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col4'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col3'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col4'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col3'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col4'"
               }
             }
           ],
@@ -2384,19 +2384,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col4'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col5'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col4'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col5'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col4'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col5'"
               }
             }
           ],
@@ -2414,19 +2414,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col5'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col6'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col5'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col6'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col5'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col6'"
               }
             }
           ],
@@ -2444,19 +2444,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col6'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col7'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col6'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col7'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col6'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col7'"
               }
             }
           ],
@@ -2474,19 +2474,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col7'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col8'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col7'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col8'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col7'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col8'"
               }
             }
           ],
@@ -2504,19 +2504,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col8'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col9'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col8'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col9'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col8'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col9'"
               }
             }
           ],
@@ -2534,19 +2534,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col9'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col10'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col9'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col10'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col9'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col10'"
               }
             }
           ],
@@ -2564,19 +2564,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col10'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-remove'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col10'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-remove'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-col10'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-body'.'fc-tableFte-table-row'.'fc-tableFte-table-remove'"
               }
             }
           ],
@@ -2594,19 +2594,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-add'.AccessibleLabel"
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-add'.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-add'.AccessibleLabel",
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-add'.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-tableFte-table-scroll'.'fc-tableFte-table'.'fc-tableFte-table-add'"
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-add'"
               }
             }
           ],
@@ -5228,6 +5228,36 @@
           },
           "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
           "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-showTable'.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-showTable'.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Screen",
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'fc-tableFte'.'fc-fteTable-showTable'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
         }
       ],
       "tool": {

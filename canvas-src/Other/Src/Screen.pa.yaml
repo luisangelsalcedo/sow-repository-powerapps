@@ -689,8 +689,8 @@ Screens:
 
                         // Reset table FTE
                         ClearCollect(
-                            colTableFte,
-                            colTableFteTemp
+                            colFteTable,
+                            Blank()
                         );
                     )
 
@@ -843,8 +843,8 @@ Screens:
 
                                       // Reset table FTE
                                       ClearCollect(
-                                          colTableFte,
-                                          colTableFteTemp
+                                          colFteTable,
+                                          Blank()
                                       );
                                     Width: =35
                   - NewSowModal-tabs:
@@ -1400,13 +1400,13 @@ Screens:
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Start
                                     DropShadow: =DropShadow.None
-                                    Height: ='fc-tableFte-container'.Height + 'fc-tableFte-table'.Height
+                                    Height: ='fc-fteTable-container'.Height + 'fc-fteTable-table'.Height
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutMinHeight: =16
                                     LayoutMinWidth: =16
                                     Width: =Parent.Width
                                   Children:
-                                    - fc-tableFte-container:
+                                    - fc-fteTable-container:
                                         Control: GroupContainer@1.4.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1418,16 +1418,16 @@ Screens:
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
                                         Children:
-                                          - fc-tableFte-info:
+                                          - fc-fteTable-info:
                                               Control: InfoButton@0.0.33
                                               Properties:
-                                                Content: =formNewSowData.item.tableFte.info
+                                                Content: =formNewSowData.item.fteTable.info
                                                 Height: =25
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Visible: =!IsBlank(Self.Content)
                                                 Width: =25
-                                          - fc-tableFte-label:
+                                          - fc-fteTable-label:
                                               Control: Label@2.5.1
                                               Properties:
                                                 BorderColor: =RGBA(0, 18, 107, 1)
@@ -1440,30 +1440,49 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =designSystem.style.label.fontSize
-                                                Text: =formNewSowData.item.tableFte.label
+                                                Text: =formNewSowData.item.fteTable.label
                                                 X: =40
                                                 Y: =40
-                                    - fc-tableFte-table-scroll:
+                                    - fc-fteTable-showTable:
+                                        Control: Button@0.0.45
+                                        Properties:
+                                          Appearance: ='ButtonCanvas.Appearance'.Subtle
+                                          Icon: ="Add"
+                                          IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          OnSelect: |-
+                                            =ClearCollect(
+                                                colFteTable,
+                                                colFteTableTemp
+                                            );
+                                          Text: ="Add FTE"
+                                          Visible: =CountRows(colFteTable) = 0
+                                          Width: =Parent.Width
+                                          X: =40
+                                          Y: =40
+                                    - fc-fteTable-table-scroll:
                                         Control: GroupContainer@1.4.0
                                         Variant: AutoLayout
                                         Properties:
                                           DropShadow: =DropShadow.None
                                           FillPortions: =0
-                                          Height: ='fc-tableFte-table'.Height
+                                          Height: ='fc-fteTable-table'.Height
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
                                           LayoutOverflowX: =LayoutOverflow.Scroll
+                                          Visible: =CountRows(colFteTable) > 0
                                           Width: =Parent.Width
                                         Children:
-                                          - fc-tableFte-table:
+                                          - fc-fteTable-table:
                                               Control: GroupContainer@1.4.0
                                               Variant: AutoLayout
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Start
                                                 DropShadow: =DropShadow.None
                                                 FillPortions: =0
-                                                Height: ='fc-tableFte-table-header'.Height + 'fc-tableFte-table-body'.Height + 'fc-tableFte-table-add'.Height + (Self.LayoutGap * 3) + 20
+                                                Height: ='fc-fteTable-table-header'.Height + 'fc-fteTable-table-body'.Height + 'fc-fteTable-table-add'.Height + (Self.LayoutGap * 3) + 20
                                                 LayoutDirection: =LayoutDirection.Vertical
                                                 LayoutGap: =3
                                                 LayoutMinHeight: =16
@@ -1474,7 +1493,7 @@ Screens:
                                                 PaddingTop: =3
                                                 Width: =900
                                               Children:
-                                                - fc-tableFte-table-header:
+                                                - fc-fteTable-table-header:
                                                     Control: GroupContainer@1.4.0
                                                     Variant: AutoLayout
                                                     Properties:
@@ -1618,7 +1637,7 @@ Screens:
                                                             LayoutMinWidth: =16
                                                             Size: =8
                                                             Text: ="Chargability (%)"
-                                                - fc-tableFte-table-body:
+                                                - fc-fteTable-table-body:
                                                     Control: Gallery@2.15.0
                                                     Variant: BrowseLayout_Vertical_OneTextVariant_ver5.0
                                                     Properties:
@@ -1626,7 +1645,7 @@ Screens:
                                                       BorderColor: =RGBA(0, 18, 107, 1)
                                                       FillPortions: =0
                                                       Height: =Self.TemplateHeight * Self.AllItemsCount
-                                                      Items: =colTableFte
+                                                      Items: =colFteTable
                                                       ShowScrollbar: =false
                                                       TemplateSize: =35
                                                       Width: =Parent.Width
@@ -1651,8 +1670,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {role: Self.Value})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {role: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.role
                                                             - fc-tableFte-table-col2:
                                                                 Control: TextInput@0.0.54
@@ -1663,8 +1682,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {country: Self.Value})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {country: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.country
                                                             - fc-tableFte-table-col3:
                                                                 Control: TextInput@0.0.54
@@ -1675,8 +1694,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {locationCity: Self.Value})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {locationCity: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.locationCity
                                                             - fc-tableFte-table-col4:
                                                                 Control: TextInput@0.0.54
@@ -1687,8 +1706,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {fteUnits: Self.Value})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {fteUnits: Value(Self.Value)})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.fteUnits
                                                             - fc-tableFte-table-col5:
                                                                 Control: TextInput@0.0.54
@@ -1699,8 +1718,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {rate: Value(Self.Value)})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {rate: Value(Self.Value)})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.rate
                                                             - fc-tableFte-table-col6:
                                                                 Control: TextInput@0.0.54
@@ -1711,8 +1730,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {cost: Value(Self.Value)})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {cost: Value(Self.Value)})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.cost
                                                             - fc-tableFte-table-col7:
                                                                 Control: DropDown@0.0.45
@@ -1724,7 +1743,7 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {currency: Self.Selected.Value})
+                                                                    =Patch(colFteTable, ThisItem, {currency: Self.Selected.Value})
                                                             - fc-tableFte-table-col8:
                                                                 Control: TextInput@0.0.54
                                                                 Properties:
@@ -1734,8 +1753,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {consultantName: Self.Value})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {consultantName: Self.Value})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.consultantName
                                                             - fc-tableFte-table-col9:
                                                                 Control: DropDown@0.0.45
@@ -1747,7 +1766,7 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {type: Self.Selected.Value})
+                                                                    =Patch(colFteTable, ThisItem, {type: Self.Selected.Value})
                                                             - fc-tableFte-table-col10:
                                                                 Control: TextInput@0.0.54
                                                                 Properties:
@@ -1757,8 +1776,8 @@ Screens:
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
                                                                   OnChange: |-
-                                                                    =Patch(colTableFte, ThisItem, {chargability: Value(Self.Value)})
-                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                                    =Patch(colFteTable, ThisItem, {chargability: Value(Self.Value)})
+                                                                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.FocusOut
                                                                   Value: =ThisItem.chargability
                                                             - fc-tableFte-table-remove:
                                                                 Control: Button@0.0.45
@@ -1773,13 +1792,13 @@ Screens:
                                                                   Layout: ='ButtonCanvas.Layout'.IconOnly
                                                                   LayoutMinHeight: =16
                                                                   LayoutMinWidth: =16
-                                                                  OnSelect: =Remove(colTableFte, ThisItem)
+                                                                  OnSelect: =Remove(colFteTable, ThisItem)
                                                                   PaddingBottom: =0
                                                                   PaddingLeft: =0
                                                                   PaddingRight: =0
                                                                   PaddingTop: =0
                                                                   Width: =18
-                                                - fc-tableFte-table-add:
+                                                - fc-fteTable-table-add:
                                                     Control: Button@0.0.45
                                                     Properties:
                                                       Appearance: ='ButtonCanvas.Appearance'.Subtle
@@ -1789,17 +1808,15 @@ Screens:
                                                       Icon: ="Add"
                                                       IconStyle: ='ButtonCanvas.IconStyle'.Outline
                                                       Layout: ='ButtonCanvas.Layout'.IconBefore
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
                                                       OnSelect: |-
                                                         =Collect(
-                                                            colTableFte,
+                                                            colFteTable,
                                                             {
                                                                 id: GUID(),
                                                                 role: "",
                                                                 country: "",
                                                                 locationCity: "",
-                                                                fteUnits: "",
+                                                                fteUnits: 0,
                                                                 rate: 0,
                                                                 cost: 0,
                                                                 currency: "",
@@ -3071,6 +3088,29 @@ Screens:
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
                                           Placeholder: =formNewSowData.item.extensionOf.placeholder
+                  - debug:
+                      Control: Text@0.0.51
+                      Properties:
+                        Height: =150
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Text: |-
+                          =JSON(Filter(
+                                              colFteTable,
+                                              IsBlank(role) ||
+                                              IsBlank(country) ||
+                                              IsBlank(locationCity) ||
+                                              IsBlank(currency) ||
+                                              Value(rate) <= 0 ||
+                                              Value(fteUnits) <= 0 ||
+                                              !IsNumeric(chargability) ||
+                                              Value(chargability) < 0 ||
+                                              Value(chargability) > 100
+                                          ))
+                        Visible: =false
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
                   - form-control-submit:
                       Control: GroupContainer@1.4.0
                       Variant: AutoLayout
@@ -3096,7 +3136,7 @@ Screens:
                               AlignInContainer: =AlignInContainer.Center
                               LayoutMinHeight: =16
                               LayoutMinWidth: =16
-                              OnSelect: "=With(\r\n    {\r\n        // ------------------------------------- Contract Details \r\n        \r\n        _nttCompany             : cbbNttCompany.Selected.Value,\r\n        _org                    : cbbOrg.Selected.Value,\r\n        _zurichArea             : cbbZurichArea.Selected.Value,\r\n        _fundation              : cbbFundation.Selected.Value,\r\n        _sowName                : txtSowName.Value,\r\n        _startDate              : dpkStartDate.SelectedDate,\r\n        _endDate                : dpkEndDate.SelectedDate,\r\n        _customer               : cbbCustomer.Selected.Value,\r\n        _zurichLineManager      : txtZurichLineManager.Value,\r\n        _extensionOrNew         : cbbExtensionOrNew.Selected.Value,\r\n        _extensionOf            : txtExtensionOf.Value,\r\n\r\n        // ------------------------------------- Service Information \r\n\r\n        _itOrNonIT              : cbbItOrNonIT.Selected.Value,\r\n        _typeService            : cbbTypeService.Selected.Value,\r\n        _engagementType         : cbbEngagementType.Selected.Value,\r\n        _deliveryStrategy       : cbbDeliveryStrategy.Selected.Value,\r\n        _technologyCluster      : cbbTechnologyCluster.Selected.Value,\r\n        _capability             : cbbCapability.Selected.Value,\r\n        _technology             : txtTechnology.Value,\r\n        _supportedApplications  : txtSupportedApplications.Value,\r\n\r\n        // ------------------------------------- Financial Data \r\n\r\n        _billingType            : cbbBillingType.Selected.Value,\r\n        _totalAmount            : txtTotalAmount.Value,\r\n        _mana                   : txtMana.Value,\r\n        _mkt                    : txtMkt.Value,\r\n        _ext                    : txtExt.Value,\r\n        _cmSale                 : txtCmSale.Value,\r\n        _percentageCostTeam     : txtPercentageCostTeam.Value,\r\n        _amountCostTeam         : txtAmountCostTeam.Value,\r\n\r\n        // ------------------------------------- Extra data\r\n        \r\n        _user                   : User().FullName,\r\n        _attach                 : DataCardValue.Attachments\r\n    },\r\n    If(\r\n        //validation\r\n            // ------------------------------------- Contract Details \r\n            IsBlank(_nttCompany),\r\n            Notify(formNewSowData.item.nttCompany.errorMessage, NotificationType.Error); SetFocus(cbbNttCompany),\r\n\r\n            IsBlank(_org),\r\n            Notify(formNewSowData.item.org.errorMessage, NotificationType.Error); SetFocus(cbbOrg),\r\n\r\n            showZurichArea && IsBlank(_zurichArea),\r\n            Notify(formNewSowData.item.zurichArea.errorMessage, NotificationType.Error); SetFocus(cbbZurichArea),\r\n\r\n            IsBlank(_fundation),\r\n            Notify(formNewSowData.item.fundation.errorMessage, NotificationType.Error); SetFocus(cbbFundation),\r\n\r\n            Len(_sowName) < 3,\r\n            Notify(formNewSowData.item.sowName.errorMessage, NotificationType.Error); SetFocus(txtSowName), //text\r\n\r\n            IsBlank(_startDate),\r\n            Notify(formNewSowData.item.startDate.errorMessage, NotificationType.Error); SetFocus(dpkStartDate), //date\r\n\r\n            IsBlank(_endDate),\r\n            Notify(formNewSowData.item.endDate.errorMessage, NotificationType.Error); SetFocus(dpkEndDate), //date\r\n\r\n            IsBlank(_customer),\r\n            Notify(formNewSowData.item.customer.errorMessage, NotificationType.Error); SetFocus(cbbCustomer),\r\n\r\n            IsBlank(_zurichLineManager),\r\n            Notify(formNewSowData.item.zurichLineManager.errorMessage, NotificationType.Error); SetFocus(txtZurichLineManager), //text\r\n\r\n            IsBlank(_extensionOrNew),\r\n            Notify(formNewSowData.item.extensionOrNew.errorMessage, NotificationType.Error); SetFocus(cbbExtensionOrNew),\r\n\r\n            IsBlank(_extensionOf),\r\n            Notify(formNewSowData.item.extensionOf.errorMessage, NotificationType.Error); SetFocus(txtExtensionOf),\r\n\r\n            // ------------------------------------- Service Information\r\n            IsBlank(_itOrNonIT),\r\n            Notify(formNewSowData.item.itOrNonIT.errorMessage, NotificationType.Error); SetFocus(cbbItOrNonIT),\r\n\r\n            IsBlank(_typeService),\r\n            Notify(formNewSowData.item.typeService.errorMessage, NotificationType.Error); SetFocus(cbbTypeService),\r\n\r\n            IsBlank(_engagementType),\r\n            Notify(formNewSowData.item.engagementType.errorMessage, NotificationType.Error); SetFocus(cbbEngagementType),\r\n\r\n            IsBlank(_deliveryStrategy),\r\n            Notify(formNewSowData.item.deliveryStrategy.errorMessage, NotificationType.Error); SetFocus(cbbDeliveryStrategy),\r\n\r\n            IsBlank(_technologyCluster),\r\n            Notify(formNewSowData.item.technologyCluster.errorMessage, NotificationType.Error); SetFocus(cbbTechnologyCluster),\r\n\r\n            IsBlank(_capability),\r\n            Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),\r\n\r\n            IsBlank(_technology),\r\n            Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(txtTechnology),\r\n\r\n            IsBlank(_supportedApplications),\r\n            Notify(formNewSowData.item.supportedApplications.errorMessage, NotificationType.Error); SetFocus(txtSupportedApplications),\r\n\r\n            // ------------------------------------- Financial Data \r\n            IsBlank(_billingType),\r\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\r\n\r\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\r\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\r\n\r\n            Len(_mana) < 3,\r\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\r\n\r\n            Len(_mkt) < 3,\r\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\r\n\r\n            Len(_ext) < 3,\r\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\r\n\r\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0,\r\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number\r\n\r\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0,\r\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number\r\n\r\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\r\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\r\n        \r\n        // success\r\n            //loader\r\n            UpdateContext({loaderNewSowModal:true});\r\n            \r\n            //action\r\n            With(\r\n                {\r\n                    _response: flow_createSow.Run(\r\n                        _org,\r\n                        _fundation,\r\n                        _sowName,\r\n                        Text(_startDate, \"yyyy-mm-dd\"),\r\n                        Text(_endDate, \"yyyy-mm-dd\"),\r\n                        _customer,\r\n                        _zurichLineManager,\r\n                        _extensionOrNew,\r\n                        _itOrNonIT,\r\n                        _typeService,\r\n                        _engagementType,\r\n                        _deliveryStrategy,\r\n                        _technologyCluster,\r\n                        _capability,\r\n                        _technology,                        \r\n                        _billingType,\r\n                        _totalAmount,\r\n                        _mana,\r\n                        _mkt,\r\n                        _ext,\r\n                        _cmSale,\r\n                        _percentageCostTeam,\r\n                        _amountCostTeam,\r\n                        _user,\r\n\r\n                        // new fields\r\n                        _nttCompany,\r\n                        _zurichArea,\r\n                        _extensionOf,\r\n                        _supportedApplications\r\n                    ).response\r\n                },\r\n                \r\n                //success message\r\n                Notify(_response, NotificationType.Success);\r\n\r\n                // clean controls\r\n                Reset(cbbNttCompany);\r\n                Reset(cbbOrg);\r\n                Reset(cbbZurichArea); UpdateContext({showZurichArea : false}); //hide field\r\n                Reset(cbbFundation);\r\n                Reset(txtSowName);\r\n                Reset(dpkStartDate);\r\n                Reset(dpkEndDate);\r\n                Reset(cbbCustomer);\r\n                Reset(txtZurichLineManager);\r\n                Reset(cbbExtensionOrNew);\r\n                Reset(txtExtensionOf); UpdateContext({showExtensionOf: false}); //hide field\r\n                Reset(cbbItOrNonIT);\r\n                Reset(cbbTypeService);\r\n                Reset(cbbEngagementType);\r\n                Reset(cbbDeliveryStrategy);\r\n                Reset(cbbTechnologyCluster);\r\n                Reset(cbbCapability);\r\n                Reset(txtTechnology);\r\n                Reset(txtSupportedApplications);\r\n                Reset(cbbBillingType);\r\n                Reset(txtTotalAmount);\r\n                Reset(txtMana);\r\n                Reset(txtMkt);\r\n                Reset(txtExt);\r\n                Reset(txtCmSale);\r\n                Reset(txtPercentageCostTeam);\r\n                Reset(txtAmountCostTeam);\r\n                \r\n                // close modal\r\n                UpdateContext({loaderNewSowModal:false});\r\n                UpdateContext({showNewSowModal:false});\r\n                UpdateContext({showBackdrop:false});\r\n                \r\n                // Reset tabs\r\n                UpdateContext({currentTab:1});\r\n                UpdateIf(\r\n                    colTabs,\r\n                    status = \"Active\",\r\n                    { status: \"Pending\" }\r\n                );\r\n                Patch(\r\n                    colTabs,\r\n                    LookUp(colTabs, index = 1),\r\n                    { status: \"Active\" }\r\n                )\r\n            )     \r\n    );\r\n\r\n    // tabs validation\r\n)"
+                              OnSelect: "=With(\n    {\n        // ------------------------------------- Contract Details \n        \n        _nttCompany             : cbbNttCompany.Selected.Value,\n        _org                    : cbbOrg.Selected.Value,\n        _zurichArea             : Coalesce(cbbZurichArea.Selected.Value, \"_blank\"),\n        _fundation              : cbbFundation.Selected.Value,\n        _sowName                : txtSowName.Value,\n        _startDate              : dpkStartDate.SelectedDate,\n        _endDate                : dpkEndDate.SelectedDate,\n        _customer               : cbbCustomer.Selected.Value,\n        _zurichLineManager      : txtZurichLineManager.Value,\n        _extensionOrNew         : cbbExtensionOrNew.Selected.Value,\n        _extensionOf            : Coalesce(txtExtensionOf.Value, \"_blank\"),\n\n        // ------------------------------------- Service Information \n\n        _itOrNonIT              : cbbItOrNonIT.Selected.Value,\n        _typeService            : cbbTypeService.Selected.Value,\n        _engagementType         : cbbEngagementType.Selected.Value,\n        _deliveryStrategy       : cbbDeliveryStrategy.Selected.Value,\n        _technologyCluster      : cbbTechnologyCluster.Selected.Value,\n        _capability             : cbbCapability.Selected.Value,\n        _technology             : txtTechnology.Value,\n        _supportedApplications  : txtSupportedApplications.Value,\n\n        // ------------------------------------- Financial Data \n\n        _billingType            : cbbBillingType.Selected.Value,\n        _totalAmount            : Value(txtTotalAmount.Value),\n        _mana                   : txtMana.Value,\n        _mkt                    : txtMkt.Value,\n        _ext                    : txtExt.Value,\n        _cmSale                 : Value(txtCmSale.Value),\n        _percentageCostTeam     : Value(txtPercentageCostTeam.Value),\n        _amountCostTeam         : Value(txtAmountCostTeam.Value),\n        _fteTable               : JSON(colFteTable),\n   \n\n        // ------------------------------------- Extra data\n        \n        _user                   : User().FullName,\n        _attach                 : DataCardValue.Attachments\n    },\n    If(\n        //validation\n            // ------------------------------------- Contract Details \n            IsBlank(_nttCompany),\n            Notify(formNewSowData.item.nttCompany.errorMessage, NotificationType.Error); SetFocus(cbbNttCompany),\n\n            IsBlank(_org),\n            Notify(formNewSowData.item.org.errorMessage, NotificationType.Error); SetFocus(cbbOrg),\n\n            showZurichArea && IsBlank(_zurichArea),\n            Notify(formNewSowData.item.zurichArea.errorMessage, NotificationType.Error); SetFocus(cbbZurichArea),\n\n            IsBlank(_fundation),\n            Notify(formNewSowData.item.fundation.errorMessage, NotificationType.Error); SetFocus(cbbFundation),\n\n            Len(_sowName) < 3,\n            Notify(formNewSowData.item.sowName.errorMessage, NotificationType.Error); SetFocus(txtSowName), //text\n\n            IsBlank(_startDate),\n            Notify(formNewSowData.item.startDate.errorMessage, NotificationType.Error); SetFocus(dpkStartDate), //date\n\n            IsBlank(_endDate),\n            Notify(formNewSowData.item.endDate.errorMessage, NotificationType.Error); SetFocus(dpkEndDate), //date\n\n            IsBlank(_customer),\n            Notify(formNewSowData.item.customer.errorMessage, NotificationType.Error); SetFocus(cbbCustomer),\n\n            IsBlank(_zurichLineManager),\n            Notify(formNewSowData.item.zurichLineManager.errorMessage, NotificationType.Error); SetFocus(txtZurichLineManager), //text\n\n            IsBlank(_extensionOrNew),\n            Notify(formNewSowData.item.extensionOrNew.errorMessage, NotificationType.Error); SetFocus(cbbExtensionOrNew),\n\n            IsBlank(_extensionOf),\n            Notify(formNewSowData.item.extensionOf.errorMessage, NotificationType.Error); SetFocus(txtExtensionOf),\n\n            // ------------------------------------- Service Information\n            IsBlank(_itOrNonIT),\n            Notify(formNewSowData.item.itOrNonIT.errorMessage, NotificationType.Error); SetFocus(cbbItOrNonIT),\n\n            IsBlank(_typeService),\n            Notify(formNewSowData.item.typeService.errorMessage, NotificationType.Error); SetFocus(cbbTypeService),\n\n            IsBlank(_engagementType),\n            Notify(formNewSowData.item.engagementType.errorMessage, NotificationType.Error); SetFocus(cbbEngagementType),\n\n            IsBlank(_deliveryStrategy),\n            Notify(formNewSowData.item.deliveryStrategy.errorMessage, NotificationType.Error); SetFocus(cbbDeliveryStrategy),\n\n            IsBlank(_technologyCluster),\n            Notify(formNewSowData.item.technologyCluster.errorMessage, NotificationType.Error); SetFocus(cbbTechnologyCluster),\n\n            IsBlank(_capability),\n            Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),\n\n            IsBlank(_technology),\n            Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(txtTechnology),\n\n            IsBlank(_supportedApplications),\n            Notify(formNewSowData.item.supportedApplications.errorMessage, NotificationType.Error); SetFocus(txtSupportedApplications),\n\n            // ------------------------------------- Financial Data \n            IsBlank(_billingType),\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\n\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\n\n            Len(_mana) < 3,\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\n\n            Len(_mkt) < 3,\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\n\n            Len(_ext) < 3,\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\n\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0 || Value(_cmSale) > 100,\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number(%)\n\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0 || Value(_percentageCostTeam) > 100,\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number(%)\n\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\n\n            CountRows(\n                Filter(\n                    colFteTable,\n                    IsBlank(role) ||\n                    IsBlank(country) ||\n                    IsBlank(locationCity) ||\n                    IsBlank(currency) ||\n                    IsBlank(type) ||\n                    Value(rate) <= 0 ||\n                    Value(cost) <= 0 ||\n                    Value(fteUnits) <= 0 ||\n                    !IsNumeric(chargability) ||\n                    Value(chargability) < 0 ||\n                    Value(chargability) > 100\n                )\n            ) > 0,\n            Notify(formNewSowData.item.fteTable.errorMessage, NotificationType.Error),\n\n            \n        \n        // success\n            //loader\n            UpdateContext({loaderNewSowModal:true});\n            \n            //action\n            With(\n                {\n                    _response: flow_createSow.Run(\n                        _org,\n                        _fundation,\n                        _sowName,\n                        Text(_startDate, \"yyyy-mm-dd\"),\n                        Text(_endDate, \"yyyy-mm-dd\"),\n                        _customer,\n                        _zurichLineManager,\n                        _extensionOrNew,\n                        _itOrNonIT,\n                        _typeService,\n                        _engagementType,\n                        _deliveryStrategy,\n                        _technologyCluster,\n                        _capability,\n                        _technology,                        \n                        _billingType,\n                        _totalAmount,\n                        _mana,\n                        _mkt,\n                        _ext,\n                        _cmSale,\n                        _percentageCostTeam,\n                        _amountCostTeam,\n                        _user,\n\n                        // new fields\n                        _nttCompany,\n                        _zurichArea,\n                        _extensionOf,\n                        _supportedApplications,\n                        _fteTable\n                    ).response\n                },\n                \n                //success message\n                Notify(_response, NotificationType.Success);\n\n                // clean controls\n                Reset(cbbNttCompany);\n                Reset(cbbOrg);\n                Reset(cbbZurichArea); UpdateContext({showZurichArea : false}); //hide field\n                Reset(cbbFundation);\n                Reset(txtSowName);\n                Reset(dpkStartDate);\n                Reset(dpkEndDate);\n                Reset(cbbCustomer);\n                Reset(txtZurichLineManager);\n                Reset(cbbExtensionOrNew);\n                Reset(txtExtensionOf); UpdateContext({showExtensionOf: false}); //hide field\n                Reset(cbbItOrNonIT);\n                Reset(cbbTypeService);\n                Reset(cbbEngagementType);\n                Reset(cbbDeliveryStrategy);\n                Reset(cbbTechnologyCluster);\n                Reset(cbbCapability);\n                Reset(txtTechnology);\n                Reset(txtSupportedApplications);\n                Reset(cbbBillingType);\n                Reset(txtTotalAmount);\n                Reset(txtMana);\n                Reset(txtMkt);\n                Reset(txtExt);\n                Reset(txtCmSale);\n                Reset(txtPercentageCostTeam);\n                Reset(txtAmountCostTeam);\n                \n                // close modal\n                UpdateContext({loaderNewSowModal:false});\n                UpdateContext({showNewSowModal:false});\n                UpdateContext({showBackdrop:false});\n                \n                // Reset tabs\n                UpdateContext({currentTab:1});\n                UpdateIf(\n                    colTabs,\n                    status = \"Active\",\n                    { status: \"Pending\" }\n                );\n                Patch(\n                    colTabs,\n                    LookUp(colTabs, index = 1),\n                    { status: \"Active\" }\n                );\n                // Reset table FTE\n                ClearCollect(\n                    colFteTable,\n                    Blank()\n                )\n            )     \n    );\n\n    // tabs validation\n\n    Notify(\"validation tabs\")\n)"
                               Text: ="Submit"
                               X: =(Parent.Width - Self.Width) / 2
                               Y: =(Parent.Height - Self.Height) / 2

@@ -64,26 +64,13 @@ App:
           )
       );
       ClearCollect(
-          colTableFteTemp,
+          colFteTableTemp,
           {
-              id: "1",
+              id: GUID(),
               role: "",
               country: "",
               locationCity: "",
-              fteUnits: "",
-              rate: 0,
-              cost: 0,
-              currency: "",
-              consultantName: "",
-              type: "",        
-              chargability: 0
-          },
-          {
-              id: "2",
-              role: "",
-              country: "",
-              locationCity: "",
-              fteUnits: "",
+              fteUnits: 0,
               rate: 0,
               cost: 0,
               currency: "",
@@ -93,8 +80,8 @@ App:
           }
       );
       ClearCollect(
-          colTableFte,
-          colTableFteTemp
+          colFteTable,
+          Blank()
       );
       Set(
           formNewSowData,
@@ -105,7 +92,7 @@ App:
                       label: "NTT Company",
                       info: "",
                       placeholder: "",
-                      errorMessage: "nttCompany Error Message",
+                      errorMessage: "Please select an NTT Company.",
                       items: [
                           "NTT DATA Spain, S.L.U.",
                           "NTT DATA SPAIN SL, Madrid, sucursal de Genève",
@@ -117,7 +104,7 @@ App:
                       label: "Organization/LSA",
                       info: "",
                       placeholder: "",
-                      errorMessage: "org Error Message",
+                      errorMessage: "Please select an organization.",
                       items: [
                           "Argentina",
                           "BRAZIL",
@@ -134,7 +121,7 @@ App:
                       label: "Zurich area",
                       info: "",
                       placeholder: "",
-                      errorMessage: "zurichArea Error Message",
+                      errorMessage: "Please select a Zurich area.",
                       items: [
                           "AI",
                           "BTO",
@@ -148,7 +135,7 @@ App:
                       label: "Fundation",
                       info: "",
                       placeholder: "",
-                      errorMessage: "fundation Error Message",
+                      errorMessage: "Please select a foundation.",
                       items: [
                           "AS",
                           "BPS",
@@ -165,28 +152,28 @@ App:
                       label: "Service work order name",
                       info: "",
                       placeholder: "",
-                      errorMessage: "sowName Error Message",
+                      errorMessage: "The SOW name must contain at least 3 characters.",
                       items: []
                   },
                   startDate: {
                       label: "SOW Start date",
                       info: "",
                       placeholder: "",
-                      errorMessage: "startDate Error Message",
+                      errorMessage: "Please select a start date.",
                       items: []
                   },
                   endDate: {
                       label: "SOW End Date",
                       info: "",
                       placeholder: "",
-                      errorMessage: "endDate Error Message",
+                      errorMessage: "Please select an end date.",
                       items: []
                   },
                   customer: {
                       label: "Billing entity",
                       info: "",
                       placeholder: "",
-                      errorMessage: "customer Error Message",
+                      errorMessage: "Please select a Billing entity.",
                       items: [
                           "ServiZurich SA",
                           "ZBANK",
@@ -212,14 +199,14 @@ App:
                       label: "Zurich line manager",
                       info: "",
                       placeholder: "",
-                      errorMessage: "zurichLineManager Error Message",
+                      errorMessage: "Please enter the Zurich Line Manager.",
                       items: []
                   },
                   extensionOrNew: {
                       label: "Extension or new",
                       info: "",
                       placeholder: "",
-                      errorMessage: "extensionOrNew Error Message",
+                      errorMessage: "Please specify whether it is an extension or a new contract.",
                       items: [
                           "Extension",
                           "New SOW"
@@ -229,7 +216,7 @@ App:
                       label: "Extension of",
                       info: "",
                       placeholder: "",
-                      errorMessage: "extensionOf Error Message",
+                      errorMessage: "Please specify the contract being extended.",
                       items: []
                   },
                   // ------------------Service Information 
@@ -237,7 +224,7 @@ App:
                       label: "IT or non-IT project",
                       info: "",
                       placeholder: "",
-                      errorMessage: "itOrNonIT Error Message",
+                      errorMessage: "Please select IT or Non‑IT.",
                       items: [
                           "IT",
                           "non-IT"
@@ -247,7 +234,7 @@ App:
                       label: "Type of service",
                       info: "",
                       placeholder: "",
-                      errorMessage: "typeService Error Message",
+                      errorMessage: "Please select the service type.",
                       items: [
                           "SFA",
                           "Project",
@@ -259,7 +246,7 @@ App:
                       label: "Engagement type",
                       info: "",
                       placeholder: "",
-                      errorMessage: "engagementType Error Message",
+                      errorMessage: "Please select the engagement type.",
                       items: [
                           "Application Maintenance Services",
                           "BTO",
@@ -289,7 +276,7 @@ App:
                       label: "Delivery strategy",
                       info: "",
                       placeholder: "",
-                      errorMessage: "deliveryStrategy Error Message",
+                      errorMessage: "Please select the delivery strategy.",
                       items: [
                           "Onshore",
                           "Offshore",
@@ -300,7 +287,7 @@ App:
                       label: "Technology cluster",
                       info: "",
                       placeholder: "",
-                      errorMessage: "technologyCluster Error Message",
+                      errorMessage: "Please select the technology cluster.",
                       items: [
                           "AI Services",
                           "SAP ADM",
@@ -318,7 +305,7 @@ App:
                       label: "Capability",
                       info: "",
                       placeholder: "",
-                      errorMessage: "capability Error Message",
+                      errorMessage: "Please select a capability.",
                       items: [
                           "AM Services",
                           "Cyber",
@@ -338,14 +325,14 @@ App:
                       label: "Technology",
                       info: "",
                       placeholder: "",
-                      errorMessage: "technology Error Message",
+                      errorMessage: "Please enter the technology.",
                       items: []
                   },
                   supportedApplications: {
                       label: "Supported applications",
                       info: "",
                       placeholder: "",
-                      errorMessage: "supportedApplications Error Message",
+                      errorMessage: "Please enter the supported applications.",
                       items: []
                   },
 
@@ -354,7 +341,7 @@ App:
                       label: "Billing type",
                       info: "",
                       placeholder: "",
-                      errorMessage: "billingType Error Message",
+                      errorMessage: "Please select the billing type.",
                       items: [
                           "Fixed",
                           "Variable"
@@ -364,56 +351,56 @@ App:
                       label: "Total amount SOW/WO excluding VAT in $",
                       info: "",
                       placeholder: "",
-                      errorMessage: "totalAmount Error Message",
+                      errorMessage: "Total amount must be a valid number greater than or equal to 0.",
                       items: []
                   },
                   mana: {
                       label: "MANA opportunity",
                       info: "",
                       placeholder: "",
-                      errorMessage: "mana Error Message",
+                      errorMessage: "MANA must contain at least 3 characters.",
                       items: []
                   },
                   mkt: {
                       label: "MKT",
                       info: "",
                       placeholder: "",
-                      errorMessage: "mkt Error Message",
+                      errorMessage: "MKT must contain at least 3 characters.",
                       items: []
                   },
                   ext: {
                       label: "EXT",
                       info: "",
                       placeholder: "",
-                      errorMessage: "ext Error Message",
+                      errorMessage: "EXT must contain at least 3 characters.",
                       items: []
                   },
                   cmSale: {
                       label: "% Contract margin sale",
                       info: "",
                       placeholder: "",
-                      errorMessage: "cmSale Error Message",
+                      errorMessage: "CM Sale must be a valid percentage between 0 and 100.",
                       items: []
                   },
                   percentageCostTeam: {
                       label: "% INSURANCE cost team included in SOW",
                       info: "",
                       placeholder: "",
-                      errorMessage: "percentageCostTeam Error Message",
+                      errorMessage: "Percentage Cost Team must be between 0 and 100.",
                       items: []
                   },
                   amountCostTeam: {
                       label: "Amount INSURANCE cost team included in SOW",
                       info: "",
                       placeholder: "",
-                      errorMessage: "amountCostTeam Error Message",
+                      errorMessage: "Amount Cost Team must be a valid number greater than or equal to 0.",
                       items: []
                   },
-                  tableFte: {
+                  fteTable: {
                       label: "FTE",
                       info: "",
                       placeholder: "",
-                      errorMessage: "FTE Error Message",
+                      errorMessage: "There are incomplete or invalid rows in the FTE table. Please review required fields, amounts, and percentage values (0–100%).",
                       items: []
                   }
               }

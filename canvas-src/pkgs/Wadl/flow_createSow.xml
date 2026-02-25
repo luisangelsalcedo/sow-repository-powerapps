@@ -30,6 +30,7 @@
       <string name="ManualTriggerInput_text_8_def" />
       <string name="ManualTriggerInput_text_20_def" />
       <string name="ManualTriggerInput_text_21_def" />
+      <string name="ManualTriggerInput_text_22_def" />
       <object name="ManualTriggerInput">
         <property name="text" type="string" />
         <property name="text_1" type="string" />
@@ -59,6 +60,7 @@
         <property name="text_8" type="string" />
         <property name="text_20" type="string" />
         <property name="text_21" type="string" />
+        <property name="text_22" type="string" />
       </object>
       <string name="ResponseActionOutput_response_def" />
       <object name="ResponseActionOutput">
@@ -160,6 +162,9 @@
             </param>
             <param style="plain" name="text_21" path="/text_21" type="xs:string" required="true">
               <doc title="_supportedApplications" />
+            </param>
+            <param style="plain" name="text_22" path="/text_22" type="xs:string" required="true">
+              <doc title="_fteTable" />
             </param>
           </representation>
         </request>
