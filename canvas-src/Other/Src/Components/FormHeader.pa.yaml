@@ -39,17 +39,6 @@ ComponentDefinitions:
                   status: "Completed" 
               }
           )
-      OnTabSelect:
-        PropertyKind: Event
-        DisplayName: OnTabSelect
-        Description: Propiedad personalizada
-        ReturnType: None
-        Default: =
-        Parameters:
-          - Index:
-              Description: Un parámetro
-              DataType: Number
-              Default: =100
     Properties:
       Height: =150
       Width: =400
@@ -88,47 +77,19 @@ ComponentDefinitions:
                     )
                   Width: =Parent.Width
                 Children:
-                  - ButtonCanvas8:
-                      Control: Button@0.0.45
-                      Properties:
-                        Align: =Align.Left
-                        Appearance: ='ButtonCanvas.Appearance'.Transparent
-                        FontColor: |-
-                          =If(
-                              ThisItem.status = "Active",
-                              Color.Blue,
-                              ThisItem.status = "Error",
-                              Color.Red,
-                              ThisItem.status = "Completed",
-                              Color.Green
-                          )
-                        Height: =Parent.TemplateHeight
-                        Icon: |-
-                          =If(
-                              ThisItem.status = "Error",
-                              "DismissCircle",
-                              ThisItem.status = "Completed",
-                              "CheckmarkCircle",
-                              "Circle"
-                          )
-                        OnSelect: |+
-                          =FormHeader.OnTabSelect(ThisItem.index);
-                        Text: =ThisItem.label
-                        VerticalAlign: =VerticalAlign.Middle
-                        Width: =Parent.TemplateWidth
-                        Y: |+
-                          =0
-                  - TextCanvas1:
+                  - tabContainer-number:
                       Control: Text@0.0.51
                       Properties:
                         Align: ='TextCanvas.Align'.Center
                         FontColor: |-
                           =If(
                               ThisItem.status = "Active",
-                              Color.Blue
+                              Color.Blue,
+                              ThisItem.status = "Pending",
+                              Color.Gray
                           )
                         Height: =Parent.Height
-                        Size: =10
+                        Size: =12
                         Text: =ThisItem.index
                         VerticalAlign: =VerticalAlign.Middle
                         Visible: |+
@@ -137,14 +98,79 @@ ComponentDefinitions:
                         Weight: ='TextCanvas.Weight'.Bold
                         Width: =15
                         Wrap: =false
-                        X: =15
-                  - Active:
+                        X: =('tabContainer-icon'.Width - 'tabContainer-number'.Width) / 2
+                  - tabContainer-active:
                       Control: Rectangle@2.3.0
                       Properties:
                         BorderColor: =RGBA(0, 18, 107, 1)
-                        Fill: =Color.Blue
+                        Fill: |-
+                          =If(
+                              ThisItem.status = "Active",
+                              Color.Blue,
+                              ThisItem.status = "Error",
+                              Color.Red,
+                              ThisItem.status = "Completed",
+                              Color.Green
+                          )
                         Height: =5
                         OnSelect: =Select(Parent)
-                        Visible: =ThisItem.status = "Active"
+                        Visible: =ThisItem.status = "Active" || ThisItem.status = "Completed" || ThisItem.status = "Error"
                         Width: =Parent.TemplateWidth
                         Y: =Parent.Height - Self.Height
+                  - tabContainer:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.TemplateHeight
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - tabContainer-icon:
+                            Control: Icon@0.0.7
+                            Properties:
+                              Icon: |-
+                                =If(
+                                    ThisItem.status = "Error",
+                                    "DismissCircle",
+                                    ThisItem.status = "Completed",
+                                    "CheckmarkCircle",
+                                    "Circle"
+                                )
+                              IconColor: |-
+                                =If(
+                                    ThisItem.status = "Active",
+                                    Color.Blue,
+                                    ThisItem.status = "Error",
+                                    Color.Red,
+                                    ThisItem.status = "Completed",
+                                    Color.Green,
+                                    ThisItem.status = "Pending",
+                                    Color.Gray
+                                )
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                        - tabContainer-label:
+                            Control: Text@0.0.51
+                            Properties:
+                              Align: ='TextCanvas.Align'.Start
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              FillPortions: =1
+                              FontColor: |-
+                                =If(
+                                    ThisItem.status = "Active",
+                                    Color.Blue,
+                                    ThisItem.status = "Error",
+                                    Color.Red,
+                                    ThisItem.status = "Completed",
+                                    Color.Green,
+                                    ThisItem.status = "Pending",
+                                    Color.Gray
+                                )
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: =ThisItem.label
+                              VerticalAlign: =VerticalAlign.Middle
+                              Wrap: =false

@@ -42,7 +42,7 @@ ComponentDefinitions:
       GetWidthForTwoColumns: |-
         =If(
             App.Width > 600,
-            (ContainerWidth / 2) - (Gap / 2) - 6,
+            (ContainerWidth / 2) - Gap,
             ContainerWidth    
         )
       Height: =1

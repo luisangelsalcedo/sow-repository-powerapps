@@ -8,7 +8,7 @@ UtilsFunctions As CanvasComponent:
             Default: |-
                 =If(
                     App.Width > 600,
-                    (ContainerWidth / 2) - (Gap / 2) - 6,
+                    (ContainerWidth / 2) - Gap,
                     ContainerWidth    
                 )
     ResponsiveOnCellphone(PhoneCase As String, FullscreenCase As String):

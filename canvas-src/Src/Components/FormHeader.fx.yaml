@@ -1,9 +1,4 @@
 FormHeader As CanvasComponent:
-    OnTabSelect(Index As Number):
-        Index:
-            Default: =100
-        ThisProperty:
-            Default: =
     Fill: =RGBA(0, 0, 0, 0)
     Height: =150
     Items: |-
@@ -70,41 +65,7 @@ FormHeader As CanvasComponent:
             Width: =Parent.Width
             ZIndex: =1
 
-            ButtonCanvas8 As Botón:
-                Align: =Align.Left
-                Appearance: ='ButtonCanvas.Appearance'.Transparent
-                BasePaletteColor: =
-                BorderColor: =
-                DisplayMode: =DisplayMode.Edit
-                FontColor: |-
-                    =If(
-                        ThisItem.status = "Active",
-                        Color.Blue,
-                        ThisItem.status = "Error",
-                        Color.Red,
-                        ThisItem.status = "Completed",
-                        Color.Green
-                    )
-                Height: =Parent.TemplateHeight
-                Icon: |-
-                    =If(
-                        ThisItem.status = "Error",
-                        "DismissCircle",
-                        ThisItem.status = "Completed",
-                        "CheckmarkCircle",
-                        "Circle"
-                    )
-                OnSelect: |
-                    =FormHeader.OnTabSelect(ThisItem.index);
-                Text: =ThisItem.label
-                VerticalAlign: =VerticalAlign.Middle
-                Width: =Parent.TemplateWidth
-                X: =0
-                Y: |
-                    =0
-                ZIndex: =2
-
-            TextCanvas1 As Texto:
+            "'tabContainer-number' As Texto":
                 Align: ='TextCanvas.Align'.Center
                 AutoHeight: =false
                 BorderColor: =
@@ -113,10 +74,12 @@ FormHeader As CanvasComponent:
                 FontColor: |-
                     =If(
                         ThisItem.status = "Active",
-                        Color.Blue
+                        Color.Blue,
+                        ThisItem.status = "Pending",
+                        Color.Gray
                     )
                 Height: =Parent.Height
-                Size: =10
+                Size: =12
                 Text: =ThisItem.index
                 VerticalAlign: =VerticalAlign.Middle
                 Visible: |+
@@ -125,16 +88,95 @@ FormHeader As CanvasComponent:
                 Weight: ='TextCanvas.Weight'.Bold
                 Width: =15
                 Wrap: =false
-                X: =15
+                X: =('tabContainer-icon'.Width - 'tabContainer-number'.Width) / 2
                 Y: =0
                 ZIndex: =3
 
-            Active As rectangle:
-                Fill: =Color.Blue
+            "'tabContainer-active' As rectangle":
+                Fill: |-
+                    =If(
+                        ThisItem.status = "Active",
+                        Color.Blue,
+                        ThisItem.status = "Error",
+                        Color.Red,
+                        ThisItem.status = "Completed",
+                        Color.Green
+                    )
                 Height: =5
                 OnSelect: =Select(Parent)
-                Visible: =ThisItem.status = "Active"
+                Visible: =ThisItem.status = "Active" || ThisItem.status = "Completed" || ThisItem.status = "Error"
                 Width: =Parent.TemplateWidth
                 Y: =Parent.Height - Self.Height
                 ZIndex: =4
+
+            tabContainer As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =Parent.TemplateHeight
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.TemplateWidth
+                ZIndex: =5
+
+                "'tabContainer-icon' As Icono":
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =32
+                    Icon: |-
+                        =If(
+                            ThisItem.status = "Error",
+                            "DismissCircle",
+                            ThisItem.status = "Completed",
+                            "CheckmarkCircle",
+                            "Circle"
+                        )
+                    IconColor: |-
+                        =If(
+                            ThisItem.status = "Active",
+                            Color.Blue,
+                            ThisItem.status = "Error",
+                            Color.Red,
+                            ThisItem.status = "Completed",
+                            Color.Green,
+                            ThisItem.status = "Pending",
+                            Color.Gray
+                        )
+                    LayoutMaxHeight: =0
+                    LayoutMaxWidth: =0
+                    LayoutMinHeight: =16
+                    LayoutMinWidth: =16
+                    Width: =32
+                    X: =0
+                    Y: =0
+                    ZIndex: =1
+
+                "'tabContainer-label' As Texto":
+                    Align: ='TextCanvas.Align'.Start
+                    AlignInContainer: =AlignInContainer.Stretch
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FillPortions: =1
+                    FontColor: |-
+                        =If(
+                            ThisItem.status = "Active",
+                            Color.Blue,
+                            ThisItem.status = "Error",
+                            Color.Red,
+                            ThisItem.status = "Completed",
+                            Color.Green,
+                            ThisItem.status = "Pending",
+                            Color.Gray
+                        )
+                    Height: =32
+                    LayoutMaxHeight: =0
+                    LayoutMaxWidth: =0
+                    LayoutMinHeight: =16
+                    LayoutMinWidth: =16
+                    Text: =ThisItem.label
+                    VerticalAlign: =VerticalAlign.Middle
+                    Width: =96
+                    Wrap: =false
+                    X: =0
+                    Y: =0
+                    ZIndex: =2
 

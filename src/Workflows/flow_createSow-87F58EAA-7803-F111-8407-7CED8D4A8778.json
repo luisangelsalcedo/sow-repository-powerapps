@@ -2,7 +2,7 @@
   "properties": {
     "connectionReferences": {
       "shared_sharepointonline": {
-        "runtimeSource": "invoker",
+        "runtimeSource": "embedded",
         "connection": {
           "connectionReferenceLogicalName": "new_sharedsharepointonline_10d3b"
         },

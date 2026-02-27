@@ -10,7 +10,5 @@ EditorState:
   ScreensOrder:
     - Screen
   ComponentDefinitionsOrder:
-    - SearchSelect
     - UtilsFunctions
-    - UtilsEvents
     - FormHeader

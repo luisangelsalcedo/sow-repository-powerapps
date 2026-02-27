@@ -46,12 +46,12 @@
         "NameMapSourceSchema": "?"
       }
     ],
-    "LastModifiedTimestamp": "639076157351700280",
+    "LastModifiedTimestamp": "639077444726508301",
     "Name": "UtilsFunctions",
     "Rules": [
       {
         "Category": "Data",
-        "InvariantScript": "If(\r\n    App.Width > 600,\r\n    (ContainerWidth / 2) - (Gap / 2) - 6,\r\n    ContainerWidth    \r\n)",
+        "InvariantScript": "If(\r\n    App.Width > 600,\r\n    (ContainerWidth / 2) - Gap,\r\n    ContainerWidth    \r\n)",
         "Property": "GetWidthForTwoColumns",
         "RuleProviderType": "System"
       },
@@ -230,7 +230,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "639076157351700280",
+  "LastModifiedTimestamp": "639077444726508301",
   "Name": "47579f38ee5343808c6592efbf5a35fe",
   "OverridableProperties": {},
   "Version": "1.0"
