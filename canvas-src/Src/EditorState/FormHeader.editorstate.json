@@ -719,7 +719,7 @@
       "MetaDataIDKey": "",
       "Name": "galleryTemplate3",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -845,7 +845,7 @@
       "MetaDataIDKey": "",
       "Name": "tabContainer",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -866,12 +866,12 @@
         {
           "Category": "Design",
           "PropertyName": "X",
-          "RuleProviderType": "User"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
           "PropertyName": "Y",
-          "RuleProviderType": "User"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
@@ -1071,7 +1071,7 @@
       "MetaDataIDKey": "",
       "Name": "tabContainer-active",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 3,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1256,7 +1256,7 @@
       "MetaDataIDKey": "",
       "Name": "tabContainer-icon",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1359,7 +1359,9 @@
           "InvariantPropertyName": "VerticalAlign",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
-        }
+        },
+        "Fill",
+        "BorderColor"
       ],
       "DynamicProperties": [
         {
@@ -1442,7 +1444,7 @@
       "MetaDataIDKey": "",
       "Name": "tabContainer-label",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1473,6 +1475,16 @@
         {
           "Category": "Data",
           "PropertyName": "VerticalAlign",
+          "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Data",
+          "PropertyName": "Fill",
+          "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Data",
+          "PropertyName": "BorderColor",
           "RuleProviderType": "Unknown"
         },
         {
@@ -1632,7 +1644,7 @@
       "MetaDataIDKey": "",
       "Name": "tabContainer-number",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

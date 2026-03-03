@@ -46,7 +46,7 @@
         "NameMapSourceSchema": "?"
       }
     ],
-    "LastModifiedTimestamp": "639077444726508301",
+    "LastModifiedTimestamp": "639080185461236300",
     "Name": "UtilsFunctions",
     "Rules": [
       {
@@ -140,7 +140,7 @@
       "Name": "GetWidthForTwoColumns",
       "PropertyDataTypeKey": "Number",
       "PropertyScopeKey": {
-        "PropertyScopeRuleNamespaceKey": "16",
+        "PropertyScopeRuleNamespaceKey": "4",
         "PropertyScopeRulesKey": [
           {
             "DisplayName": "GetWidthForTwoColumns_ContainerWidth",
@@ -184,7 +184,7 @@
       "Name": "ResponsiveOnCellphone",
       "PropertyDataTypeKey": "String",
       "PropertyScopeKey": {
-        "PropertyScopeRuleNamespaceKey": "16",
+        "PropertyScopeRuleNamespaceKey": "4",
         "PropertyScopeRulesKey": [
           {
             "DisplayName": "ResponsiveOnCellphone_PhoneCase",
@@ -230,7 +230,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "639077444726508301",
+  "LastModifiedTimestamp": "639080185461236300",
   "Name": "47579f38ee5343808c6592efbf5a35fe",
   "OverridableProperties": {},
   "Version": "1.0"

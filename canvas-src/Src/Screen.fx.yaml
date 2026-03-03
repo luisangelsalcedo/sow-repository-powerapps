@@ -257,155 +257,6 @@
             Y: =0
             ZIndex: =4
 
-    "'form-control-attach' As groupContainer.horizontalAutoLayoutContainer":
-        ContentLanguage: =
-        DropShadow: =DropShadow.None
-        Height: |
-            =120
-        LayoutDirection: =LayoutDirection.Vertical
-        LayoutGridColumns: =6
-        LayoutGridRows: =6
-        LayoutMode: =LayoutMode.Auto
-        RadiusBottomLeft: =0
-        RadiusBottomRight: =0
-        RadiusTopLeft: =0
-        RadiusTopRight: =0
-        Width: =Parent.Width - designSystem.paddingDefault
-        X: =16
-        Y: =40
-        ZIndex: =6
-
-        Label2_7 As label:
-            AlignInContainer: =AlignInContainer.Stretch
-            Font: =designSystem.fontFamily
-            FontWeight: =designSystem.style.label.fontWeight
-            Height: =30
-            LayoutMaxHeight: =0
-            LayoutMaxWidth: =0
-            LayoutMinHeight: =16
-            LayoutMinWidth: =16
-            PaddingBottom: =0
-            PaddingLeft: =0
-            PaddingRight: =0
-            PaddingTop: =0
-            Size: =designSystem.style.label.fontSize
-            Text: ="Attach SOW document"
-            ZIndex: =1
-
-        TempForm As form.PowerApps_CoreControls_Form:
-            AcceptsFocus: =false
-            DataSource: =SR_TempUploads
-            DefaultMode: =FormMode.New
-            Height: =80
-            Item: =Defaults(SR_TempUploads)
-            LayoutMaxHeight: =0
-            LayoutMaxWidth: =0
-            LayoutMinHeight: =16
-            LayoutMinWidth: =16
-            UseFluentV9Cards: =true
-            ZIndex: =2
-
-            "'Datos adjuntos_DataCard2' As typedDataCard.attachmentsEditCard":
-                AutoHeight: =true
-                BorderStyle: =BorderStyle.None
-                BorderThickness: =0
-                ContentLanguage: =""
-                DataField: ="{Attachments}"
-                Default: =ThisItem.'Datos adjuntos'
-                DisplayMode: =Parent.DisplayMode
-                DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
-                Fill: =RGBA(0, 0, 0, 0)
-                Height: =50
-                LayoutHeight: =0
-                LayoutWidth: =0
-                LayoutX: =0
-                LayoutY: =0
-                maximumHeight: =7680
-                maximumWidth: =1366
-                minimumHeight: =20
-                minimumWidth: =20
-                Required: =false
-                Update: =DataCardValue.Attachments
-                Visible: =true
-                Width: =Parent.Width
-                WidthFit: =false
-                X: =0
-                Y: =0
-                ZIndex: =1
-
-                DataCardValue As attachments:
-                    AddAttachmentText: ="Adjuntar un archivo"
-                    AttachedFileListLabel: ="Archivos adjuntos"
-                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                    BorderStyle: =BorderStyle.None
-                    BorderThickness: =0
-                    DisplayMode: =Parent.DisplayMode
-                    DownloadErrorMessageText: ="No se pudo descargar el archivo solicitado."
-                    DownloadErrorMessageTitle: ="Error de descarga"
-                    FetchErrorMessageText: ="No se pudo obtener el archivo."
-                    Height: =80  
-                    IsInDataCard: =true
-                    Items: =Parent.Default
-                    MaxAttachments: =1
-                    MaxAttachmentsText: ="Se alcanzó el número máximo de archivos."
-                    NoAttachmentsText: ="No hay nada adjunto."
-                    OnAddFile: |-
-                        =If(
-                            !EndsWith(Lower(Last(Self.Attachments).Name), ".pdf") &&
-                            !EndsWith(Lower(Last(Self.Attachments).Name), ".docx"),
-                            Notify(
-                                "Solo se permiten archivos PDF o Word",
-                                NotificationType.Error
-                            );
-                            Reset(Self)
-                        )
-                    PaddingBottom: =5
-                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                    PaddingRight: =5
-                    PaddingTop: =5
-                    RemoveAttachmentTooltip: ="Quitar"
-                    Size: =10
-                    Tooltip: =Parent.DisplayName
-                    UndoRemoveAttachmentTooltip: ="Deshacer la eliminación"
-                    Width: =Parent.Width
-                    ZIndex: =1
-
-                ErrorMessage6 As label:
-                    AutoHeight: =true
-                    BorderColor: =RGBA(0, 0, 0, 1)
-                    Color: =RGBA(168, 0, 0, 1)
-                    FontWeight: =FontWeight.Semibold
-                    Height: =10
-                    Live: =Live.Assertive
-                    PaddingBottom: =0
-                    PaddingLeft: =0
-                    PaddingRight: =0
-                    PaddingTop: =0
-                    Size: =14
-                    Text: =Parent.Error
-                    Visible: =Parent.DisplayMode=DisplayMode.Edit
-                    Width: =Parent.Width - 60
-                    X: =30
-                    Y: =DataCardValue.Y + DataCardValue.Height
-                    ZIndex: =2
-
-        Label2_14 As label:
-            AlignInContainer: =AlignInContainer.Stretch
-            Font: =designSystem.fontFamily
-            FontWeight: =designSystem.style.label.fontWeight
-            Height: =30
-            LayoutMaxHeight: =0
-            LayoutMaxWidth: =0
-            LayoutMinHeight: =16
-            LayoutMinWidth: =16
-            PaddingBottom: =0
-            PaddingLeft: =0
-            PaddingRight: =0
-            PaddingTop: =0
-            Size: =designSystem.style.label.fontSize
-            Text: ="Total amount SOW/WO excluding VAT in $"
-            ZIndex: =16
-
     HomeView As groupContainer.verticalAutoLayoutContainer:
         DropShadow: =DropShadow.None
         Fill: =RGBA(245, 245, 245, 1)
@@ -731,6 +582,7 @@
                                 Reset(txtCmSale);
                                 Reset(txtPercentageCostTeam);
                                 Reset(txtAmountCostTeam);
+                                ResetForm(TempForm)
                         PaddingBottom: =0
                         PaddingLeft: =0
                         PaddingRight: =0
@@ -2890,7 +2742,7 @@
                             FontUnderline: =false
                             FontWeight: =""
                             Height: =32
-                            Icon: ="ChevronRight"
+                            Icon: ="Send"
                             IconRotation: =0
                             IconStyle: ="Outline"
                             Layout: ='ButtonCanvas.Layout'.IconAfter
@@ -2947,8 +2799,9 @@
                                 
                                         // ------------------------------------- Extra data
                                         
-                                        _user                   : User().FullName,
-                                        _attach                 : DataCardValue.Attachments
+                                        _user                   : User().Email,
+                                        _fileName               : Coalesce(First(DataCardValue.Attachments).Name, "_blank"),
+                                        _fileContent            : Coalesce(JSON(First(DataCardValue.Attachments).Value), "_blank")
                                     },
                                     If(
                                         //validation
@@ -3039,7 +2892,10 @@
                                                         _zurichArea,
                                                         _extensionOf,
                                                         _supportedApplications,
-                                                        _fteTable
+                                                        _fteTable,
+                                                        _fileName,
+                                                        _fileContent
+                                                     
                                                     ).response
                                                 },
                                                 
@@ -3054,7 +2910,7 @@
                                     )
                                 )
                             TabIndex: =0
-                            Text: ="Next"
+                            Text: ="Submit"
                             Tooltip: =""
                             VerticalAlign: =""
                             Visible: =true
@@ -4141,7 +3997,6 @@
                     ZIndex: =3
 
                     "'NewSowModal-form-container-scroll-1' As groupContainer.horizontalAutoLayoutContainer":
-                        AlignInContainer: =AlignInContainer.SetByContainer
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height
                         LayoutGap: =designSystem.paddingDefault
@@ -5173,7 +5028,7 @@
                                 DisplayMode: =DisplayMode.Edit
                                 Fill: =
                                 Font: =""
-                                FontColor: =RGBA(106, 122, 127, 1)
+                                FontColor: =
                                 FontItalic: =false
                                 FontSize: =0
                                 FontStrikethrough: =false
@@ -5437,6 +5292,142 @@
                                 Y: =0
                                 ZIndex: =2
 
+                        "'form-control-attach' As groupContainer.horizontalAutoLayoutContainer":
+                            ContentLanguage: =
+                            DropShadow: =DropShadow.None
+                            Height: ='form-control-attach-label'.Height + TempForm.Height
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumns: =6
+                            LayoutGridRows: =6
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Visible: =false
+                            Width: =Parent.Width - designSystem.paddingDefault
+                            X: =40
+                            Y: =40
+                            ZIndex: =12
+
+                            "'form-control-attach-label' As label":
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Font: =designSystem.fontFamily
+                                FontWeight: =designSystem.style.label.fontWeight
+                                Height: =30
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =designSystem.style.label.fontSize
+                                Text: ="Attach SOW document"
+                                ZIndex: =1
+
+                            TempForm As form.PowerApps_CoreControls_Form:
+                                AcceptsFocus: =false
+                                DataSource: =SR_TempUploads
+                                DefaultMode: =FormMode.New
+                                FillPortions: =0
+                                Height: ='Datos adjuntos_DataCard2'.Height
+                                Item: =Defaults(SR_TempUploads)
+                                LayoutMaxHeight: =0
+                                LayoutMaxWidth: =0
+                                LayoutMinHeight: =16
+                                LayoutMinWidth: =16
+                                UseFluentV9Cards: =true
+                                ZIndex: =2
+
+                                "'Datos adjuntos_DataCard2' As typedDataCard.attachmentsEditCard":
+                                    AutoHeight: =true
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    ContentLanguage: =""
+                                    DataField: ="{Attachments}"
+                                    Default: =ThisItem.'Datos adjuntos'
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =ErrorMessageFile.Y + ErrorMessageFile.Height
+                                    LayoutHeight: =0
+                                    LayoutWidth: =0
+                                    LayoutX: =0
+                                    LayoutY: =0
+                                    maximumHeight: =7680
+                                    maximumWidth: =1366
+                                    minimumHeight: =20
+                                    minimumWidth: =20
+                                    Required: =false
+                                    Update: =DataCardValue.Attachments
+                                    Visible: =true
+                                    Width: =Parent.Width
+                                    WidthFit: =false
+                                    X: =0
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardValue As attachments:
+                                        AddAttachmentText: ="Adjuntar un archivo"
+                                        AttachedFileListLabel: ="Archivos adjuntos"
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        BorderStyle: =BorderStyle.None
+                                        BorderThickness: =0
+                                        DisplayMode: =Parent.DisplayMode
+                                        DownloadErrorMessageText: ="No se pudo descargar el archivo solicitado."
+                                        DownloadErrorMessageTitle: ="Error de descarga"
+                                        FetchErrorMessageText: ="No se pudo obtener el archivo."
+                                        Height: =80  
+                                        IsInDataCard: =true
+                                        Items: =Parent.Default
+                                        MaxAttachments: =1
+                                        MaxAttachmentsText: ="Se alcanzó el número máximo de archivos."
+                                        NoAttachmentsText: ="No hay nada adjunto."
+                                        OnAddFile: |-
+                                            =If(
+                                                !EndsWith(Lower(Last(Self.Attachments).Name), ".docx"),
+                                                Notify(
+                                                    "Solo se permiten archivos Word",
+                                                    NotificationType.Error
+                                                );
+                                                Reset(Self)
+                                            )
+                                        PaddingBottom: =5
+                                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                        PaddingRight: =5
+                                        PaddingTop: =5
+                                        RemoveAttachmentTooltip: ="Quitar"
+                                        Size: =10
+                                        Tooltip: =Parent.DisplayName
+                                        UndoRemoveAttachmentTooltip: ="Deshacer la eliminación"
+                                        Width: =Parent.Width
+                                        ZIndex: =1
+
+                                    ErrorMessageFile As label:
+                                        AutoHeight: =true
+                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                        Color: =RGBA(168, 0, 0, 1)
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =14
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue.Y + DataCardValue.Height
+                                        ZIndex: =2
+
                     "'NewSowModal-form-btnNav-1' As groupContainer.horizontalAutoLayoutContainer":
                         AlignInContainer: =AlignInContainer.SetByContainer
                         DropShadow: =DropShadow.None
@@ -5455,7 +5446,9 @@
 
                         "'NewSowModal-form-btnNext-1' As Botón":
                             BasePaletteColor: =
+                            BorderColor: =
                             DisplayMode: =DisplayMode.Edit
+                            FontColor: =
                             Height: =32
                             Icon: ="ChevronRight"
                             Layout: ='ButtonCanvas.Layout'.IconAfter
@@ -5553,19 +5546,7 @@
                 LayoutMaxWidth: =0
                 LayoutMinHeight: =16
                 LayoutMinWidth: =16
-                Text: |-
-                    =JSON(Filter(
-                                        colFteTable,
-                                        IsBlank(role) ||
-                                        IsBlank(country) ||
-                                        IsBlank(locationCity) ||
-                                        IsBlank(currency) ||
-                                        Value(rate) <= 0 ||
-                                        Value(fteUnits) <= 0 ||
-                                        !IsNumeric(chargability) ||
-                                        Value(chargability) < 0 ||
-                                        Value(chargability) > 100
-                                    ))
+                Text: =
                 Visible: =false
                 Width: =Parent.Width
                 X: =40

@@ -158,138 +158,6 @@ Screens:
                         Parent.Width,
                         100
                     )
-      - form-control-attach:
-          Control: GroupContainer@1.4.0
-          Variant: AutoLayout
-          Properties:
-            ContentLanguage: =
-            DropShadow: =DropShadow.None
-            Height: |
-              =120
-            LayoutDirection: =LayoutDirection.Vertical
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Width: =Parent.Width - designSystem.paddingDefault
-            X: =16
-            Y: =40
-          Children:
-            - Label2_7:
-                Control: Label@2.5.1
-                Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  BorderColor: =RGBA(0, 18, 107, 1)
-                  Font: =designSystem.fontFamily
-                  FontWeight: =designSystem.style.label.fontWeight
-                  Height: =30
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                  PaddingBottom: =0
-                  PaddingLeft: =0
-                  PaddingRight: =0
-                  PaddingTop: =0
-                  Size: =designSystem.style.label.fontSize
-                  Text: ="Attach SOW document"
-            - TempForm:
-                Control: Form@2.4.4
-                Layout: Vertical
-                Properties:
-                  BorderColor: =RGBA(0, 18, 107, 1)
-                  DataSource: =SR_TempUploads
-                  DefaultMode: =FormMode.New
-                  Height: =80
-                  Item: =Defaults(SR_TempUploads)
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                Children:
-                  - Datos adjuntos_DataCard2:
-                      Control: TypedDataCard@1.0.7
-                      Variant: ClassicAttachmentsEdit
-                      Properties:
-                        BorderColor: =RGBA(0, 18, 107, 1)
-                        BorderStyle: =BorderStyle.None
-                        DataField: ="{Attachments}"
-                        Default: =ThisItem.'Datos adjuntos'
-                        DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
-                        Required: =false
-                        Update: =DataCardValue.Attachments
-                        Width: =Parent.Width
-                        X: =0
-                        Y: =0
-                      Children:
-                        - DataCardValue:
-                            Control: Attachments@2.3.0
-                            MetadataKey: FieldValue
-                            Properties:
-                              BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                              BorderStyle: =BorderStyle.None
-                              BorderThickness: =0
-                              DisplayMode: =Parent.DisplayMode
-                              Font: =Font.'Open Sans'
-                              Height: '=80  '
-                              HoverFill: =RGBA(186, 202, 226, 1)
-                              ItemColor: =RGBA(255, 255, 255, 1)
-                              ItemFill: =RGBA(56, 96, 178, 1)
-                              ItemHoverFill: =RGBA(186, 202, 226, 1)
-                              Items: =Parent.Default
-                              MaxAttachments: =1
-                              OnAddFile: |-
-                                =If(
-                                    !EndsWith(Lower(Last(Self.Attachments).Name), ".pdf") &&
-                                    !EndsWith(Lower(Last(Self.Attachments).Name), ".docx"),
-                                    Notify(
-                                        "Solo se permiten archivos PDF o Word",
-                                        NotificationType.Error
-                                    );
-                                    Reset(Self)
-                                )
-                              PaddingBottom: =5
-                              PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                              PaddingRight: =5
-                              PaddingTop: =5
-                              PressedColor: =RGBA(255, 255, 255, 1)
-                              PressedFill: =RGBA(0, 18, 107, 1)
-                              Size: =10
-                              Tooltip: =Parent.DisplayName
-                              Width: =Parent.Width
-                        - ErrorMessage6:
-                            Control: Label@2.5.1
-                            MetadataKey: ErrorMessage
-                            Properties:
-                              AutoHeight: =true
-                              BorderColor: =RGBA(0, 0, 0, 1)
-                              Color: =RGBA(168, 0, 0, 1)
-                              Font: =Font.'Open Sans'
-                              FontWeight: =FontWeight.Semibold
-                              Height: =10
-                              Live: =Live.Assertive
-                              PaddingBottom: =0
-                              PaddingLeft: =0
-                              PaddingRight: =0
-                              PaddingTop: =0
-                              Size: =14
-                              Text: =Parent.Error
-                              Visible: =Parent.DisplayMode=DisplayMode.Edit
-                              Width: =Parent.Width - 60
-                              X: =30
-                              Y: =DataCardValue.Y + DataCardValue.Height
-            - Label2_14:
-                Control: Label@2.5.1
-                Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  BorderColor: =RGBA(0, 18, 107, 1)
-                  Font: =designSystem.fontFamily
-                  FontWeight: =designSystem.style.label.fontWeight
-                  Height: =30
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                  PaddingBottom: =0
-                  PaddingLeft: =0
-                  PaddingRight: =0
-                  PaddingTop: =0
-                  Size: =designSystem.style.label.fontSize
-                  Text: ="Total amount SOW/WO excluding VAT in $"
       - HomeView:
           Control: GroupContainer@1.4.0
           Variant: AutoLayout
@@ -569,6 +437,7 @@ Screens:
                                           Reset(txtCmSale);
                                           Reset(txtPercentageCostTeam);
                                           Reset(txtAmountCostTeam);
+                                          ResetForm(TempForm)
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -1803,12 +1672,12 @@ Screens:
                                     - NewSowModal-form-btnNext-3:
                                         Control: Button@0.0.45
                                         Properties:
-                                          Icon: ="ChevronRight"
+                                          Icon: ="Send"
                                           Layout: ='ButtonCanvas.Layout'.IconAfter
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          OnSelect: "=Patch(\n    colTabs,\n    LookUp(colTabs, index = 3),\n    { status: \"Error\" }\n);\n\nWith(\n    {\n        // ------------------------------------- Contract Details \n        \n        _nttCompany             : cbbNttCompany.Selected.Value,\n        _org                    : cbbOrg.Selected.Value,\n        _zurichArea             : Coalesce(cbbZurichArea.Selected.Value, \"_blank\"),\n        _fundation              : cbbFundation.Selected.Value,\n        _sowName                : txtSowName.Value,\n        _startDate              : dpkStartDate.SelectedDate,\n        _endDate                : dpkEndDate.SelectedDate,\n        _customer               : cbbCustomer.Selected.Value,\n        _zurichLineManager      : txtZurichLineManager.Value,\n        _extensionOrNew         : cbbExtensionOrNew.Selected.Value,\n        _extensionOf            : Coalesce(txtExtensionOf.Value, \"_blank\"),\n\n        // ------------------------------------- Service Information \n\n        _itOrNonIT              : cbbItOrNonIT.Selected.Value,\n        _typeService            : cbbTypeService.Selected.Value,\n        _engagementType         : cbbEngagementType.Selected.Value,\n        _deliveryStrategy       : cbbDeliveryStrategy.Selected.Value,\n        _technologyCluster      : cbbTechnologyCluster.Selected.Value,\n        _capability             : cbbCapability.Selected.Value,\n        _technology             : txtTechnology.Value,\n        _supportedApplications  : txtSupportedApplications.Value,\n\n        // ------------------------------------- Financial Data \n\n        _billingType            : cbbBillingType.Selected.Value,\n        _totalAmount            : Value(txtTotalAmount.Value),\n        _mana                   : txtMana.Value,\n        _mkt                    : txtMkt.Value,\n        _ext                    : txtExt.Value,\n        _cmSale                 : Value(txtCmSale.Value),\n        _percentageCostTeam     : Value(txtPercentageCostTeam.Value),\n        _amountCostTeam         : Value(txtAmountCostTeam.Value),\n        _fteTable               : JSON(colFteTable),\n   \n\n        // ------------------------------------- Extra data\n        \n        _user                   : User().FullName,\n        _attach                 : DataCardValue.Attachments\n    },\n    If(\n        //validation\n            IsBlank(_billingType),\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\n\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\n\n            Len(_mana) < 3,\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\n\n            Len(_mkt) < 3,\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\n\n            Len(_ext) < 3,\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\n\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0 || Value(_cmSale) > 100,\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number(%)\n\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0 || Value(_percentageCostTeam) > 100,\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number(%)\n\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\n\n            CountRows(\n                Filter(\n                    colFteTable,\n                    IsBlank(role) ||\n                    IsBlank(country) ||\n                    IsBlank(locationCity) ||\n                    IsBlank(currency) ||\n                    IsBlank(type) ||\n                    Value(rate) <= 0 ||\n                    Value(cost) <= 0 ||\n                    Value(fteUnits) <= 0 ||\n                    !IsNumeric(chargability) ||\n                    Value(chargability) < 0 ||\n                    Value(chargability) > 100\n                )\n            ) > 0,\n            Notify(formNewSowData.item.fteTable.errorMessage, NotificationType.Error),\n\n\n        // success\n            //check\n            Patch(\n                colTabs,\n                LookUp(colTabs, index = 3),\n                { status: \"Completed\" }\n            );\n            //loader\n            UpdateContext({loaderNewSowModal:true});\n\n            //action\n            With(\n                {\n                    _response: flow_createSow.Run(\n                        _org,\n                        _fundation,\n                        _sowName,\n                        Text(_startDate, \"yyyy-mm-dd\"),\n                        Text(_endDate, \"yyyy-mm-dd\"),\n                        _customer,\n                        _zurichLineManager,\n                        _extensionOrNew,\n                        _itOrNonIT,\n                        _typeService,\n                        _engagementType,\n                        _deliveryStrategy,\n                        _technologyCluster,\n                        _capability,\n                        _technology,                        \n                        _billingType,\n                        _totalAmount,\n                        _mana,\n                        _mkt,\n                        _ext,\n                        _cmSale,\n                        _percentageCostTeam,\n                        _amountCostTeam,\n                        _user,\n\n                        // new fields\n                        _nttCompany,\n                        _zurichArea,\n                        _extensionOf,\n                        _supportedApplications,\n                        _fteTable\n                    ).response\n                },\n                \n                //success message\n                Notify(_response, NotificationType.Success);\n\n                // close modal\n                UpdateContext({loaderNewSowModal:false});\n                UpdateContext({showNewSowModal:false});\n                UpdateContext({showBackdrop:false});             \n        )            \n    )\n)"
-                                          Text: ="Next"
+                                          OnSelect: "=Patch(\n    colTabs,\n    LookUp(colTabs, index = 3),\n    { status: \"Error\" }\n);\n\nWith(\n    {\n        // ------------------------------------- Contract Details \n        \n        _nttCompany             : cbbNttCompany.Selected.Value,\n        _org                    : cbbOrg.Selected.Value,\n        _zurichArea             : Coalesce(cbbZurichArea.Selected.Value, \"_blank\"),\n        _fundation              : cbbFundation.Selected.Value,\n        _sowName                : txtSowName.Value,\n        _startDate              : dpkStartDate.SelectedDate,\n        _endDate                : dpkEndDate.SelectedDate,\n        _customer               : cbbCustomer.Selected.Value,\n        _zurichLineManager      : txtZurichLineManager.Value,\n        _extensionOrNew         : cbbExtensionOrNew.Selected.Value,\n        _extensionOf            : Coalesce(txtExtensionOf.Value, \"_blank\"),\n\n        // ------------------------------------- Service Information \n\n        _itOrNonIT              : cbbItOrNonIT.Selected.Value,\n        _typeService            : cbbTypeService.Selected.Value,\n        _engagementType         : cbbEngagementType.Selected.Value,\n        _deliveryStrategy       : cbbDeliveryStrategy.Selected.Value,\n        _technologyCluster      : cbbTechnologyCluster.Selected.Value,\n        _capability             : cbbCapability.Selected.Value,\n        _technology             : txtTechnology.Value,\n        _supportedApplications  : txtSupportedApplications.Value,\n\n        // ------------------------------------- Financial Data \n\n        _billingType            : cbbBillingType.Selected.Value,\n        _totalAmount            : Value(txtTotalAmount.Value),\n        _mana                   : txtMana.Value,\n        _mkt                    : txtMkt.Value,\n        _ext                    : txtExt.Value,\n        _cmSale                 : Value(txtCmSale.Value),\n        _percentageCostTeam     : Value(txtPercentageCostTeam.Value),\n        _amountCostTeam         : Value(txtAmountCostTeam.Value),\n        _fteTable               : JSON(colFteTable),\n   \n\n        // ------------------------------------- Extra data\n        \n        _user                   : User().Email,\n        _fileName               : Coalesce(First(DataCardValue.Attachments).Name, \"_blank\"),\n        _fileContent            : Coalesce(JSON(First(DataCardValue.Attachments).Value), \"_blank\")\n    },\n    If(\n        //validation\n            IsBlank(_billingType),\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\n\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\n\n            Len(_mana) < 3,\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\n\n            Len(_mkt) < 3,\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\n\n            Len(_ext) < 3,\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\n\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0 || Value(_cmSale) > 100,\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number(%)\n\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0 || Value(_percentageCostTeam) > 100,\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number(%)\n\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\n\n            CountRows(\n                Filter(\n                    colFteTable,\n                    IsBlank(role) ||\n                    IsBlank(country) ||\n                    IsBlank(locationCity) ||\n                    IsBlank(currency) ||\n                    IsBlank(type) ||\n                    Value(rate) <= 0 ||\n                    Value(cost) <= 0 ||\n                    Value(fteUnits) <= 0 ||\n                    !IsNumeric(chargability) ||\n                    Value(chargability) < 0 ||\n                    Value(chargability) > 100\n                )\n            ) > 0,\n            Notify(formNewSowData.item.fteTable.errorMessage, NotificationType.Error),\n\n\n        // success\n            //check\n            Patch(\n                colTabs,\n                LookUp(colTabs, index = 3),\n                { status: \"Completed\" }\n            );\n            //loader\n            UpdateContext({loaderNewSowModal:true});\n\n            //action\n            With(\n                {\n                    _response: flow_createSow.Run(\n                        _org,\n                        _fundation,\n                        _sowName,\n                        Text(_startDate, \"yyyy-mm-dd\"),\n                        Text(_endDate, \"yyyy-mm-dd\"),\n                        _customer,\n                        _zurichLineManager,\n                        _extensionOrNew,\n                        _itOrNonIT,\n                        _typeService,\n                        _engagementType,\n                        _deliveryStrategy,\n                        _technologyCluster,\n                        _capability,\n                        _technology,                        \n                        _billingType,\n                        _totalAmount,\n                        _mana,\n                        _mkt,\n                        _ext,\n                        _cmSale,\n                        _percentageCostTeam,\n                        _amountCostTeam,\n                        _user,\n\n                        // new fields\n                        _nttCompany,\n                        _zurichArea,\n                        _extensionOf,\n                        _supportedApplications,\n                        _fteTable,\n                        _fileName,\n                        _fileContent\n                     \n                    ).response\n                },\n                \n                //success message\n                Notify(_response, NotificationType.Success);\n\n                // close modal\n                UpdateContext({loaderNewSowModal:false});\n                UpdateContext({showNewSowModal:false});\n                UpdateContext({showBackdrop:false});             \n        )            \n    )\n)"
+                                          Text: ="Submit"
                         - NewSowModal-form-container-2:
                             Control: GroupContainer@1.4.0
                             Variant: AutoLayout
@@ -2377,7 +2246,6 @@ Screens:
                                   Control: GroupContainer@1.4.0
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.SetByContainer
                                     DropShadow: =DropShadow.None
                                     Height: =Parent.Height
                                     LayoutDirection: =LayoutDirection.Horizontal
@@ -2985,7 +2853,6 @@ Screens:
                                               Properties:
                                                 AccessibleLabel: ="Zurich approver"
                                                 AlignInContainer: =AlignInContainer.Stretch
-                                                FontColor: =RGBA(106, 122, 127, 1)
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =0
                                                 Placeholder: =formNewSowData.item.zurichLineManager.placeholder
@@ -3127,6 +2994,123 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.extensionOf.placeholder
+                                    - form-control-attach:
+                                        Control: GroupContainer@1.4.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          ContentLanguage: =
+                                          DropShadow: =DropShadow.None
+                                          Height: ='form-control-attach-label'.Height + TempForm.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Visible: =false
+                                          Width: =Parent.Width - designSystem.paddingDefault
+                                          X: =40
+                                          Y: =40
+                                        Children:
+                                          - form-control-attach-label:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Font: =designSystem.fontFamily
+                                                FontWeight: =designSystem.style.label.fontWeight
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =designSystem.style.label.fontSize
+                                                Text: ="Attach SOW document"
+                                          - TempForm:
+                                              Control: Form@2.4.4
+                                              Layout: Vertical
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                DataSource: =SR_TempUploads
+                                                DefaultMode: =FormMode.New
+                                                FillPortions: =0
+                                                Height: ='Datos adjuntos_DataCard2'.Height
+                                                Item: =Defaults(SR_TempUploads)
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                              Children:
+                                                - Datos adjuntos_DataCard2:
+                                                    Control: TypedDataCard@1.0.7
+                                                    Variant: ClassicAttachmentsEdit
+                                                    Properties:
+                                                      BorderColor: =RGBA(0, 18, 107, 1)
+                                                      BorderStyle: =BorderStyle.None
+                                                      DataField: ="{Attachments}"
+                                                      Default: =ThisItem.'Datos adjuntos'
+                                                      DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
+                                                      Height: =ErrorMessageFile.Y + ErrorMessageFile.Height
+                                                      Required: =false
+                                                      Update: =DataCardValue.Attachments
+                                                      Width: =Parent.Width
+                                                      X: =0
+                                                      Y: =0
+                                                    Children:
+                                                      - DataCardValue:
+                                                          Control: Attachments@2.3.0
+                                                          MetadataKey: FieldValue
+                                                          Properties:
+                                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                            BorderStyle: =BorderStyle.None
+                                                            BorderThickness: =0
+                                                            DisplayMode: =Parent.DisplayMode
+                                                            Font: =Font.'Open Sans'
+                                                            Height: '=80  '
+                                                            HoverFill: =RGBA(186, 202, 226, 1)
+                                                            ItemColor: =RGBA(255, 255, 255, 1)
+                                                            ItemFill: =RGBA(56, 96, 178, 1)
+                                                            ItemHoverFill: =RGBA(186, 202, 226, 1)
+                                                            Items: =Parent.Default
+                                                            MaxAttachments: =1
+                                                            OnAddFile: |-
+                                                              =If(
+                                                                  !EndsWith(Lower(Last(Self.Attachments).Name), ".docx"),
+                                                                  Notify(
+                                                                      "Solo se permiten archivos Word",
+                                                                      NotificationType.Error
+                                                                  );
+                                                                  Reset(Self)
+                                                              )
+                                                            PaddingBottom: =5
+                                                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                            PaddingRight: =5
+                                                            PaddingTop: =5
+                                                            PressedColor: =RGBA(255, 255, 255, 1)
+                                                            PressedFill: =RGBA(0, 18, 107, 1)
+                                                            Size: =10
+                                                            Tooltip: =Parent.DisplayName
+                                                            Width: =Parent.Width
+                                                      - ErrorMessageFile:
+                                                          Control: Label@2.5.1
+                                                          MetadataKey: ErrorMessage
+                                                          Properties:
+                                                            AutoHeight: =true
+                                                            BorderColor: =RGBA(0, 0, 0, 1)
+                                                            Color: =RGBA(168, 0, 0, 1)
+                                                            Font: =Font.'Open Sans'
+                                                            FontWeight: =FontWeight.Semibold
+                                                            Height: =10
+                                                            Live: =Live.Assertive
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            Size: =14
+                                                            Text: =Parent.Error
+                                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                            Width: =Parent.Width - 60
+                                                            X: =30
+                                                            Y: =DataCardValue.Y + DataCardValue.Height
                               - NewSowModal-form-btnNav-1:
                                   Control: GroupContainer@1.4.0
                                   Variant: AutoLayout
@@ -3229,19 +3213,7 @@ Screens:
                         Height: =150
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
-                        Text: |-
-                          =JSON(Filter(
-                                              colFteTable,
-                                              IsBlank(role) ||
-                                              IsBlank(country) ||
-                                              IsBlank(locationCity) ||
-                                              IsBlank(currency) ||
-                                              Value(rate) <= 0 ||
-                                              Value(fteUnits) <= 0 ||
-                                              !IsNumeric(chargability) ||
-                                              Value(chargability) < 0 ||
-                                              Value(chargability) > 100
-                                          ))
+                        Text: =
                         Visible: =false
                         Width: =Parent.Width
                         X: =40

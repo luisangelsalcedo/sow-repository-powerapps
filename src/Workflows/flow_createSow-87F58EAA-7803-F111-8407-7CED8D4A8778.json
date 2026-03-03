@@ -9,6 +9,15 @@
         "api": {
           "name": "shared_sharepointonline"
         }
+      },
+      "shared_office365": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedoffice365_fd6a8"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
       }
     },
     "definition": {
@@ -22,6 +31,14 @@
         "$connections": {
           "defaultValue": {},
           "type": "Object"
+        },
+        "Site Address (lsalcedg_SiteAddress)": {
+          "defaultValue": "https://everisgroup.sharepoint.com/sites/SOWRepository",
+          "type": "String",
+          "metadata": {
+            "schemaName": "lsalcedg_SiteAddress",
+            "description": "URI SharePoint"
+          }
         }
       },
       "triggers": {
@@ -200,7 +217,7 @@
                 },
                 "text_19": {
                   "description": "Please enter your input",
-                  "title": "_userName",
+                  "title": "_requestor",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
@@ -239,6 +256,20 @@
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
+                },
+                "text_23": {
+                  "description": "Please enter your input",
+                  "title": "_fileName",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_24": {
+                  "description": "Please enter your input",
+                  "title": "_fileContent",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
                 }
               },
               "required": [
@@ -270,7 +301,9 @@
                 "text_8",
                 "text_20",
                 "text_21",
-                "text_22"
+                "text_22",
+                "text_23",
+                "text_24"
               ]
             }
           }
@@ -279,9 +312,12 @@
       "actions": {
         "Respond_to_a_Power_App_or_flow": {
           "runAfter": {
-            "Loop_to_FTE_items": [
+            "Compose": [
               "Succeeded"
             ]
+          },
+          "metadata": {
+            "operationMetadataId": "f3b4ef0b-ad14-4e0e-b9f1-01b5c43aef5e"
           },
           "type": "Response",
           "kind": "PowerApp",
@@ -291,9 +327,8 @@
               "properties": {
                 "response": {
                   "title": "response",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
                 }
               },
               "additionalProperties": {}
@@ -304,135 +339,484 @@
             }
           }
         },
-        "Create_new_document_set": {
-          "runAfter": {
-            "Create_Folder": [
-              "Succeeded",
-              "Skipped"
-            ]
+        "get_SR_ContractIndex": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "62c40686-2b9c-4af1-9349-af149d0c70e5"
           },
           "type": "OpenApiConnection",
           "inputs": {
             "parameters": {
-              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-              "table": "79d179ed-a926-4d70-9516-754105d3503d",
-              "parameters/path": "@concat(variables('year'), '/sow', variables('contractID'))",
-              "parameters/contentTypeId": "0x0120D52000FA1377E518C5D1418987B08475BD576C00C498A10ACA405D4BBD088CDCBB3CDD13",
-              "parameters/DynamicProperties/Title": "@concat('sow',variables('contractID'))",
-              "parameters/DynamicProperties/ContractID": "@variables('contractID')",
-              "parameters/DynamicProperties/requestorName": "@triggerBody()?['text_19']",
-              "parameters/DynamicProperties/createdDate": "@utcNow()",
-              "parameters/DynamicProperties/NTT_x0020_Company": "@triggerBody()?['text_7']",
-              "parameters/DynamicProperties/org": "@triggerBody()?['text']",
-              "parameters/DynamicProperties/Zurich_x0020_area": "@triggerBody()?['text_8']",
-              "parameters/DynamicProperties/Business_x0020_unit": "@triggerBody()?['text_1']",
-              "parameters/DynamicProperties/ProjectName": "@triggerBody()?['text_2']",
-              "parameters/DynamicProperties/OData__startDate": "@triggerBody()?['date']",
-              "parameters/DynamicProperties/endDate": "@triggerBody()?['date_1']",
-              "parameters/DynamicProperties/costumerName": "@triggerBody()?['text_4']",
-              "parameters/DynamicProperties/zurichLineManager": "@triggerBody()?['text_5']",
-              "parameters/DynamicProperties/extension": "@triggerBody()?['text_6']",
-              "parameters/DynamicProperties/Extension_x0020_of": "@triggerBody()?['text_20']",
-              "parameters/DynamicProperties/OData__org": "@triggerBody()?['text_3']",
-              "parameters/DynamicProperties/engagementType": "@triggerBody()?['text_10']",
-              "parameters/DynamicProperties/company": "@triggerBody()?['text_9']",
-              "parameters/DynamicProperties/Technology_x0020_cluster": "@triggerBody()?['text_12']",
-              "parameters/DynamicProperties/Delivery_x0020_strategy": "@triggerBody()?['text_11']",
-              "parameters/DynamicProperties/Capability": "@triggerBody()?['text_13']",
-              "parameters/DynamicProperties/Technology": "@triggerBody()?['text_14']",
-              "parameters/DynamicProperties/Supported_x0020_applications": "@triggerBody()?['text_21']",
-              "parameters/DynamicProperties/Billing_x0020_type": "@triggerBody()?['text_15']",
-              "parameters/DynamicProperties/Total_x0020_amount_x0020_SOW_x002F_WO_x0020_excluding_x0020_VAT_x0020_in_x0020__x0024_1": "@triggerBody()?['number']",
-              "parameters/DynamicProperties/MANA_x0020_opportunity": "@triggerBody()?['text_16']",
-              "parameters/DynamicProperties/MKT": "@triggerBody()?['text_17']",
-              "parameters/DynamicProperties/EXT": "@triggerBody()?['text_18']",
-              "parameters/DynamicProperties/OData__x0025__x0020_Contract_x0020_margin_x0020_sale": "@triggerBody()?['number_1']",
-              "parameters/DynamicProperties/OData__x0025__x0020_INSURANCE_x0020_cost_x0020_team_x0020_included_x0020_in_x0020_SOW": "@triggerBody()?['number_2']",
-              "parameters/DynamicProperties/Amount_x0020_INSURANCE_x0020_cost_x0020_team_x0020_included_x0020_in_x0020_SOW": "@triggerBody()?['number_3']"
+              "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+              "table": "d46e0301-04e9-4e5b-a4cf-ff43886176c0",
+              "$filter": "ContractType eq 'SOW'",
+              "$top": 1
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-              "operationId": "CreateNewDocumentSet",
+              "operationId": "GetItems",
               "connectionName": "shared_sharepointonline"
             }
           }
         },
-        "Update_item": {
+        "string_contractID": {
           "runAfter": {
-            "Create_new_document_set": [
+            "get_SR_ContractIndex": [
               "Succeeded"
             ]
           },
-          "type": "OpenApiConnection",
+          "metadata": {
+            "operationMetadataId": "0a199285-ee05-4a26-b4a5-74d0a532d7e3"
+          },
+          "type": "InitializeVariable",
           "inputs": {
-            "parameters": {
-              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-              "table": "d9337804-c757-4e42-bb7f-40cd19d81830",
-              "id": "@first(body('get_SR_ContractIndex')?['value'])?['ID']",
-              "item/LastIndex": "@outputs('Create_new_document_set')?['body/ContractID']"
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-              "operationId": "PatchItem",
-              "connectionName": "shared_sharepointonline"
-            }
+            "variables": [
+              {
+                "name": "contractID",
+                "type": "integer",
+                "value": "@add(\r\n  int(\r\n    coalesce(\r\n      body('get_SR_ContractIndex')?['value'][0]?['LastIndex'], 0)), 1)"
+              }
+            ]
           }
         },
-        "Try_Get_Folder": {
+        "string_year": {
+          "runAfter": {
+            "string_contractID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cd86c9c9-4cbe-4370-a53e-fcde8449dc35"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "year",
+                "type": "string",
+                "value": "@formatDateTime(triggerBody()?['date'], 'yyyy')"
+              }
+            ]
+          }
+        },
+        "string_zurichpasEmail": {
+          "runAfter": {
+            "string_year": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "zurichpasEmail",
+                "type": "string",
+                "value": "ZurichPAS@emeal.nttdata.com"
+              }
+            ]
+          }
+        },
+        "Send_Notification": {
           "actions": {
-            "Get_folder_metadata_using_path": {
+            "Send_an_email_(V2)": {
+              "runAfter": {
+                "Get_nttLogo": [
+                  "Succeeded"
+                ]
+              },
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
-                  "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-                  "path": "@concat('/SR_Contracts/',variables('year'))"
+                  "emailMessage/To": "@triggerBody()?['text_19']",
+                  "emailMessage/Subject": "@variables('mailSubject')",
+                  "emailMessage/Body": "<table cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#f4f6f9; padding:30px 0;width:100%\">\n    <tbody><tr>\n      <td>\n        \n        <table cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#f4f6f9; border-radius:6px; padding:30px;width:100%; text-align: center;\">\n          \n          <!-- Header -->\n          \n\n          <!-- Summary Box -->\n          <tbody><tr>\n            <td style=\"text-align: center;\">\n              <p><img src=\"cid:ntt-logo\" width=\"120\"></p>\n                <table cellpadding=\"20\" cellspacing=\"0\" border=\"0\" style=\"width:500px; background-color:#ffffff; border:1px solid #e5e7eb; border-radius:4px;position: relative; margin: auto;\">\n                  \n                  <tbody>\n                    <tr>\n                      <td><img src=\"cid:sow_image\"></td>\n                      <td>\n                         <table cellpadding=\"20\" cellspacing=\"0\" border=\"0\" style=\"width:500px; background-color:#ffffff; position: relative; margin: auto;\">\n                  \n                          <tbody><tr>\n                            <td style=\"font-size:40px; font-weight:600; color:#1f2937; padding-bottom:0; padding-top:35px\">SOW @{variables('contractID')}</td>\n                          </tr>\n\n                          <tr>\n                            <td style=\"font-size:20px; color:#4b5563; padding-top:0;\">Has been requested by <strong>@{outputs('Get_requestor')?['body/DisplayName']} </strong></td>\n                          </tr>\n\n                          <tr>\n                            <td style=\"font-size:13px; padding-bottom:35px;\">@{variables('mailBody')}<br></td>\n                          </tr>\n                          \n                        </tbody></table>\n                      </td>\n                    </tr>\n\n                  \n                  </tbody>\n                </table>\n            </td>\n          </tr>\n\n         \n          <!-- Footer -->\n          <tr>\n            <td style=\"padding-top:30px; font-size:12px; color:#9ca3af; text-align:center;\">\n              This is an automated notification from the SOW Management Application.\n            </td>\n          </tr>\n\n        </tbody></table>\n\n      </td>\n    </tr>\n  </tbody></table>",
+                  "emailMessage/From": "@variables('zurichpasEmail')",
+                  "emailMessage/Attachments": [
+                    {
+                      "Name": "sow_image",
+                      "ContentBytes": "@body('Get_sowImage')"
+                    },
+                    {
+                      "Name": "ntt-logo",
+                      "ContentBytes": "@body('Get_nttLogo')"
+                    }
+                  ],
+                  "emailMessage/Importance": "Normal"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                  "operationId": "SendEmailV2",
+                  "connectionName": "shared_office365"
+                }
+              }
+            },
+            "Get_sowImage": {
+              "runAfter": {
+                "Get_requestor": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "%252fDocumentos%2bcompartidos%252fassets%252fimages%252fsow_image_mail.png": "/Documentos compartidos/assets/images/sow_image_mail.png"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                  "id": "%252fDocumentos%2bcompartidos%252fassets%252fimages%252fsow_image_mail.png",
+                  "inferContentType": true
                 },
                 "host": {
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                  "operationId": "GetFolderMetadataByPath",
+                  "operationId": "GetFileContent",
+                  "connectionName": "shared_sharepointonline"
+                }
+              }
+            },
+            "Get_requestor": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                  "table": "165babf0-d63d-4c69-a5b6-8c772c5d409b",
+                  "entityId": "174485f9-d93d-4b19-b034-ecc846a00979",
+                  "searchValue": "@triggerBody()?['text_19']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "SearchForUser",
+                  "connectionName": "shared_sharepointonline"
+                }
+              }
+            },
+            "Get_nttLogo": {
+              "runAfter": {
+                "Get_sowImage": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "%252fDocumentos%2bcompartidos%252fassets%252fimages%252fntt-logo.png": "/Documentos compartidos/assets/images/ntt-logo.png"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                  "id": "%252fDocumentos%2bcompartidos%252fassets%252fimages%252fntt-logo.png",
+                  "inferContentType": true
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "GetFileContent",
                   "connectionName": "shared_sharepointonline"
                 }
               }
             }
           },
           "runAfter": {
-            "Compose": [
+            "Create_FTE_data": [
               "Succeeded"
             ]
           },
           "type": "Scope"
         },
-        "Create_Folder": {
+        "string_mailSubject": {
+          "runAfter": {
+            "string_zurichpasEmail": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "mailSubject",
+                "type": "string",
+                "value": "@concat('SOW ',variables('contractID'),' has been requested')"
+              }
+            ]
+          }
+        },
+        "string_mailBody": {
+          "runAfter": {
+            "string_mailSubject": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "mailBody",
+                "type": "string",
+                "value": "This is to inform you that a new Statement of Work (SOW) has been submitted and is now available in the SOW Management Repository."
+              }
+            ]
+          }
+        },
+        "Create_FTE_data": {
           "actions": {
-            "Create_new_folder": {
+            "Parse_FTE_Table_(JSON)": {
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@triggerBody()?['text_22']",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "locationCity": {
+                        "type": "string"
+                      },
+                      "fteUnits": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "rate": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "cost": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "currency": {
+                        "type": "string"
+                      },
+                      "consultantName": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "chargability": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Apply_to_each": {
+              "foreach": "@body('Parse_FTE_Table_(JSON)')",
+              "actions": {
+                "Create_item": {
+                  "metadata": {
+                    "operationMetadataId": "933db627-f25c-468f-9964-864d7d832be9"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                      "table": "49b03842-e1da-429a-a5cb-be3762eb9b5b",
+                      "item/SOW/Id": "@outputs('Create_new_document_set')?['body/ID']",
+                      "item/fteUnits": "@items('Apply_to_each')?['fteUnits']",
+                      "item/Role": "@items('Apply_to_each')?['role']",
+                      "item/Country": "@items('Apply_to_each')?['country']",
+                      "item/LocationCity": "@items('Apply_to_each')?['locationCity']",
+                      "item/Rate": "@items('Apply_to_each')?['rate']",
+                      "item/Cost": "@items('Apply_to_each')?['cost']",
+                      "item/Currency": "@items('Apply_to_each')?['currency']",
+                      "item/ConsultantName": "@items('Apply_to_each')?['consultantName']",
+                      "item/Type": "@items('Apply_to_each')?['type']",
+                      "item/Chargability": "@items('Apply_to_each')?['chargability']"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                      "operationId": "PostItem",
+                      "connectionName": "shared_sharepointonline"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Parse_FTE_Table_(JSON)": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Create_SOW_data": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Create_SOW_data": {
+          "actions": {
+            "Try_Get_Folder": {
+              "actions": {
+                "Get_folder_metadata_using_path": {
+                  "metadata": {
+                    "operationMetadataId": "22cfe6cf-cf4f-4429-9a43-def15cfd5714"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                      "path": "@concat('/SR_SOWs/',variables('year'))"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                      "operationId": "GetFolderMetadataByPath",
+                      "connectionName": "shared_sharepointonline"
+                    }
+                  }
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "f64058ac-596f-4c40-88ed-8abcc56d1208"
+              },
+              "type": "Scope"
+            },
+            "Create_Folder": {
+              "actions": {
+                "Create_new_folder": {
+                  "metadata": {
+                    "operationMetadataId": "efbc47b6-ca44-4ef2-8105-894c105fb9cf"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                      "table": "165babf0-d63d-4c69-a5b6-8c772c5d409b",
+                      "parameters/path": "@variables('year')"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                      "operationId": "CreateNewFolder",
+                      "connectionName": "shared_sharepointonline"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Try_Get_Folder": [
+                  "TimedOut",
+                  "Failed"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "4761a211-7de6-49ee-8273-993c7d19039c"
+              },
+              "type": "Scope"
+            },
+            "Create_new_document_set": {
+              "runAfter": {
+                "Create_Folder": [
+                  "Succeeded",
+                  "Skipped"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "df7eb645-752f-464c-9b09-12954c8ec044"
+              },
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
-                  "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-                  "table": "79d179ed-a926-4d70-9516-754105d3503d",
-                  "parameters/path": "@variables('year')"
+                  "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                  "table": "165babf0-d63d-4c69-a5b6-8c772c5d409b",
+                  "parameters/path": "@concat(variables('year'), '/sow', variables('contractID'))",
+                  "parameters/contentTypeId": "0x0120D52000C7DD203C136A2949A88E4D393F31773D00230EB1E100BFE3448067874244A312A3",
+                  "parameters/DynamicProperties/sowID": "@variables('contractID')",
+                  "parameters/DynamicProperties/Title": "@concat('sow', variables('contractID'))",
+                  "parameters/DynamicProperties/requestDate": "@utcNow()",
+                  "parameters/DynamicProperties/requestor/Claims": "@triggerBody()?['text_19']",
+                  "parameters/DynamicProperties/nttCompany": "@triggerBody()?['text_7']",
+                  "parameters/DynamicProperties/org": "@triggerBody()?['text']",
+                  "parameters/DynamicProperties/zurichArea": "@triggerBody()?['text_8']",
+                  "parameters/DynamicProperties/fundation": "@triggerBody()?['text_1']",
+                  "parameters/DynamicProperties/sowName": "@triggerBody()?['text_2']",
+                  "parameters/DynamicProperties/sowStartDate": "@triggerBody()?['date']",
+                  "parameters/DynamicProperties/sowEndDate": "@triggerBody()?['date_1']",
+                  "parameters/DynamicProperties/customer": "@triggerBody()?['text_4']",
+                  "parameters/DynamicProperties/zurichLineManager": "@triggerBody()?['text_5']",
+                  "parameters/DynamicProperties/extensionOf": "@triggerBody()?['text_20']",
+                  "parameters/DynamicProperties/itOrNonIt": "@triggerBody()?['text_3']",
+                  "parameters/DynamicProperties/typeService": "@triggerBody()?['text_9']",
+                  "parameters/DynamicProperties/engagementType": "@triggerBody()?['text_10']",
+                  "parameters/DynamicProperties/extensionOrNew": "@triggerBody()?['text_6']",
+                  "parameters/DynamicProperties/deliveryStrategy": "@triggerBody()?['text_11']",
+                  "parameters/DynamicProperties/technologyCluster": "@triggerBody()?['text_12']",
+                  "parameters/DynamicProperties/capability": "@triggerBody()?['text_13']",
+                  "parameters/DynamicProperties/technology": "@triggerBody()?['text_14']",
+                  "parameters/DynamicProperties/supportedApplications": "@triggerBody()?['text_21']",
+                  "parameters/DynamicProperties/billingType": "@triggerBody()?['text_15']",
+                  "parameters/DynamicProperties/totalAmount": "@triggerBody()?['number']",
+                  "parameters/DynamicProperties/mana": "@triggerBody()?['text_16']",
+                  "parameters/DynamicProperties/ext": "@triggerBody()?['text_18']",
+                  "parameters/DynamicProperties/cmSale": "@triggerBody()?['number_1']",
+                  "parameters/DynamicProperties/percentageCostTeam": "@triggerBody()?['number_2']",
+                  "parameters/DynamicProperties/mkt": "@triggerBody()?['text_17']",
+                  "parameters/DynamicProperties/amountCostTeam": "@triggerBody()?['number_3']"
                 },
                 "host": {
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                  "operationId": "CreateNewFolder",
+                  "operationId": "CreateNewDocumentSet",
+                  "connectionName": "shared_sharepointonline"
+                }
+              }
+            },
+            "Update_item": {
+              "runAfter": {
+                "Create_new_document_set": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8710b7cb-2296-4ce2-919d-be5a8b234c8b"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "@parameters('Site Address (lsalcedg_SiteAddress)')",
+                  "table": "d46e0301-04e9-4e5b-a4cf-ff43886176c0",
+                  "id": "@first(body('get_SR_ContractIndex')?['value'])?['ID']",
+                  "item/LastIndex": "@variables('contractID')"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "PatchItem",
                   "connectionName": "shared_sharepointonline"
                 }
               }
             }
           },
           "runAfter": {
-            "Try_Get_Folder": [
-              "Failed",
-              "TimedOut"
+            "string_mailBody": [
+              "Succeeded"
             ]
           },
           "type": "Scope"
         },
         "Compose": {
           "runAfter": {
-            "Parse_FTE_Table_(JSON)": [
+            "Send_Notification": [
               "Succeeded"
             ]
+          },
+          "metadata": {
+            "operationMetadataId": "f781d350-1e74-4e91-a537-540f91309aa4"
           },
           "type": "Compose",
           "inputs": {
@@ -464,161 +848,11 @@
             "cmSale": "@{triggerBody()?['number_1']}",
             "percentageCostTeam": "@{triggerBody()?['number_2']}",
             "amountCostTeam": "@{triggerBody()?['number_3']}",
-            "requestor": "@{triggerBody()?['text_19']}",
+            "requestorName": "@{outputs('Get_requestor')?['body/DisplayName']}",
+            "requestorEmail": "@{outputs('Get_requestor')?['body/Email']}",
             "fteTable": "@{body('Parse_FTE_Table_(JSON)')}",
             "createdDate": "@{utcNow()}",
             "year": "@{variables('year')}"
-          }
-        },
-        "Loop_to_FTE_items": {
-          "foreach": "@body('Parse_FTE_Table_(JSON)')",
-          "actions": {
-            "Create_item": {
-              "type": "OpenApiConnection",
-              "inputs": {
-                "parameters": {
-                  "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-                  "table": "3ce82981-2fcc-4225-b427-3caa08fd6b5e",
-                  "item/SOW/Id": "@outputs('Create_new_document_set')?['body/ID']",
-                  "item/Role": "@items('Loop_to_FTE_items')?['role']",
-                  "item/Country": "@items('Loop_to_FTE_items')?['country']",
-                  "item/Locationcity": "@items('Loop_to_FTE_items')?['locationCity']",
-                  "item/FTEunits": "@items('Loop_to_FTE_items')?['fteUnits']",
-                  "item/Rate": "@items('Loop_to_FTE_items')?['rate']",
-                  "item/Cost": "@items('Loop_to_FTE_items')?['cost']",
-                  "item/Currency": "@items('Loop_to_FTE_items')?['currency']",
-                  "item/Consultantname": "@items('Loop_to_FTE_items')?['consultantName']",
-                  "item/Type": "@items('Loop_to_FTE_items')?['type']",
-                  "item/Chargability": "@items('Loop_to_FTE_items')?['chargability']"
-                },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                  "operationId": "PostItem",
-                  "connectionName": "shared_sharepointonline"
-                }
-              }
-            }
-          },
-          "runAfter": {
-            "Update_item": [
-              "Succeeded"
-            ]
-          },
-          "type": "Foreach"
-        },
-        "get_SR_ContractIndex": {
-          "runAfter": {},
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "dataset": "https://everisgroup.sharepoint.com/sites/lsalcedg-sandbox",
-              "table": "d9337804-c757-4e42-bb7f-40cd19d81830",
-              "$filter": "ContractType eq 'SOW'",
-              "$top": 1
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-              "operationId": "GetItems",
-              "connectionName": "shared_sharepointonline"
-            }
-          }
-        },
-        "string_contractID": {
-          "runAfter": {
-            "get_SR_ContractIndex": [
-              "Succeeded"
-            ]
-          },
-          "type": "InitializeVariable",
-          "inputs": {
-            "variables": [
-              {
-                "name": "contractID",
-                "type": "integer",
-                "value": "@add(\r\n  int(\r\n    coalesce(\r\n      body('get_SR_ContractIndex')?['value'][0]?['LastIndex'], 0)), 1)"
-              }
-            ]
-          }
-        },
-        "string_year": {
-          "runAfter": {
-            "string_contractID": [
-              "Succeeded"
-            ]
-          },
-          "type": "InitializeVariable",
-          "inputs": {
-            "variables": [
-              {
-                "name": "year",
-                "type": "string",
-                "value": "@formatDateTime(triggerBody()?['date'], 'yyyy')"
-              }
-            ]
-          }
-        },
-        "Parse_FTE_Table_(JSON)": {
-          "runAfter": {
-            "string_year": [
-              "Succeeded"
-            ]
-          },
-          "type": "ParseJson",
-          "inputs": {
-            "content": "@triggerBody()?['text_22']",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "role": {
-                    "type": "string"
-                  },
-                  "country": {
-                    "type": "string"
-                  },
-                  "locationCity": {
-                    "type": "string"
-                  },
-                  "fteUnits": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "rate": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "cost": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "currency": {
-                    "type": "string"
-                  },
-                  "consultantName": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "chargability": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  }
-                }
-              }
-            }
           }
         }
       }

@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="lsalcedg_SiteAddress">
+  <defaultvalue>https://everisgroup.sharepoint.com/sites/SOWRepository</defaultvalue>
+  <description default="URI SharePoint">
+    <label description="URI SharePoint" languagecode="3082" />
+  </description>
+  <displayname default="Site Address">
+    <label description="Site Address" languagecode="3082" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

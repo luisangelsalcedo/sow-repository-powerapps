@@ -154,7 +154,9 @@ FormHeader As CanvasComponent:
                     Align: ='TextCanvas.Align'.Start
                     AlignInContainer: =AlignInContainer.Stretch
                     AutoHeight: =true
+                    BorderColor: =
                     DisplayMode: =DisplayMode.Edit
+                    Fill: =
                     FillPortions: =1
                     FontColor: |-
                         =If(

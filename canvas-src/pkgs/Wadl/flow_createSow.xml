@@ -31,6 +31,8 @@
       <string name="ManualTriggerInput_text_20_def" />
       <string name="ManualTriggerInput_text_21_def" />
       <string name="ManualTriggerInput_text_22_def" />
+      <string name="ManualTriggerInput_text_23_def" />
+      <string name="ManualTriggerInput_text_24_def" />
       <object name="ManualTriggerInput">
         <property name="text" type="string" />
         <property name="text_1" type="string" />
@@ -61,6 +63,8 @@
         <property name="text_20" type="string" />
         <property name="text_21" type="string" />
         <property name="text_22" type="string" />
+        <property name="text_23" type="string" />
+        <property name="text_24" type="string" />
       </object>
       <string name="ResponseActionOutput_response_def" />
       <object name="ResponseActionOutput">
@@ -149,7 +153,7 @@
               <doc title="_amountCostTeam" />
             </param>
             <param style="plain" name="text_19" path="/text_19" type="xs:string" required="true">
-              <doc title="_userName" />
+              <doc title="_requestor" />
             </param>
             <param style="plain" name="text_7" path="/text_7" type="xs:string" required="true">
               <doc title="_nttCompany" />
@@ -165,6 +169,12 @@
             </param>
             <param style="plain" name="text_22" path="/text_22" type="xs:string" required="true">
               <doc title="_fteTable" />
+            </param>
+            <param style="plain" name="text_23" path="/text_23" type="xs:string" required="true">
+              <doc title="_fileName" />
+            </param>
+            <param style="plain" name="text_24" path="/text_24" type="xs:string" required="true">
+              <doc title="_fileContent" />
             </param>
           </representation>
         </request>
