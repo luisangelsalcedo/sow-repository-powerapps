@@ -1454,36 +1454,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-showTable'.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-showTable'.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-showTable'"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-header'.lblRole.FocusedBorderThickness"
                 }
               ],
@@ -2487,6 +2457,36 @@
                 "member": "AccessibleLabel",
                 "module": "Screen",
                 "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-table-scroll'.'fc-fteTable-table'.'fc-fteTable-table-add'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-showTable'.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-showTable'.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Screen",
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-3'.'NewSowModal-form-container-scroll-3'.'fc-tableFte'.'fc-fteTable-showTable'"
               }
             }
           ],
@@ -3824,126 +3824,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-info'.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-info'.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-info'"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.FocusedBorderThickness"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.FocusedBorderThickness",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "FocusedBorderThickness",
-                "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.txtExtensionOf.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.txtExtensionOf.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Screen",
-                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.txtExtensionOf"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'form-control-attach'.'form-control-attach-label'.FocusedBorderThickness"
                 }
               ],
@@ -4797,6 +4677,126 @@
                 "member": "AccessibleLabel",
                 "module": "Screen",
                 "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-customer'.cbbCustomer"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-info'.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-info'.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Screen",
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-info'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.FocusedBorderThickness"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.FocusedBorderThickness",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "FocusedBorderThickness",
+                "module": "Screen",
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-FocusBorderShouldBeVisible",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Screen",
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.'fc-extensionOf-container'.'fc-extensionOf-label'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.txtExtensionOf.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.txtExtensionOf.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Screen",
+                "type": "Screen.NewSowModal.'NewSowModal-container'.'NewSowModal-form'.'NewSowModal-form-container-1'.'NewSowModal-form-container-scroll-1'.'fc-extensionOf'.txtExtensionOf"
               }
             }
           ],
