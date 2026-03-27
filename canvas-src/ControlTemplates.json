@@ -170,7 +170,7 @@
     "LastModifiedTimestamp": "0",
     "Name": "groupContainer",
     "OverridableProperties": {},
-    "Version": "1.4.0"
+    "Version": "1.5.0"
   },
   "Host": {
     "CustomGroupControlTemplateName": "",
@@ -258,6 +258,20 @@
     "Name": "label",
     "OverridableProperties": {},
     "Version": "2.5.1"
+  },
+  "modernText": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/modernText",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": false,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": true,
+    "LastModifiedTimestamp": "0",
+    "Name": "modernText",
+    "OverridableProperties": {},
+    "Version": "1.0.0"
   },
   "rectangle": {
     "CustomGroupControlTemplateName": "",

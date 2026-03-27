@@ -44,7 +44,7 @@ ComponentDefinitions:
       Width: =400
     Children:
       - ContainerFormHeader:
-          Control: GroupContainer@1.4.0
+          Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
@@ -118,7 +118,7 @@ ComponentDefinitions:
                         Width: =Parent.TemplateWidth
                         Y: =Parent.Height - Self.Height
                   - tabContainer:
-                      Control: GroupContainer@1.4.0
+                      Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         DropShadow: =DropShadow.None

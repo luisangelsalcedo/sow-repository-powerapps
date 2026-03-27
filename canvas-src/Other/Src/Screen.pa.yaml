@@ -68,7 +68,7 @@ Screens:
             X: =40
             Y: =40
       - SearchContainer:
-          Control: GroupContainer@1.4.0
+          Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
@@ -95,7 +95,7 @@ Screens:
             Y: =40
           Children:
             - SearchContainerLeft:
-                Control: GroupContainer@1.4.0
+                Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   AlignInContainer: =AlignInContainer.Center
@@ -159,7 +159,7 @@ Screens:
                         100
                     )
       - HomeView:
-          Control: GroupContainer@1.4.0
+          Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
@@ -174,7 +174,7 @@ Screens:
             Width: =Parent.Width
           Children:
             - Header:
-                Control: GroupContainer@1.4.0
+                Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   DropShadow: =DropShadow.None
@@ -201,7 +201,7 @@ Screens:
                   RadiusTopRight: =0
                 Children:
                   - HeaderContainer:
-                      Control: GroupContainer@1.4.0
+                      Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         LayoutAlignItems: =LayoutAlignItems.Center
@@ -221,7 +221,7 @@ Screens:
                               LayoutMinWidth: =16
                               Width: =Functions.ResponsiveOnCellphone(80, 180)
                         - AvatarContainer:
-                            Control: GroupContainer@1.4.0
+                            Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
                               Height: =Parent.Height
@@ -260,7 +260,7 @@ Screens:
                                     Shape: ='Avatar.Shape'.Circular
                                     Width: =Parent.Height
             - MainContainer:
-                Control: GroupContainer@1.4.0
+                Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   DropShadow: =DropShadow.None
@@ -277,7 +277,7 @@ Screens:
                   RadiusTopRight: =0
                 Children:
                   - MainContainerTop:
-                      Control: GroupContainer@1.4.0
+                      Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         DropShadow: =DropShadow.None
@@ -299,7 +299,7 @@ Screens:
                         Visible: =false
                         Width: =100
                   - MainContainerCenter:
-                      Control: GroupContainer@1.4.0
+                      Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         DropShadow: =DropShadow.None
@@ -338,7 +338,7 @@ Screens:
                               LayoutMinHeight: =16
                               LayoutMinWidth: =16
                         - RequestContainer:
-                            Control: GroupContainer@1.4.0
+                            Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
                               DropShadow: =DropShadow.None
@@ -463,7 +463,7 @@ Screens:
                                           Label2Width.Height
                                       )
             - FooterContainer:
-                Control: GroupContainer@1.4.0
+                Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   ContentLanguage: =
@@ -520,7 +520,7 @@ Screens:
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
                         Size: =12
-                        Text: ="SOW Repository - Version 1.0.0"
+                        Text: ="SOW Repository - v." & App.StudioVersion
                         Weight: ='TextCanvas.Weight'.Bold
                         Width: =txtVersionWidth.Height
                   - FooterAutoHeight:
@@ -531,14 +531,37 @@ Screens:
                         Height: =1
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
+            - Text1:
+                Control: ModernText@1.0.0
+                Properties:
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  Text: =
       - ModalBackdrop:
-          Control: GroupContainer@1.4.0
+          Control: GroupContainer@1.5.0
           Variant: ManualLayout
           Properties:
             Height: =Parent.Height
             Visible: =showBackdrop
             Width: =Parent.Width
           Children:
+            - HtmlText1:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  Font: =Font.'Open Sans'
+                  Height: =Parent.Height
+                  HtmlText: |-
+                    =$"<div style='
+                        width:{Self.Width}px;
+                        height:{Self.Height - 1}px; 
+                        backdrop-filter:blur(3px); 
+                        display: block;'>
+                    </div>"
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Width: =Parent.Width
             - btnModalBackdrop:
                 Control: Classic/Button@2.2.0
                 Properties:
@@ -560,11 +583,9 @@ Screens:
                   PressedColor: =Self.Fill
                   PressedFill: =RGBA(0,0,0, 0.5)
                   Text: =
-                  Visible: |+
-                    =true
                   Width: =Parent.Width
       - NewSowModal:
-          Control: GroupContainer@1.4.0
+          Control: GroupContainer@1.5.0
           Variant: ManualLayout
           Properties:
             Height: =Parent.Height
@@ -580,7 +601,7 @@ Screens:
               =0
           Children:
             - NewSowModal-container:
-                Control: GroupContainer@1.4.0
+                Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   DropShadow: =DropShadow.None
@@ -600,66 +621,219 @@ Screens:
                   Width: =Parent.Width
                   X: =Parent.Width - Self.Width
                 Children:
-                  - NewSowModal-title:
-                      Control: GroupContainer@1.4.0
+                  - NewSowModal-header:
+                      Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         DropShadow: =DropShadow.None
                         FillPortions: =0
-                        Height: =60
+                        Height: ='NewSowModal-title'.Height + 'NewSowModal-draftBar'.Height
                         LayoutAlignItems: =LayoutAlignItems.Center
-                        LayoutDirection: =LayoutDirection.Horizontal
-                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        LayoutDirection: =LayoutDirection.Vertical
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
-                        PaddingRight: =
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
                       Children:
-                        - Title1:
-                            Control: Label@2.5.1
+                        - NewSowModal-title:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
                             Properties:
-                              BorderColor: =RGBA(0, 18, 107, 1)
-                              DisplayMode: =DisplayMode.View
-                              FillPortions: =1
-                              Font: =designSystem.fontFamily
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              Size: =designSystem.style.title.fontSize
-                              Text: ="New SOW"
-                        - Container1:
-                            Control: GroupContainer@1.4.0
-                            Variant: ManualLayout
-                            Properties:
-                              AlignInContainer: =AlignInContainer.Center
-                              DropShadow: =DropShadow.Regular
+                              DropShadow: =DropShadow.None
                               FillPortions: =0
-                              Height: =35
+                              Height: =60
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                               LayoutMinHeight: =16
                               LayoutMinWidth: =16
-                              RadiusBottomLeft: =50
-                              RadiusBottomRight: =50
-                              RadiusTopLeft: =50
-                              RadiusTopRight: =50
-                              Width: =35
+                              PaddingRight: =
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
                             Children:
-                              - ButtonCanvas2:
-                                  Control: Button@0.0.45
+                              - Title1:
+                                  Control: Label@2.5.1
                                   Properties:
-                                    Appearance: ='ButtonCanvas.Appearance'.Transparent
-                                    FontSize: =25
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    DisplayMode: =DisplayMode.View
+                                    FillPortions: =1
+                                    Font: =designSystem.fontFamily
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =designSystem.style.title.fontSize
+                                    Text: ="New SOW"
+                              - Container1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.Regular
+                                    FillPortions: =0
                                     Height: =35
-                                    Icon: ="Dismiss"
-                                    IconStyle: ='ButtonCanvas.IconStyle'.Filled
-                                    Layout: ='ButtonCanvas.Layout'.IconOnly
-                                    OnSelect: |-
-                                      =// close modal
-                                      UpdateContext({showNewSowModal:false});
-                                      UpdateContext({showBackdrop:false});
-                                      UpdateContext({loaderNewSowModal:false});
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    RadiusBottomLeft: =50
+                                    RadiusBottomRight: =50
+                                    RadiusTopLeft: =50
+                                    RadiusTopRight: =50
                                     Width: =35
+                                  Children:
+                                    - ButtonCanvas2:
+                                        Control: Button@0.0.45
+                                        Properties:
+                                          Appearance: ='ButtonCanvas.Appearance'.Transparent
+                                          FontSize: =25
+                                          Height: =35
+                                          Icon: ="Dismiss"
+                                          IconStyle: ='ButtonCanvas.IconStyle'.Filled
+                                          Layout: ='ButtonCanvas.Layout'.IconOnly
+                                          OnSelect: |-
+                                            =// close modal
+                                            UpdateContext({showNewSowModal:false});
+                                            UpdateContext({showBackdrop:false});
+                                            UpdateContext({loaderNewSowModal:false});
+                                          Width: =35
+                        - NewSowModal-draftBar:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: ='draft-actions'.Height
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Visible: =false
+                            Children:
+                              - draft-info:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Visible: =!IsBlank(draftContent)
+                                  Children:
+                                    - Icon1:
+                                        Control: Icon@0.0.7
+                                        Properties:
+                                          Height: =15
+                                          Icon: ="Info"
+                                          IconColor: =designSystem.colors.default
+                                          IconStyle: ='Icon.IconStyle'.Filled
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Width: =15
+                                    - txtLastDraftUpdate:
+                                        Control: ModernText@1.0.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          FillPortions: =1
+                                          Height: =Parent.Height
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          PaddingBottom: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =10
+                                          Text: |-
+                                            =If(IsBlank(dateUpdate), "", "You have a saved draft with recent changes. Last updated: " & Text(dateUpdate, designSystem.textFormat.datetime))
+                              - draft-actions:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: '=btnSaveDraft.Height '
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxWidth: =btnSaveDraft.Width
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =16
+                                    Width: =btnLoadDraft.Width + btnSaveDraft.Width
+                                  Children:
+                                    - btnLoadDraft:
+                                        Control: Button@0.0.45
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Start
+                                          Appearance: ='ButtonCanvas.Appearance'.Transparent
+                                          FontSize: =13
+                                          Icon: ="ArrowSync"
+                                          IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          OnSelect: |-
+                                            =Set(
+                                                draftContent,
+                                                LookUp(
+                                                    SR_SOW_Drafts,
+                                                    requestorEmail = User().Email && 'Draft Status'.Value = "draft"
+                                                )
+                                            );
+                                            Set(dateUpdate, draftContent.Modificado)
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Text: ="Load Draft"
+                                          Visible: =!IsBlank(draftContent)
+                                          Width: =120
+                                    - btnSaveDraft:
+                                        Control: Button@0.0.45
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Start
+                                          Appearance: ='ButtonCanvas.Appearance'.Transparent
+                                          FontSize: =13
+                                          Icon: ="Save"
+                                          IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          OnSelect: "=With(\r\n    {\r\n        // ------------------------------------- Contract Details \r\n        \r\n        _nttCompany             : Coalesce(cbbNttCompany.Selected.Value, \"blank\"),\r\n        _org                    : Coalesce(cbbOrg.Selected.Value, \"blank\"),\r\n        _zurichArea             : Coalesce(cbbZurichArea.Selected.Value, \"blank\"),\r\n        _fundation              : Coalesce(cbbFundation.Selected.Value, \"blank\"),\r\n        _sowName                : Coalesce(txtSowName.Value, \"blank\"),\r\n        _startDate              : dpkStartDate.SelectedDate,\r\n        _endDate                : dpkEndDate.SelectedDate,\r\n        _customer               : Coalesce(cbbCustomer.Selected.Value, \"blank\"),\r\n        _zurichLineManager      : Coalesce(txtZurichLineManager.Value, \"blank\"),\r\n        _extensionOrNew         : Coalesce(cbbExtensionOrNew.Selected.Value, \"blank\"),\r\n        _extensionOf            : Coalesce(txtExtensionOf.Value, \"blank\"),\r\n\r\n        // ------------------------------------- Service Information \r\n\r\n        _itOrNonIT              : Coalesce(cbbItOrNonIT.Selected.Value, \"blank\"),\r\n        _typeService            : Coalesce(cbbTypeService.Selected.Value, \"blank\"),\r\n        _engagementType         : Coalesce(cbbEngagementType.Selected.Value, \"blank\"),\r\n        _deliveryStrategy       : Coalesce(cbbDeliveryStrategy.Selected.Value, \"blank\"),\r\n        _technologyCluster      : Coalesce(cbbTechnologyCluster.Selected.Value, \"blank\"),\r\n        _capability             : Coalesce(cbbCapability.Selected.Value, \"blank\"),\r\n        _technology             : Coalesce(txtTechnology.Value, \"blank\"),\r\n        _supportedApplications  : Coalesce(txtSupportedApplications.Value, \"blank\"),\r\n\r\n        // ------------------------------------- Financial Data \r\n\r\n        _billingType            : Coalesce(cbbBillingType.Selected.Value, \"blank\"),\r\n        _totalAmount            : Coalesce(Value(txtTotalAmount.Value), 0),\r\n        _mana                   : Coalesce(txtMana.Value, \"blank\"),\r\n        _mkt                    : Coalesce(txtMkt.Value, \"blank\"),\r\n        _ext                    : Coalesce(txtExt.Value, \"blank\"),\r\n        _cmSale                 : Coalesce(Value(txtCmSale.Value), 0),\r\n        _percentageCostTeam     : Coalesce(Value(txtPercentageCostTeam.Value), 0),\r\n        _amountCostTeam         : Coalesce(Value(txtAmountCostTeam.Value), 0),\r\n        _fteTable               : JSON(colFteTable),\r\n   \r\n\r\n        // ------------------------------------- Extra data\r\n        \r\n        _user                   : User().Email\r\n    },\r\n    \r\n    // success            \r\n        //loader\r\n        UpdateContext({loaderNewSowModal:true});\r\n\r\n        //action\r\n        With(\r\n            {\r\n                _response: flow_saveDraftSow.Run(\r\n                    _org,\r\n                    _fundation,\r\n                    _sowName,\r\n                    _customer,\r\n                    _zurichLineManager,\r\n                    _extensionOrNew,\r\n                    _itOrNonIT,\r\n                    _typeService,\r\n                    _engagementType,\r\n                    _deliveryStrategy,\r\n                    _technologyCluster,\r\n                    _capability,\r\n                    _technology,                        \r\n                    _billingType,\r\n                    _totalAmount,\r\n                    _mana,\r\n                    _mkt,\r\n                    _ext,\r\n                    _cmSale,\r\n                    _percentageCostTeam,\r\n                    _amountCostTeam,\r\n                    _user,\r\n\r\n                    // new fields\r\n                    _nttCompany,\r\n                    _zurichArea,\r\n                    _extensionOf,\r\n                    _supportedApplications,\r\n                    _fteTable,\r\n\r\n                    // \r\n                    If(IsBlank(_startDate), \"blank\", Text(_startDate, \"yyyy-mm-dd\")),\r\n                    If(IsBlank(_endDate), \"blank\", Text(_endDate, \"yyyy-mm-dd\"))                  \r\n                ).response\r\n            },\r\n            \r\n            //success message\r\n            Notify(\"Draft saved successfully \" & Text(DateTimeValue(_response), designSystem.textFormat.datetime), NotificationType.Success);\r\n            Set(dateUpdate, DateTimeValue(_response));\r\n            UpdateContext({loaderNewSowModal:false});\r\n            Set(\r\n                draftContent,\r\n                LookUp(\r\n                    SR_SOW_Drafts,\r\n                    requestorEmail = User().Email && 'Draft Status'.Value = \"draft\"\r\n                )\r\n            );\r\n        )\r\n)"
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Text: ="Save Draft"
+                                          Visible: |-
+                                            =With(
+                                                {
+                                                    // ------------------------------------- Contract Details 
+                                                    _nttCompany         : cbbNttCompany.Selected.Value,
+                                                    _org                : cbbOrg.Selected.Value,
+                                                    _zurichArea         : cbbZurichArea.Selected.Value,
+                                                    _fundation          : cbbFundation.Selected.Value,
+                                                    _sowName            : txtSowName.Value,
+                                                    _startDate          : dpkStartDate.SelectedDate,
+                                                    _endDate            : dpkEndDate.SelectedDate,
+                                                    _customer           : cbbCustomer.Selected.Value,
+                                                    _zurichLineManager  : txtZurichLineManager.Value,
+                                                    _extensionOrNew     : cbbExtensionOrNew.Selected.Value,
+                                                    _extensionOf        : txtExtensionOf.Value
+                                                },
+                                                If(
+                                                    //validation
+                                                    !IsBlank(_nttCompany) || 
+                                                    !IsBlank(_org) || 
+                                                    !IsBlank(_fundation) ||
+                                                    !IsBlank(_sowName) ||
+                                                    !IsBlank(_startDate) ||
+                                                    !IsBlank(_endDate) ||
+                                                    !IsBlank(_customer) ||
+                                                    !IsBlank(_zurichLineManager) ||
+                                                    !IsBlank(_extensionOrNew),
+
+                                                    true, false
+                                                )
+                                            )
+                                          Width: =120
                   - NewSowModal-tabs:
                       Control: CanvasComponent
                       ComponentName: FormHeader
@@ -670,7 +844,7 @@ Screens:
                         LayoutMinWidth: =0
                         Width: =200
                   - NewSowModal-form:
-                      Control: GroupContainer@1.4.0
+                      Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
                         DropShadow: =DropShadow.None
@@ -680,7 +854,7 @@ Screens:
                         Y: =40
                       Children:
                         - NewSowModal-form-container-3:
-                            Control: GroupContainer@1.4.0
+                            Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
                               DropShadow: =DropShadow.None
@@ -691,7 +865,7 @@ Screens:
                               Width: =Parent.Width
                             Children:
                               - NewSowModal-form-container-scroll-3:
-                                  Control: GroupContainer@1.4.0
+                                  Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
@@ -708,7 +882,7 @@ Screens:
                                     Width: =Parent.Width
                                   Children:
                                     - fc-billingType:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -727,7 +901,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-billingType-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -765,11 +939,17 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.billingType),
+                                                      [],
+                                                      [draftContent.billingType]
+                                                  )
                                                 Items: =formNewSowData.item.billingType.items
                                                 LayoutMinWidth: =0
                                                 Width: =Parent.Width
                                     - fc-totalAmount:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -788,7 +968,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-totalAmount-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -833,9 +1013,9 @@ Screens:
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.totalAmount.placeholder
                                                 Type: ="Numeric"
-                                                Value: =
+                                                Value: =draftContent.totalAmount
                                     - fc-mana:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -854,7 +1034,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-mana-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -895,9 +1075,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.mana.placeholder
-                                                Value: =
+                                                Value: =draftContent.mana
                                     - fc-mkt:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -916,7 +1096,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-mkt-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -957,9 +1137,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.mkt.placeholder
-                                                Value: =
+                                                Value: =draftContent.mkt
                                     - fc-ext:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -978,7 +1158,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-ext-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1019,9 +1199,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.ext.placeholder
-                                                Value: =
+                                                Value: =draftContent.ext
                                     - fc-cmSale:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1040,7 +1220,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-cmSale-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1081,9 +1261,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.cmSale.placeholder
-                                                Value: =
+                                                Value: =draftContent.cmSale
                                     - fc-percentageCostTeam:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1102,7 +1282,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-percentageCostTeam-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1143,9 +1323,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.percentageCostTeam.placeholder
-                                                Value: =
+                                                Value: =draftContent.percentageCostTeam
                                     - fc-amountCostTeam:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1164,7 +1344,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-amountCostTeam-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1205,9 +1385,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.amountCostTeam.placeholder
-                                                Value: =
+                                                Value: =draftContent.amountCostTeam
                                     - fc-tableFte:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1219,7 +1399,7 @@ Screens:
                                           Width: =Parent.Width
                                         Children:
                                           - fc-fteTable-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 ContentLanguage: =
@@ -1274,7 +1454,7 @@ Screens:
                                                 X: =40
                                                 Y: =40
                                           - fc-fteTable-table-scroll:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1288,7 +1468,7 @@ Screens:
                                                 Width: =Parent.Width
                                               Children:
                                                 - fc-fteTable-table:
-                                                    Control: GroupContainer@1.4.0
+                                                    Control: GroupContainer@1.5.0
                                                     Variant: AutoLayout
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Start
@@ -1306,7 +1486,7 @@ Screens:
                                                       Width: =900
                                                     Children:
                                                       - fc-fteTable-table-header:
-                                                          Control: GroupContainer@1.4.0
+                                                          Control: GroupContainer@1.5.0
                                                           Variant: AutoLayout
                                                           Properties:
                                                             AlignInContainer: =AlignInContainer.Start
@@ -1463,7 +1643,7 @@ Screens:
                                                             Width: =Parent.Width
                                                           Children:
                                                             - fc-tableFte-table-row:
-                                                                Control: GroupContainer@1.4.0
+                                                                Control: GroupContainer@1.5.0
                                                                 Variant: AutoLayout
                                                                 Properties:
                                                                   DropShadow: =DropShadow.None
@@ -1642,7 +1822,7 @@ Screens:
                                                             X: =40
                                                             Y: =40
                               - NewSowModal-form-btnNav-3:
-                                  Control: GroupContainer@1.4.0
+                                  Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     AlignInContainer: =AlignInContainer.SetByContainer
@@ -1679,7 +1859,7 @@ Screens:
                                           OnSelect: "=Patch(\n    colTabs,\n    LookUp(colTabs, index = 3),\n    { status: \"Error\" }\n);\n\nWith(\n    {\n        // ------------------------------------- Contract Details \n        \n        _nttCompany             : cbbNttCompany.Selected.Value,\n        _org                    : cbbOrg.Selected.Value,\n        _zurichArea             : Coalesce(cbbZurichArea.Selected.Value, \"_blank\"),\n        _fundation              : cbbFundation.Selected.Value,\n        _sowName                : txtSowName.Value,\n        _startDate              : dpkStartDate.SelectedDate,\n        _endDate                : dpkEndDate.SelectedDate,\n        _customer               : cbbCustomer.Selected.Value,\n        _zurichLineManager      : txtZurichLineManager.Value,\n        _extensionOrNew         : cbbExtensionOrNew.Selected.Value,\n        _extensionOf            : Coalesce(txtExtensionOf.Value, \"_blank\"),\n\n        // ------------------------------------- Service Information \n\n        _itOrNonIT              : cbbItOrNonIT.Selected.Value,\n        _typeService            : cbbTypeService.Selected.Value,\n        _engagementType         : cbbEngagementType.Selected.Value,\n        _deliveryStrategy       : cbbDeliveryStrategy.Selected.Value,\n        _technologyCluster      : cbbTechnologyCluster.Selected.Value,\n        _capability             : cbbCapability.Selected.Value,\n        _technology             : txtTechnology.Value,\n        _supportedApplications  : txtSupportedApplications.Value,\n\n        // ------------------------------------- Financial Data \n\n        _billingType            : cbbBillingType.Selected.Value,\n        _totalAmount            : Value(txtTotalAmount.Value),\n        _mana                   : txtMana.Value,\n        _mkt                    : txtMkt.Value,\n        _ext                    : txtExt.Value,\n        _cmSale                 : Value(txtCmSale.Value),\n        _percentageCostTeam     : Value(txtPercentageCostTeam.Value),\n        _amountCostTeam         : Value(txtAmountCostTeam.Value),\n        _fteTable               : JSON(colFteTable),\n   \n\n        // ------------------------------------- Extra data\n        \n        _user                   : User().Email,\n        _fileName               : Coalesce(First(DataCardValue.Attachments).Name, \"_blank\"),\n        _fileContent            : Coalesce(JSON(First(DataCardValue.Attachments).Value), \"_blank\")\n    },\n    If(\n        //validation\n            IsBlank(_billingType),\n            Notify(formNewSowData.item.billingType.errorMessage, NotificationType.Error); SetFocus(cbbBillingType),\n\n            !IsNumeric(_totalAmount) || Value(_totalAmount) < 0,\n            Notify(formNewSowData.item.totalAmount.errorMessage, NotificationType.Error); SetFocus(txtTotalAmount), //number\n\n            Len(_mana) < 3,\n            Notify(formNewSowData.item.mana.errorMessage, NotificationType.Error); SetFocus(txtMana), //text\n\n            Len(_mkt) < 3,\n            Notify(formNewSowData.item.mkt.errorMessage, NotificationType.Error); SetFocus(txtMkt), //text\n\n            Len(_ext) < 3,\n            Notify(formNewSowData.item.ext.errorMessage, NotificationType.Error); SetFocus(txtExt), //text\n\n            !IsNumeric(_cmSale) || Value(_cmSale) < 0 || Value(_cmSale) > 100,\n            Notify(formNewSowData.item.cmSale.errorMessage, NotificationType.Error); SetFocus(txtCmSale), //number(%)\n\n            !IsNumeric(_percentageCostTeam) || Value(_percentageCostTeam) < 0 || Value(_percentageCostTeam) > 100,\n            Notify(formNewSowData.item.percentageCostTeam.errorMessage, NotificationType.Error); SetFocus(txtPercentageCostTeam), //number(%)\n\n            !IsNumeric(_amountCostTeam) || Value(_amountCostTeam) < 0,\n            Notify(formNewSowData.item.amountCostTeam.errorMessage, NotificationType.Error); SetFocus(txtAmountCostTeam), //number\n\n            CountRows(\n                Filter(\n                    colFteTable,\n                    IsBlank(role) ||\n                    IsBlank(country) ||\n                    IsBlank(locationCity) ||\n                    IsBlank(currency) ||\n                    IsBlank(type) ||\n                    Value(rate) <= 0 ||\n                    Value(cost) <= 0 ||\n                    Value(fteUnits) <= 0 ||\n                    !IsNumeric(chargability) ||\n                    Value(chargability) < 0 ||\n                    Value(chargability) > 100\n                )\n            ) > 0,\n            Notify(formNewSowData.item.fteTable.errorMessage, NotificationType.Error),\n\n\n        // success\n            //check\n            Patch(\n                colTabs,\n                LookUp(colTabs, index = 3),\n                { status: \"Completed\" }\n            );\n            //loader\n            UpdateContext({loaderNewSowModal:true});\n\n            //action\n            With(\n                {\n                    _response: flow_createSow.Run(\n                        _org,\n                        _fundation,\n                        _sowName,\n                        Text(_startDate, \"yyyy-mm-dd\"),\n                        Text(_endDate, \"yyyy-mm-dd\"),\n                        _customer,\n                        _zurichLineManager,\n                        _extensionOrNew,\n                        _itOrNonIT,\n                        _typeService,\n                        _engagementType,\n                        _deliveryStrategy,\n                        _technologyCluster,\n                        _capability,\n                        _technology,                        \n                        _billingType,\n                        _totalAmount,\n                        _mana,\n                        _mkt,\n                        _ext,\n                        _cmSale,\n                        _percentageCostTeam,\n                        _amountCostTeam,\n                        _user,\n\n                        // new fields\n                        _nttCompany,\n                        _zurichArea,\n                        _extensionOf,\n                        _supportedApplications,\n                        _fteTable,\n                        _fileName,\n                        _fileContent\n                     \n                    ).response\n                },\n                \n                //success message\n                Notify(_response, NotificationType.Success);\n\n                // close modal\n                UpdateContext({loaderNewSowModal:false});\n                UpdateContext({showNewSowModal:false});\n                UpdateContext({showBackdrop:false});             \n        )            \n    )\n)"
                                           Text: ="Submit"
                         - NewSowModal-form-container-2:
-                            Control: GroupContainer@1.4.0
+                            Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
                               DropShadow: =DropShadow.None
@@ -1690,7 +1870,7 @@ Screens:
                               Width: =Parent.Width
                             Children:
                               - NewSowModal-form-container-scroll-2:
-                                  Control: GroupContainer@1.4.0
+                                  Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
@@ -1707,7 +1887,7 @@ Screens:
                                     Width: =Parent.Width
                                   Children:
                                     - fc-itOrNonIT:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1726,7 +1906,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-itOrNonIT-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1767,12 +1947,18 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.itOrNonIt),
+                                                      [],
+                                                      [draftContent.itOrNonIt]
+                                                  )
                                                 Items: =formNewSowData.item.itOrNonIT.items
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =0
                                                 Width: =Parent.Width
                                     - fc-typeService:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1791,7 +1977,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-typeService-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1829,11 +2015,17 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.typeService),
+                                                      [],
+                                                      [draftContent.typeService]
+                                                  )
                                                 Items: =formNewSowData.item.typeService.items
                                                 LayoutMinWidth: =0
                                                 Width: =Parent.Width
                                     - fc-engagementType:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1850,7 +2042,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-engagementType-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1888,11 +2080,17 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.engagementType),
+                                                      [],
+                                                      [draftContent.engagementType]
+                                                  )
                                                 Items: =formNewSowData.item.engagementType.items
                                                 LayoutMinWidth: =0
                                                 Width: =Parent.Width
                                     - fc-deliveryStrategy:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1910,7 +2108,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-deliveryStrategy-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -1948,11 +2146,17 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.deliveryStrategy),
+                                                      [],
+                                                      [draftContent.deliveryStrategy]
+                                                  )
                                                 Items: =formNewSowData.item.deliveryStrategy.items
                                                 LayoutMinWidth: =0
                                                 Width: =Parent.Width
                                     - fc-technologyCluster:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -1971,7 +2175,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-technologyCluster-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2009,10 +2213,16 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.technologyCluster),
+                                                      [],
+                                                      [draftContent.technologyCluster]
+                                                  )
                                                 Items: =formNewSowData.item.technologyCluster.items
                                                 Width: =Parent.Width
                                     - fc-capability:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2031,7 +2241,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-capability-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2069,11 +2279,17 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.capability),
+                                                      [],
+                                                      [draftContent.capability]
+                                                  )
                                                 Items: =formNewSowData.item.capability.items
                                                 LayoutMinWidth: =0
                                                 Width: =Parent.Width
                                     - fc-technology:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2092,7 +2308,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-technology-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2132,9 +2348,10 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.technology.placeholder
+                                                Value: =draftContent.technology
                                                 Width: =Parent.Width
                                     - fc-supportedApplications:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2153,7 +2370,7 @@ Screens:
                                           Y: =40
                                         Children:
                                           - fc-supportedApplications-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2194,9 +2411,10 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.supportedApplications.placeholder
+                                                Value: =draftContent.supportedApplications
                                                 Width: =Parent.Width
                               - NewSowModal-form-btnNav-2:
-                                  Control: GroupContainer@1.4.0
+                                  Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     AlignInContainer: =AlignInContainer.SetByContainer
@@ -2232,7 +2450,7 @@ Screens:
                                           OnSelect: "=Patch(\n    colTabs,\n    LookUp(colTabs, index = 2),\n    { status: \"Error\" }\n);\n\nWith(\n    {\n        // ------------------------------------- Service Information \n\n        _itOrNonIT              : cbbItOrNonIT.Selected.Value,\n        _typeService            : cbbTypeService.Selected.Value,\n        _engagementType         : cbbEngagementType.Selected.Value,\n        _deliveryStrategy       : cbbDeliveryStrategy.Selected.Value,\n        _technologyCluster      : cbbTechnologyCluster.Selected.Value,\n        _capability             : cbbCapability.Selected.Value,\n        _technology             : txtTechnology.Value,\n        _supportedApplications  : txtSupportedApplications.Value\n    },\n    If(\n        //validation\n            IsBlank(_itOrNonIT),\n            Notify(formNewSowData.item.itOrNonIT.errorMessage, NotificationType.Error); SetFocus(cbbItOrNonIT),\n\n            IsBlank(_typeService),\n            Notify(formNewSowData.item.typeService.errorMessage, NotificationType.Error); SetFocus(cbbTypeService),\n\n            IsBlank(_engagementType),\n            Notify(formNewSowData.item.engagementType.errorMessage, NotificationType.Error); SetFocus(cbbEngagementType),\n\n            IsBlank(_deliveryStrategy),\n            Notify(formNewSowData.item.deliveryStrategy.errorMessage, NotificationType.Error); SetFocus(cbbDeliveryStrategy),\n\n            IsBlank(_technologyCluster),\n            Notify(formNewSowData.item.technologyCluster.errorMessage, NotificationType.Error); SetFocus(cbbTechnologyCluster),\n\n            IsBlank(_capability),\n            Notify(formNewSowData.item.capability.errorMessage, NotificationType.Error); SetFocus(cbbCapability),\n\n            IsBlank(_technology),\n            Notify(formNewSowData.item.technology.errorMessage, NotificationType.Error); SetFocus(txtTechnology),\n\n            IsBlank(_supportedApplications),\n            Notify(formNewSowData.item.supportedApplications.errorMessage, NotificationType.Error); SetFocus(txtSupportedApplications),\n\n\n        // success\n            //check\n            Patch(\n                colTabs,\n                LookUp(colTabs, index = 2),\n                { status: \"Completed\" }\n            );\n            \n            //next\n            UpdateContext({currentTab: 3});\n            Patch(\n                colTabs,\n                LookUp(colTabs, index = 3),\n                { status: \"Active\" }\n            );\n    )\n)"
                                           Text: ="Next"
                         - NewSowModal-form-container-1:
-                            Control: GroupContainer@1.4.0
+                            Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
                               DropShadow: =DropShadow.None
@@ -2243,7 +2461,7 @@ Screens:
                               Width: =Parent.Width
                             Children:
                               - NewSowModal-form-container-scroll-1:
-                                  Control: GroupContainer@1.4.0
+                                  Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
@@ -2260,7 +2478,7 @@ Screens:
                                     Width: =Parent.Width
                                   Children:
                                     - fc-nttCompany:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2279,7 +2497,7 @@ Screens:
                                           Width: =Parent.Width
                                         Children:
                                           - fc-nttCompany-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2320,12 +2538,18 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.nttCompany),
+                                                      [],
+                                                      [draftContent.nttCompany]
+                                                  )
                                                 Items: =formNewSowData.item.nttCompany.items
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Width: =Parent.Width
                                     - fc-org:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2344,7 +2568,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-org-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2382,6 +2606,12 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.org),
+                                                      [],
+                                                      [draftContent.org]
+                                                  )
                                                 Items: =formNewSowData.item.org.items
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =0
@@ -2394,7 +2624,7 @@ Screens:
                                                   )
                                                 Width: =Parent.Width
                                     - fc-zurichArea:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2414,7 +2644,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-zurichArea-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2452,12 +2682,18 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.zurichArea),
+                                                      [],
+                                                      [draftContent.zurichArea]
+                                                  )
                                                 Items: =formNewSowData.item.zurichArea.items
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =0
                                                 Width: =Parent.Width
                                     - fc-fundation:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2476,7 +2712,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-fundation-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2517,12 +2753,18 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.fundation),
+                                                      [],
+                                                      [draftContent.fundation]
+                                                  )
                                                 Items: =formNewSowData.item.fundation.items
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Width: =Parent.Width
                                     - fc-sowName:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2544,7 +2786,7 @@ Screens:
                                             Parent.Width)
                                         Children:
                                           - fc-sowName-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2588,9 +2830,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.sowName.placeholder
-                                                Value: =
+                                                Value: =draftContent.sowName
                                     - fc-startDate:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2609,7 +2851,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-startDate-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2654,8 +2896,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.startDate.placeholder
+                                                SelectedDate: =draftContent.sowStartDate
                                     - fc-endDate:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2674,7 +2917,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-endDate-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2718,8 +2961,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.endDate.placeholder
+                                                SelectedDate: =draftContent.sowEndDate
                                     - fc-customer:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2746,7 +2990,7 @@ Screens:
                                             )
                                         Children:
                                           - fc-customer-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2787,12 +3031,18 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.customer),
+                                                      [],
+                                                      [draftContent.customer]
+                                                  )
                                                 Items: =formNewSowData.item.customer.items
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Width: =Parent.Width
                                     - fc-zurichLineManager:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2811,7 +3061,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-zurichLineManager-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2856,9 +3106,10 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =0
                                                 Placeholder: =formNewSowData.item.zurichLineManager.placeholder
+                                                Value: "=draftContent.zurichLineManager\r\n "
                                                 Width: =300
                                     - fc-extensionOrNew:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2877,7 +3128,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-extensionOrNew-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2918,6 +3169,12 @@ Screens:
                                               Control: DropDown@0.0.45
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
+                                                DefaultSelectedItems: |-
+                                                  =If(
+                                                      IsBlank(draftContent.extensionOrNew),
+                                                      [],
+                                                      [draftContent.extensionOrNew]
+                                                  )
                                                 Items: =formNewSowData.item.extensionOrNew.items
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =0
@@ -2930,7 +3187,7 @@ Screens:
                                                   )
                                                 Width: =Parent.Width
                                     - fc-extensionOf:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Start
@@ -2950,7 +3207,7 @@ Screens:
                                           Width: =Functions.GetWidthForTwoColumns(Parent.Width, designSystem.paddingDefault)
                                         Children:
                                           - fc-extensionOf-container:
-                                              Control: GroupContainer@1.4.0
+                                              Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
@@ -2994,8 +3251,9 @@ Screens:
                                                 LayoutMinHeight: =16
                                                 LayoutMinWidth: =16
                                                 Placeholder: =formNewSowData.item.extensionOf.placeholder
+                                                Value: =draftContent.extensionOf
                                     - form-control-attach:
-                                        Control: GroupContainer@1.4.0
+                                        Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
                                           ContentLanguage: =
@@ -3048,7 +3306,7 @@ Screens:
                                                       BorderStyle: =BorderStyle.None
                                                       DataField: ="{Attachments}"
                                                       Default: =ThisItem.'Datos adjuntos'
-                                                      DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
+                                                      DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'Datos adjuntos')
                                                       Height: =ErrorMessageFile.Y + ErrorMessageFile.Height
                                                       Required: =false
                                                       Update: =DataCardValue.Attachments
@@ -3112,7 +3370,7 @@ Screens:
                                                             X: =30
                                                             Y: =DataCardValue.Y + DataCardValue.Height
                               - NewSowModal-form-btnNav-1:
-                                  Control: GroupContainer@1.4.0
+                                  Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     AlignInContainer: =AlignInContainer.SetByContainer
@@ -3138,7 +3396,7 @@ Screens:
                                                 LookUp(colTabs, index = 1),
                                                 { status: "Error" }
                                             );
-
+                                            //
                                             With(
                                                 {
                                                     // ------------------------------------- Contract Details 
@@ -3219,7 +3477,7 @@ Screens:
                         X: =40
                         Y: =40
             - NewSowModal-loader:
-                Control: GroupContainer@1.4.0
+                Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   Fill: =RGBA(255, 255, 255, .8)

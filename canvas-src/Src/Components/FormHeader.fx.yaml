@@ -33,7 +33,9 @@ FormHeader As CanvasComponent:
         DropShadow: =DropShadow.None
         Height: =Parent.Height
         LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutGridColumnMinWidth: =0
         LayoutGridColumns: =6
+        LayoutGridRowMinHeight: =0
         LayoutGridRows: =6
         LayoutMode: =LayoutMode.Auto
         RadiusBottomLeft: =0
@@ -113,7 +115,9 @@ FormHeader As CanvasComponent:
                 DropShadow: =DropShadow.None
                 Height: =Parent.TemplateHeight
                 LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGridColumnMinWidth: =0
                 LayoutGridColumns: =6
+                LayoutGridRowMinHeight: =0
                 LayoutGridRows: =6
                 LayoutMode: =LayoutMode.Auto
                 Width: =Parent.TemplateWidth

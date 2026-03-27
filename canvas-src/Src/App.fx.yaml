@@ -32,6 +32,10 @@ App As appinfo:
                         fontSize: 14,
                         fontWeight: FontWeight.Normal
                     }
+                },
+                textFormat: {
+                    datetime: "dd/mm/yyyy hh:mm:ss",
+                    date: "dd/mm/yyyy"
                 }
             }
         );
@@ -115,12 +119,10 @@ App As appinfo:
                         placeholder: "",
                         errorMessage: "Please select a Zurich area.",
                         items: [
-                            "AI",
-                            "BTO",
-                            "DBI",
-                            "GDP",
-                            "ITS&S",
-                            "IAA"
+                            "Business Technology",
+                            "AI & Data",
+                            "Core Technology",
+                            "Strategy & Transformation"
                         ]
                     },
                     fundation: {
@@ -397,7 +399,17 @@ App As appinfo:
                     }
                 }
             }
-        )
+        );
+        
+        Set(
+            draftContent,
+            LookUp(
+                SR_SOW_Drafts,
+                requestorEmail = User().Email && 'Draft Status'.Value = "draft"
+            )
+        );
+        Set(dateUpdate, draftContent.Modificado)
+    StartScreen: =
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:

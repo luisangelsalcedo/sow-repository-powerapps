@@ -1,6 +1,7 @@
 "Screen As screen.'autoLayout_HeaderFooter_ver1.0'":
     Fill: =
     ImagePosition: =ImagePosition.Center
+    OnVisible: =
 
     Label2Width As htmlViewer:
         AutoHeight: =true
@@ -69,7 +70,9 @@
                 LayoutDirection.Horizontal
             )
         LayoutGap: =designSystem.paddingDefault / 2
+        LayoutGridColumnMinWidth: =0
         LayoutGridColumns: =6
+        LayoutGridRowMinHeight: =0
         LayoutGridRows: =6
         LayoutJustifyContent: =LayoutJustifyContent.Center
         LayoutMode: =LayoutMode.Auto
@@ -88,7 +91,9 @@
             Height: =txtContractSearch.Height
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutGap: =designSystem.paddingDefault / 2
+            LayoutGridColumnMinWidth: =0
             LayoutGridColumns: =6
+            LayoutGridRowMinHeight: =0
             LayoutGridRows: =6
             LayoutJustifyContent: =LayoutJustifyContent.End
             LayoutMaxHeight: =0
@@ -263,7 +268,9 @@
         Height: =Parent.Height
         LayoutAlignItems: =LayoutAlignItems.Stretch
         LayoutDirection: =LayoutDirection.Vertical
+        LayoutGridColumnMinWidth: =0
         LayoutGridColumns: =6
+        LayoutGridRowMinHeight: =0
         LayoutGridRows: =6
         LayoutMode: =LayoutMode.Auto
         RadiusBottomLeft: =0
@@ -284,7 +291,9 @@
                     90
                 )
             LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGridColumnMinWidth: =0
             LayoutGridColumns: =6
+            LayoutGridRowMinHeight: =0
             LayoutGridRows: =6
             LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
             LayoutMaxHeight: =0
@@ -304,7 +313,9 @@
 
             HeaderContainer As groupContainer.horizontalAutoLayoutContainer:
                 LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGridColumnMinWidth: =0
                 LayoutGridColumns: =6
+                LayoutGridRowMinHeight: =0
                 LayoutGridRows: =6
                 LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                 LayoutMaxHeight: =0
@@ -329,7 +340,9 @@
                     Height: =Parent.Height
                     LayoutAlignItems: =LayoutAlignItems.Center
                     LayoutGap: =designSystem.paddingDefault
+                    LayoutGridColumnMinWidth: =0
                     LayoutGridColumns: =6
+                    LayoutGridRowMinHeight: =0
                     LayoutGridRows: =6
                     LayoutJustifyContent: =LayoutJustifyContent.End
                     LayoutMaxHeight: =0
@@ -380,7 +393,9 @@
             Fill: =RGBA(255, 255, 255, 1)
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Vertical
+            LayoutGridColumnMinWidth: =0
             LayoutGridColumns: =6
+            LayoutGridRowMinHeight: =0
             LayoutGridRows: =6
             LayoutMaxHeight: =0
             LayoutMaxWidth: =0
@@ -402,7 +417,9 @@
                     =//NewSowButton.Height + (designSystem.paddingDefault * 2)
                     0
                 LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGridColumnMinWidth: =0
                 LayoutGridColumns: =6
+                LayoutGridRowMinHeight: =0
                 LayoutGridRows: =6
                 LayoutJustifyContent: =LayoutJustifyContent.End
                 LayoutMaxHeight: =0
@@ -425,7 +442,9 @@
                 LayoutAlignItems: =LayoutAlignItems.Center
                 LayoutDirection: =LayoutDirection.Vertical
                 LayoutGap: =designSystem.paddingDefault * 2
+                LayoutGridColumnMinWidth: =0
                 LayoutGridColumns: =6
+                LayoutGridRowMinHeight: =0
                 LayoutGridRows: =6
                 LayoutJustifyContent: =LayoutJustifyContent.Center
                 LayoutMaxHeight: =0
@@ -470,7 +489,9 @@
                     LayoutAlignItems: =LayoutAlignItems.Center
                     LayoutDirection: =Functions.ResponsiveOnCellphone(LayoutDirection.Vertical, LayoutDirection.Horizontal)
                     LayoutGap: =Functions.ResponsiveOnCellphone(8, 0)
+                    LayoutGridColumnMinWidth: =0
                     LayoutGridColumns: =6
+                    LayoutGridRowMinHeight: =0
                     LayoutGridRows: =6
                     LayoutJustifyContent: =LayoutJustifyContent.Center
                     LayoutMaxHeight: =0
@@ -624,7 +645,9 @@
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Vertical
             LayoutGap: =8
+            LayoutGridColumnMinWidth: =0
             LayoutGridColumns: =6
+            LayoutGridRowMinHeight: =0
             LayoutGridRows: =6
             LayoutJustifyContent: =LayoutJustifyContent.Center
             LayoutMaxHeight: =0
@@ -690,7 +713,7 @@
                 LayoutMinHeight: =16
                 LayoutMinWidth: =16
                 Size: =12
-                Text: ="SOW Repository - Version 1.0.0"
+                Text: ="SOW Repository - v." & App.StudioVersion
                 Weight: ='TextCanvas.Weight'.Bold
                 Width: =txtVersionWidth.Height
                 X: =0
@@ -706,13 +729,39 @@
                 LayoutMinWidth: =16
                 ZIndex: =4
 
+        Text1 As modernText:
+            LayoutMaxHeight: =0
+            LayoutMaxWidth: =0
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            Text: =
+            ZIndex: =4
+
     ModalBackdrop As groupContainer.manualLayoutContainer:
         Height: =Parent.Height
+        LayoutGridColumnMinWidth: =0
         LayoutGridColumns: =6
+        LayoutGridRowMinHeight: =0
         LayoutGridRows: =6
         Visible: =showBackdrop
         Width: =Parent.Width
         ZIndex: =8
+
+        HtmlText1 As htmlViewer:
+            Height: =Parent.Height
+            HtmlText: |-
+                =$"<div style='
+                    width:{Self.Width}px;
+                    height:{Self.Height - 1}px; 
+                    backdrop-filter:blur(3px); 
+                    display: block;'>
+                </div>"
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =Parent.Width
+            ZIndex: =1
 
         btnModalBackdrop As button:
             Fill: =RGBA(0, 0, 0, 0.5)
@@ -725,14 +774,14 @@
                 UpdateContext({loaderNewSowModal:false});
             PressedFill: =RGBA(0,0,0, 0.5)
             Text: =
-            Visible: |
-                =true
             Width: =Parent.Width
-            ZIndex: =1
+            ZIndex: =2
 
     NewSowModal As groupContainer.manualLayoutContainer:
         Height: =Parent.Height
+        LayoutGridColumnMinWidth: =0
         LayoutGridColumns: =6
+        LayoutGridRowMinHeight: =0
         LayoutGridRows: =6
         Visible: =showNewSowModal
         Width: |-
@@ -753,7 +802,9 @@
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Vertical
             LayoutGap: =16
+            LayoutGridColumnMinWidth: =0
             LayoutGridColumns: =6
+            LayoutGridRowMinHeight: =0
             LayoutGridRows: =6
             LayoutMode: =LayoutMode.Auto
             PaddingBottom: =designSystem.paddingDefault
@@ -768,77 +819,427 @@
             X: =Parent.Width - Self.Width
             ZIndex: =1
 
-            "'NewSowModal-title' As groupContainer.horizontalAutoLayoutContainer":
+            "'NewSowModal-header' As groupContainer.verticalAutoLayoutContainer":
                 DropShadow: =DropShadow.None
                 FillPortions: =0
-                Height: =60
+                Height: ='NewSowModal-title'.Height + 'NewSowModal-draftBar'.Height
                 LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutGridColumnMinWidth: =0
                 LayoutGridColumns: =6
+                LayoutGridRowMinHeight: =0
                 LayoutGridRows: =6
-                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                 LayoutMaxHeight: =0
                 LayoutMaxWidth: =0
                 LayoutMinHeight: =16
                 LayoutMinWidth: =16
                 LayoutMode: =LayoutMode.Auto
-                PaddingRight: =
-                RadiusBottomLeft: =0
-                RadiusBottomRight: =0
-                RadiusTopLeft: =0
-                RadiusTopRight: =0
                 ZIndex: =1
 
-                Title1 As label:
-                    DisplayMode: =DisplayMode.View
-                    FillPortions: =1
-                    Font: =designSystem.fontFamily
-                    LayoutMaxHeight: =0
-                    LayoutMaxWidth: =0
-                    LayoutMinHeight: =16
-                    LayoutMinWidth: =16
-                    Size: =designSystem.style.title.fontSize
-                    Text: ="New SOW"
-                    ZIndex: =1
-
-                Container1 As groupContainer.manualLayoutContainer:
-                    AlignInContainer: =AlignInContainer.Center
-                    DropShadow: =DropShadow.Regular
+                "'NewSowModal-title' As groupContainer.horizontalAutoLayoutContainer":
+                    DropShadow: =DropShadow.None
                     FillPortions: =0
-                    Height: =35
+                    Height: =60
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutGridColumnMinWidth: =0
                     LayoutGridColumns: =6
+                    LayoutGridRowMinHeight: =0
                     LayoutGridRows: =6
+                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                     LayoutMaxHeight: =0
                     LayoutMaxWidth: =0
                     LayoutMinHeight: =16
                     LayoutMinWidth: =16
-                    RadiusBottomLeft: =50
-                    RadiusBottomRight: =50
-                    RadiusTopLeft: =50
-                    RadiusTopRight: =50
-                    Width: =35
-                    ZIndex: =2
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingRight: =
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =47
 
-                    ButtonCanvas2 As Botón:
-                        Appearance: ='ButtonCanvas.Appearance'.Transparent
-                        BasePaletteColor: =
-                        BorderColor: =
-                        BorderRadius: =
-                        DisplayMode: =DisplayMode.Edit
-                        FontColor: =
-                        FontSize: =25
+                    Title1 As label:
+                        DisplayMode: =DisplayMode.View
+                        FillPortions: =1
+                        Font: =designSystem.fontFamily
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =designSystem.style.title.fontSize
+                        Text: ="New SOW"
+                        ZIndex: =1
+
+                    Container1 As groupContainer.manualLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Center
+                        DropShadow: =DropShadow.Regular
+                        FillPortions: =0
                         Height: =35
-                        Icon: ="Dismiss"
-                        IconStyle: ='ButtonCanvas.IconStyle'.Filled
-                        Layout: ='ButtonCanvas.Layout'.IconOnly
-                        OnSelect: |-
-                            =// close modal
-                            UpdateContext({showNewSowModal:false});
-                            UpdateContext({showBackdrop:false});
-                            UpdateContext({loaderNewSowModal:false});
+                        LayoutGridColumnMinWidth: =0
+                        LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        RadiusBottomLeft: =50
+                        RadiusBottomRight: =50
+                        RadiusTopLeft: =50
+                        RadiusTopRight: =50
                         Width: =35
-                        X: =0
-                        Y: =0
                         ZIndex: =3
+
+                        ButtonCanvas2 As Botón:
+                            AcceptsFocus: =true
+                            AccessibleLabel: =""
+                            Align: =""
+                            Appearance: ='ButtonCanvas.Appearance'.Transparent
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =25
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =35
+                            Icon: ="Dismiss"
+                            IconRotation: =0
+                            IconStyle: ='ButtonCanvas.IconStyle'.Filled
+                            Layout: ='ButtonCanvas.Layout'.IconOnly
+                            OnSelect: |-
+                                =// close modal
+                                UpdateContext({showNewSowModal:false});
+                                UpdateContext({showBackdrop:false});
+                                UpdateContext({loaderNewSowModal:false});
+                            TabIndex: =0
+                            Text: ="Botón"
+                            Tooltip: =""
+                            VerticalAlign: =""
+                            Visible: =true
+                            Width: =35
+                            X: =0
+                            Y: =0
+                            ZIndex: =1
+
+                "'NewSowModal-draftBar' As groupContainer.horizontalAutoLayoutContainer":
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: ='draft-actions'.Height
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutGridColumnMinWidth: =0
+                    LayoutGridColumns: =6
+                    LayoutGridRowMinHeight: =0
+                    LayoutGridRows: =6
+                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                    LayoutMaxHeight: =0
+                    LayoutMaxWidth: =0
+                    LayoutMinHeight: =16
+                    LayoutMinWidth: =16
+                    LayoutMode: =LayoutMode.Auto
+                    Visible: =false
+                    ZIndex: =48
+
+                    "'draft-info' As groupContainer.horizontalAutoLayoutContainer":
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGridColumnMinWidth: =0
+                        LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        Visible: =!IsBlank(draftContent)
+                        ZIndex: =1
+
+                        Icon1 As Icono:
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Height: =15
+                            Icon: ="Info"
+                            IconColor: =designSystem.colors.default
+                            IconStyle: ='Icon.IconStyle'.Filled
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            Rotation: =0
+                            TabIndex: =0
+                            Tooltip: =""
+                            Visible: =true
+                            Width: =15
+                            X: =0
+                            Y: =0
+                            ZIndex: =1
+
+                        txtLastDraftUpdate As modernText:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            BorderStyle: =""
+                            FillPortions: =1
+                            Font: =""
+                            Height: =Parent.Height
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            PaddingBottom: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =10
+                            Text: |-
+                                =If(IsBlank(dateUpdate), "", "You have a saved draft with recent changes. Last updated: " & Text(dateUpdate, designSystem.textFormat.datetime))
+                            ZIndex: =49
+
+                    "'draft-actions' As groupContainer.horizontalAutoLayoutContainer":
+                        AlignInContainer: =AlignInContainer.Center
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =btnSaveDraft.Height 
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGridColumnMinWidth: =0
+                        LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
+                        LayoutGridRows: =6
+                        LayoutMaxHeight: =0
+                        LayoutMaxWidth: =btnSaveDraft.Width
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =16
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =btnLoadDraft.Width + btnSaveDraft.Width
+                        ZIndex: =4
+
+                        btnLoadDraft As Botón:
+                            AcceptsFocus: =true
+                            AccessibleLabel: =""
+                            Align: =Align.Center
+                            AlignInContainer: =AlignInContainer.Start
+                            Appearance: ='ButtonCanvas.Appearance'.Transparent
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =13
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            Icon: ="ArrowSync"
+                            IconRotation: =0
+                            IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                            Layout: ="Icon before"
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnSelect: |-
+                                =Set(
+                                    draftContent,
+                                    LookUp(
+                                        SR_SOW_Drafts,
+                                        requestorEmail = User().Email && 'Draft Status'.Value = "draft"
+                                    )
+                                );
+                                Set(dateUpdate, draftContent.Modificado)
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            TabIndex: =0
+                            Text: ="Load Draft"
+                            Tooltip: =""
+                            VerticalAlign: =""
+                            Visible: =!IsBlank(draftContent)
+                            Width: =120
+                            X: =0
+                            Y: =0
+                            ZIndex: =1
+
+                        btnSaveDraft As Botón:
+                            AcceptsFocus: =true
+                            AccessibleLabel: =""
+                            Align: =Align.Center
+                            AlignInContainer: =AlignInContainer.Start
+                            Appearance: ='ButtonCanvas.Appearance'.Transparent
+                            BasePaletteColor: =
+                            BorderColor: =
+                            BorderStyle: =""
+                            ContentLanguage: =""
+                            DisplayMode: =DisplayMode.Edit
+                            Font: =""
+                            FontColor: =
+                            FontItalic: =false
+                            FontSize: =13
+                            FontStrikethrough: =false
+                            FontUnderline: =false
+                            FontWeight: =""
+                            Height: =32
+                            Icon: ="Save"
+                            IconRotation: =0
+                            IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                            Layout: ="Icon before"
+                            LayoutMaxHeight: =0
+                            LayoutMaxWidth: =0
+                            LayoutMinHeight: =16
+                            LayoutMinWidth: =16
+                            OnSelect: |-
+                                =With(
+                                    {
+                                        // ------------------------------------- Contract Details 
+                                        
+                                        _nttCompany             : Coalesce(cbbNttCompany.Selected.Value, "blank"),
+                                        _org                    : Coalesce(cbbOrg.Selected.Value, "blank"),
+                                        _zurichArea             : Coalesce(cbbZurichArea.Selected.Value, "blank"),
+                                        _fundation              : Coalesce(cbbFundation.Selected.Value, "blank"),
+                                        _sowName                : Coalesce(txtSowName.Value, "blank"),
+                                        _startDate              : dpkStartDate.SelectedDate,
+                                        _endDate                : dpkEndDate.SelectedDate,
+                                        _customer               : Coalesce(cbbCustomer.Selected.Value, "blank"),
+                                        _zurichLineManager      : Coalesce(txtZurichLineManager.Value, "blank"),
+                                        _extensionOrNew         : Coalesce(cbbExtensionOrNew.Selected.Value, "blank"),
+                                        _extensionOf            : Coalesce(txtExtensionOf.Value, "blank"),
+                                
+                                        // ------------------------------------- Service Information 
+                                
+                                        _itOrNonIT              : Coalesce(cbbItOrNonIT.Selected.Value, "blank"),
+                                        _typeService            : Coalesce(cbbTypeService.Selected.Value, "blank"),
+                                        _engagementType         : Coalesce(cbbEngagementType.Selected.Value, "blank"),
+                                        _deliveryStrategy       : Coalesce(cbbDeliveryStrategy.Selected.Value, "blank"),
+                                        _technologyCluster      : Coalesce(cbbTechnologyCluster.Selected.Value, "blank"),
+                                        _capability             : Coalesce(cbbCapability.Selected.Value, "blank"),
+                                        _technology             : Coalesce(txtTechnology.Value, "blank"),
+                                        _supportedApplications  : Coalesce(txtSupportedApplications.Value, "blank"),
+                                
+                                        // ------------------------------------- Financial Data 
+                                
+                                        _billingType            : Coalesce(cbbBillingType.Selected.Value, "blank"),
+                                        _totalAmount            : Coalesce(Value(txtTotalAmount.Value), 0),
+                                        _mana                   : Coalesce(txtMana.Value, "blank"),
+                                        _mkt                    : Coalesce(txtMkt.Value, "blank"),
+                                        _ext                    : Coalesce(txtExt.Value, "blank"),
+                                        _cmSale                 : Coalesce(Value(txtCmSale.Value), 0),
+                                        _percentageCostTeam     : Coalesce(Value(txtPercentageCostTeam.Value), 0),
+                                        _amountCostTeam         : Coalesce(Value(txtAmountCostTeam.Value), 0),
+                                        _fteTable               : JSON(colFteTable),
+                                   
+                                
+                                        // ------------------------------------- Extra data
+                                        
+                                        _user                   : User().Email
+                                    },
+                                    
+                                    // success            
+                                        //loader
+                                        UpdateContext({loaderNewSowModal:true});
+                                
+                                        //action
+                                        With(
+                                            {
+                                                _response: flow_saveDraftSow.Run(
+                                                    _org,
+                                                    _fundation,
+                                                    _sowName,
+                                                    _customer,
+                                                    _zurichLineManager,
+                                                    _extensionOrNew,
+                                                    _itOrNonIT,
+                                                    _typeService,
+                                                    _engagementType,
+                                                    _deliveryStrategy,
+                                                    _technologyCluster,
+                                                    _capability,
+                                                    _technology,                        
+                                                    _billingType,
+                                                    _totalAmount,
+                                                    _mana,
+                                                    _mkt,
+                                                    _ext,
+                                                    _cmSale,
+                                                    _percentageCostTeam,
+                                                    _amountCostTeam,
+                                                    _user,
+                                
+                                                    // new fields
+                                                    _nttCompany,
+                                                    _zurichArea,
+                                                    _extensionOf,
+                                                    _supportedApplications,
+                                                    _fteTable,
+                                
+                                                    // 
+                                                    If(IsBlank(_startDate), "blank", Text(_startDate, "yyyy-mm-dd")),
+                                                    If(IsBlank(_endDate), "blank", Text(_endDate, "yyyy-mm-dd"))                  
+                                                ).response
+                                            },
+                                            
+                                            //success message
+                                            Notify("Draft saved successfully " & Text(DateTimeValue(_response), designSystem.textFormat.datetime), NotificationType.Success);
+                                            Set(dateUpdate, DateTimeValue(_response));
+                                            UpdateContext({loaderNewSowModal:false});
+                                            Set(
+                                                draftContent,
+                                                LookUp(
+                                                    SR_SOW_Drafts,
+                                                    requestorEmail = User().Email && 'Draft Status'.Value = "draft"
+                                                )
+                                            );
+                                        )
+                                )
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            TabIndex: =0
+                            Text: ="Save Draft"
+                            Tooltip: =""
+                            VerticalAlign: =""
+                            Visible: |-
+                                =With(
+                                    {
+                                        // ------------------------------------- Contract Details 
+                                        _nttCompany         : cbbNttCompany.Selected.Value,
+                                        _org                : cbbOrg.Selected.Value,
+                                        _zurichArea         : cbbZurichArea.Selected.Value,
+                                        _fundation          : cbbFundation.Selected.Value,
+                                        _sowName            : txtSowName.Value,
+                                        _startDate          : dpkStartDate.SelectedDate,
+                                        _endDate            : dpkEndDate.SelectedDate,
+                                        _customer           : cbbCustomer.Selected.Value,
+                                        _zurichLineManager  : txtZurichLineManager.Value,
+                                        _extensionOrNew     : cbbExtensionOrNew.Selected.Value,
+                                        _extensionOf        : txtExtensionOf.Value
+                                    },
+                                    If(
+                                        //validation
+                                        !IsBlank(_nttCompany) || 
+                                        !IsBlank(_org) || 
+                                        !IsBlank(_fundation) ||
+                                        !IsBlank(_sowName) ||
+                                        !IsBlank(_startDate) ||
+                                        !IsBlank(_endDate) ||
+                                        !IsBlank(_customer) ||
+                                        !IsBlank(_zurichLineManager) ||
+                                        !IsBlank(_extensionOrNew),
+                                
+                                        true, false
+                                    )
+                                )
+                            Width: =120
+                            X: =0
+                            Y: =0
+                            ZIndex: =2
 
             "'NewSowModal-tabs' As FormHeader":
                 AlignInContainer: =AlignInContainer.Stretch
@@ -850,11 +1251,13 @@
                 LayoutMinWidth: =0
                 Visible: =true
                 Width: =200
-                ZIndex: =2
+                ZIndex: =3
 
             "'NewSowModal-form' As groupContainer.manualLayoutContainer":
                 DropShadow: =DropShadow.None
+                LayoutGridColumnMinWidth: =0
                 LayoutGridColumns: =6
+                LayoutGridRowMinHeight: =0
                 LayoutGridRows: =6
                 LayoutMaxHeight: =0
                 LayoutMaxWidth: =0
@@ -862,14 +1265,16 @@
                 LayoutMinWidth: =16
                 X: =40
                 Y: =40
-                ZIndex: =3
+                ZIndex: =4
 
                 "'NewSowModal-form-container-3' As groupContainer.horizontalAutoLayoutContainer":
                     DropShadow: =DropShadow.None
                     Height: =Parent.Height
                     LayoutAlignItems: =LayoutAlignItems.Stretch
                     LayoutDirection: =LayoutDirection.Vertical
+                    LayoutGridColumnMinWidth: =0
                     LayoutGridColumns: =6
+                    LayoutGridRowMinHeight: =0
                     LayoutGridRows: =6
                     LayoutMode: =LayoutMode.Auto
                     Visible: =currentTab = 3
@@ -880,7 +1285,9 @@
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height
                         LayoutGap: =designSystem.paddingDefault
+                        LayoutGridColumnMinWidth: =0
                         LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
                         LayoutGridRows: =6
                         LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                         LayoutMaxHeight: =0
@@ -905,7 +1312,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -924,7 +1333,9 @@
                             "'fc-billingType-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -985,6 +1396,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.billingType),
+                                        [],
+                                        [draftContent.billingType]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -1011,7 +1428,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1028,7 +1447,9 @@
                             "'fc-totalAmount-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1119,7 +1540,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Numeric"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.totalAmount
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -1134,7 +1555,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1153,7 +1576,9 @@
                             "'fc-mana-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1241,7 +1666,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.mana
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -1256,7 +1681,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1275,7 +1702,9 @@
                             "'fc-mkt-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1363,7 +1792,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.mkt
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -1378,7 +1807,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1397,7 +1828,9 @@
                             "'fc-ext-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1485,7 +1918,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.ext
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -1500,7 +1933,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1519,7 +1954,9 @@
                             "'fc-cmSale-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1607,7 +2044,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.cmSale
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -1622,7 +2059,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1641,7 +2080,9 @@
                             "'fc-percentageCostTeam-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1729,7 +2170,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.percentageCostTeam
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -1744,7 +2185,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1763,7 +2206,9 @@
                             "'fc-amountCostTeam-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1851,7 +2296,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.amountCostTeam
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -1863,7 +2308,9 @@
                             DropShadow: =DropShadow.None
                             Height: ='fc-fteTable-container'.Height + 'fc-fteTable-table'.Height
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -1878,7 +2325,9 @@
                                 DropShadow: =DropShadow.None
                                 FillPortions: =0
                                 Height: =30
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1979,7 +2428,9 @@
                                 FillPortions: =0
                                 Height: ='fc-fteTable-table'.Height
                                 LayoutDirection: =LayoutDirection.Vertical
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -1998,7 +2449,9 @@
                                     Height: ='fc-fteTable-table-header'.Height + 'fc-fteTable-table-body'.Height + 'fc-fteTable-table-add'.Height + (Self.LayoutGap * 3) + 20
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =3
+                                    LayoutGridColumnMinWidth: =0
                                     LayoutGridColumns: =6
+                                    LayoutGridRowMinHeight: =0
                                     LayoutGridRows: =6
                                     LayoutMaxHeight: =0
                                     LayoutMaxWidth: =0
@@ -2018,7 +2471,9 @@
                                         FillPortions: =0
                                         Height: =30
                                         LayoutAlignItems: =LayoutAlignItems.Center
+                                        LayoutGridColumnMinWidth: =0
                                         LayoutGridColumns: =6
+                                        LayoutGridRowMinHeight: =0
                                         LayoutGridRows: =6
                                         LayoutMaxHeight: =0
                                         LayoutMaxWidth: =0
@@ -2182,7 +2637,9 @@
                                             Height: =35
                                             LayoutAlignItems: =LayoutAlignItems.Center
                                             LayoutGap: =3
+                                            LayoutGridColumnMinWidth: =0
                                             LayoutGridColumns: =6
+                                            LayoutGridRowMinHeight: =0
                                             LayoutGridRows: =6
                                             LayoutMode: =LayoutMode.Auto
                                             Width: =Parent.Width
@@ -2673,7 +3130,9 @@
                         FillPortions: =0
                         Height: =50
                         LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGridColumnMinWidth: =0
                         LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
                         LayoutGridRows: =6
                         LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                         LayoutMaxHeight: =0
@@ -2924,7 +3383,9 @@
                     Height: =Parent.Height
                     LayoutAlignItems: =LayoutAlignItems.Stretch
                     LayoutDirection: =LayoutDirection.Vertical
+                    LayoutGridColumnMinWidth: =0
                     LayoutGridColumns: =6
+                    LayoutGridRowMinHeight: =0
                     LayoutGridRows: =6
                     LayoutMode: =LayoutMode.Auto
                     Visible: =currentTab = 2
@@ -2935,7 +3396,9 @@
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height
                         LayoutGap: =designSystem.paddingDefault
+                        LayoutGridColumnMinWidth: =0
                         LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
                         LayoutGridRows: =6
                         LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                         LayoutMaxHeight: =0
@@ -2959,7 +3422,9 @@
                             FillPortions: =0
                             Height: =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -2978,7 +3443,9 @@
                             "'fc-itOrNonIT-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3042,6 +3509,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.itOrNonIt),
+                                        [],
+                                        [draftContent.itOrNonIt]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -3067,7 +3540,9 @@
                             FillPortions: =0
                             Height: =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -3086,7 +3561,9 @@
                             "'fc-typeService-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3147,6 +3624,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.typeService),
+                                        [],
+                                        [draftContent.typeService]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -3172,7 +3655,9 @@
                             FillPortions: =0
                             Height: =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -3189,7 +3674,9 @@
                             "'fc-engagementType-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3250,6 +3737,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.engagementType),
+                                        [],
+                                        [draftContent.engagementType]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -3276,7 +3769,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -3293,7 +3788,9 @@
                             "'fc-deliveryStrategy-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3354,6 +3851,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.deliveryStrategy),
+                                        [],
+                                        [draftContent.deliveryStrategy]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -3380,7 +3883,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -3399,7 +3904,9 @@
                             "'fc-technologyCluster-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3460,6 +3967,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.technologyCluster),
+                                        [],
+                                        [draftContent.technologyCluster]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -3487,7 +4000,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -3506,7 +4021,9 @@
                             "'fc-capability-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3567,6 +4084,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.capability),
+                                        [],
+                                        [draftContent.capability]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -3593,7 +4116,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -3612,7 +4137,9 @@
                             "'fc-technology-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3699,7 +4226,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =""
+                                Value: =draftContent.technology
                                 Visible: =true
                                 Width: =Parent.Width
                                 X: =0
@@ -3714,7 +4241,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -3733,7 +4262,9 @@
                             "'fc-supportedApplications-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -3821,7 +4352,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =""
+                                Value: =draftContent.supportedApplications
                                 Visible: =true
                                 Width: =Parent.Width
                                 X: =0
@@ -3834,7 +4365,9 @@
                         FillPortions: =0
                         Height: =50
                         LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGridColumnMinWidth: =0
                         LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
                         LayoutGridRows: =6
                         LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                         LayoutMaxHeight: =0
@@ -3989,7 +4522,9 @@
                     Height: =Parent.Height
                     LayoutAlignItems: =LayoutAlignItems.Stretch
                     LayoutDirection: =LayoutDirection.Vertical
+                    LayoutGridColumnMinWidth: =0
                     LayoutGridColumns: =6
+                    LayoutGridRowMinHeight: =0
                     LayoutGridRows: =6
                     LayoutMode: =LayoutMode.Auto
                     Visible: =currentTab = 1
@@ -4000,7 +4535,9 @@
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height
                         LayoutGap: =designSystem.paddingDefault
+                        LayoutGridColumnMinWidth: =0
                         LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
                         LayoutGridRows: =6
                         LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                         LayoutMaxHeight: =0
@@ -4025,7 +4562,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4042,7 +4581,9 @@
                             "'fc-nttCompany-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4106,6 +4647,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.nttCompany),
+                                        [],
+                                        [draftContent.nttCompany]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -4133,7 +4680,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4150,7 +4699,9 @@
                             "'fc-org-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4211,6 +4762,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.org),
+                                        [],
+                                        [draftContent.org]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -4243,7 +4800,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4261,7 +4820,9 @@
                             "'fc-zurichArea-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4322,6 +4883,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.zurichArea),
+                                        [],
+                                        [draftContent.zurichArea]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -4348,7 +4915,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4365,7 +4934,9 @@
                             "'fc-fundation-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4429,6 +5000,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.fundation),
+                                        [],
+                                        [draftContent.fundation]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -4456,7 +5033,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4476,7 +5055,9 @@
                             "'fc-sowName-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4567,7 +5148,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =
+                                Value: =draftContent.sowName
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -4582,7 +5163,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4599,7 +5182,9 @@
                             "'fc-startDate-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4686,6 +5271,7 @@
                                 OnChange: =false
                                 Placeholder: =formNewSowData.item.startDate.placeholder
                                 Required: =false
+                                SelectedDate: =draftContent.sowStartDate
                                 StartOfWeek: ="Sunday"
                                 TabIndex: =0
                                 Tooltip: =""
@@ -4704,7 +5290,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4721,7 +5309,9 @@
                             "'fc-endDate-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4807,6 +5397,7 @@
                                 OnChange: =false
                                 Placeholder: =formNewSowData.item.endDate.placeholder
                                 Required: =false
+                                SelectedDate: =draftContent.sowEndDate
                                 StartOfWeek: ="Sunday"
                                 TabIndex: =0
                                 Tooltip: =""
@@ -4825,7 +5416,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4850,7 +5443,9 @@
                             "'fc-customer-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -4914,6 +5509,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.customer),
+                                        [],
+                                        [draftContent.customer]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -4941,7 +5542,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -4958,7 +5561,9 @@
                             "'fc-zurichLineManager-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -5048,7 +5653,9 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =""
+                                Value: |-
+                                    =draftContent.zurichLineManager
+                                     
                                 Visible: =true
                                 Width: =300
                                 X: =0
@@ -5063,7 +5670,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -5080,7 +5689,9 @@
                             "'fc-extensionOrNew-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -5144,6 +5755,12 @@
                                 Appearance: ="FilledDarker"
                                 BorderStyle: =""
                                 ContentLanguage: =""
+                                DefaultSelectedItems: |-
+                                    =If(
+                                        IsBlank(draftContent.extensionOrNew),
+                                        [],
+                                        [draftContent.extensionOrNew]
+                                    )
                                 DisplayMode: =DisplayMode.Edit
                                 FontSize: =0
                                 Height: =32
@@ -5176,7 +5793,9 @@
                             Height: |
                                 =65
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -5194,7 +5813,9 @@
                             "'fc-extensionOf-container' As groupContainer.horizontalAutoLayoutContainer":
                                 DropShadow: =DropShadow.None
                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutGridColumnMinWidth: =0
                                 LayoutGridColumns: =6
+                                LayoutGridRowMinHeight: =0
                                 LayoutGridRows: =6
                                 LayoutMaxHeight: =0
                                 LayoutMaxWidth: =0
@@ -5285,7 +5906,7 @@
                                 TriggerOutput: ="FocusOut"
                                 Type: ="Text"
                                 ValidationState: ="None"
-                                Value: =""
+                                Value: =draftContent.extensionOf
                                 Visible: =true
                                 Width: =320
                                 X: =0
@@ -5297,7 +5918,9 @@
                             DropShadow: =DropShadow.None
                             Height: ='form-control-attach-label'.Height + TempForm.Height
                             LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGridColumnMinWidth: =0
                             LayoutGridColumns: =6
+                            LayoutGridRowMinHeight: =0
                             LayoutGridRows: =6
                             LayoutMaxHeight: =0
                             LayoutMaxWidth: =0
@@ -5353,7 +5976,7 @@
                                     DataField: ="{Attachments}"
                                     Default: =ThisItem.'Datos adjuntos'
                                     DisplayMode: =Parent.DisplayMode
-                                    DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'{Attachments}')
+                                    DisplayName: =DataSourceInfo([@SR_TempUploads],DataSourceInfo.DisplayName,'Datos adjuntos')
                                     Fill: =RGBA(0, 0, 0, 0)
                                     Height: =ErrorMessageFile.Y + ErrorMessageFile.Height
                                     LayoutHeight: =0
@@ -5434,7 +6057,9 @@
                         FillPortions: =0
                         Height: =50
                         LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGridColumnMinWidth: =0
                         LayoutGridColumns: =6
+                        LayoutGridRowMinHeight: =0
                         LayoutGridRows: =6
                         LayoutJustifyContent: =LayoutJustifyContent.End
                         LayoutMaxHeight: =0
@@ -5462,7 +6087,7 @@
                                     LookUp(colTabs, index = 1),
                                     { status: "Error" }
                                 );
-                                
+                                //
                                 With(
                                     {
                                         // ------------------------------------- Contract Details 
@@ -5551,14 +6176,16 @@
                 Width: =Parent.Width
                 X: =40
                 Y: =40
-                ZIndex: =4
+                ZIndex: =5
 
         "'NewSowModal-loader' As groupContainer.verticalAutoLayoutContainer":
             Fill: =RGBA(255, 255, 255, .8)
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Vertical
+            LayoutGridColumnMinWidth: =0
             LayoutGridColumns: =6
+            LayoutGridRowMinHeight: =0
             LayoutGridRows: =6
             LayoutJustifyContent: =LayoutJustifyContent.Center
             LayoutMode: =LayoutMode.Auto

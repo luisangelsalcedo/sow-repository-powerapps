@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26021.152" SolutionPackageVersion="9.2" languagecode="3082" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26021.152" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26021.00152">
+<ImportExportXml version="9.2.26024.170" SolutionPackageVersion="9.2" languagecode="3082" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26024.170" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26031.00170">
   <SolutionManifest>
     <UniqueName>SOWRepository</UniqueName>
     <LocalizedNames>
@@ -83,6 +83,10 @@
       <RootComponent type="300" schemaName="lsalcedg_sowrepositorycopia_ea4b5" behavior="0" />
     </RootComponents>
     <MissingDependencies>
+      <MissingDependency>
+        <Required type="29" displayName="flow_saveDraftSow" solution="Active" id="{e56ef52c-261e-f111-8341-70a8a52f1032}" />
+        <Dependent type="300" schemaName="lsalcedg_sowrepository_57df9" displayName="SOW Repository" />
+      </MissingDependency>
       <MissingDependency>
         <Required type="connectionreference" displayName="new_sharedoffice365_fd6a8" solution="Active" id.connectionreferencelogicalname="new_sharedoffice365_fd6a8" />
         <Dependent type="29" displayName="flow_createSow" id="{87f58eaa-7803-f111-8407-7ced8d4a8778}" />

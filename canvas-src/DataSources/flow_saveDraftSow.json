@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "caab4643-70d2-4dea-9478-705a7e3f4d9f",
+    "Name": "flow_saveDraftSow",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "e56ef52c-261e-f111-8341-70a8a52f1032"
+  }
+]

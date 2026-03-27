@@ -5,8 +5,8 @@
       "DataflowAnalysisEnabled": true,
       "DataflowAnalysisFlagStateToggledByUser": false
     },
-    "DocVersion": "1.348",
-    "MinVersionToLoad": "1.348",
+    "DocVersion": "1.349",
+    "MinVersionToLoad": "1.349",
     "MSAppStructureVersion": "2.4.0"
   },
   "Properties": {
@@ -33,6 +33,7 @@
       "delaycontrolrendering": true,
       "delayloadscreens": true,
       "disablebehaviorreturntypecheck": false,
+      "disablem365copilot": false,
       "disableruntimepolicies": false,
       "dynamicschema": false,
       "enableappembeddingux": false,
@@ -85,6 +86,7 @@
       "rtlsupport": false,
       "sharepointselectsenabled": true,
       "showclassicthemes": false,
+      "showm365copilot": false,
       "smartemaildatacard": false,
       "supportcolumnnamesasidentifiers": true,
       "tabledoesntwraprecords": true,
